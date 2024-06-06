@@ -1,5 +1,5 @@
 package jp.co.sss.shop.annotation;
-
+//aa
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -7,7 +7,6 @@ import java.lang.annotation.Target;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
-
 import jp.co.sss.shop.validator.CategoryValidator;
 
 /**
