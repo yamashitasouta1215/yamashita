@@ -1,5 +1,7 @@
 package jp.co.sss.shop.repository;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -42,4 +44,14 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 	 * @return 商品エンティティ
 	 */
 	public Item findByNameAndDeleteFlag(String name, int notDeleted);
+	
+	List<Item> findAllByOrderByPriceDesc();
+
+	List<Item> findByPrice(Integer price);
+
+	List<Item> findByNameAndPrice(String name, Integer price);
+
+	List<Item> findByNameLike(String name);
+
+	List<Item> findAllByOrderById();
 }
