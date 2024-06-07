@@ -31,4 +31,12 @@ public class ClientBasketController {
 		
 		return "client/basket/list";
 	}
+	
+	//商品のかごへの追加
+	@RequestMapping(path ="/client/basket/add", method = RequestMethod.POST)
+	public String addBasket() {
+		
+		
+		return "forward:/client/item/list";
+	}
 }
