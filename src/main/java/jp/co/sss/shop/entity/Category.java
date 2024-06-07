@@ -8,6 +8,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
@@ -52,6 +54,10 @@ public class Category {
 	 */
 	@Column(insertable = false)
 	private Date insertDate;
+	
+	@Column
+	private Date release_date;
+	
 
 	/**
 	 * 商品リスト
@@ -168,4 +174,9 @@ public class Category {
 	public void setItemList(List<Item> itemList) {
 		this.itemList = itemList;
 	}
+	
+	@ManyToOne
+	@JoinColumn(name="artist_id" ,referencedColumnName="id")
+	Artist artist;
+	
 }
