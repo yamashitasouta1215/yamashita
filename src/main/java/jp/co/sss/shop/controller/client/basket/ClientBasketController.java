@@ -22,7 +22,7 @@ public class ClientBasketController {
 	public String ShowBasket() {
 		
 		@SuppressWarnings("unchecked")
-		//セッションスコープにある
+		//セッションスコープに中身があるかの確認
 		List<BasketBean> basketItemList = (List<BasketBean>) session.getAttribute("basketItems");
 		if (basketItemList == null) {
 			basketItemList = new ArrayList<>();
