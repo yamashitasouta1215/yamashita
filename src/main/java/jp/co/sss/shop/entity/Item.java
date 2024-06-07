@@ -286,5 +286,14 @@ public class Item {
 	public void setOrderItemsList(List<OrderItem> orderItemList) {
 		this.orderItemList = orderItemList;
 	}
+	
+	@ManyToOne
+	@JoinColumn(name="artist_id" ,referencedColumnName="id")
+	Artist artist;
+	
+
+	@Column
+	private Date release_date;
+	
 
 }
