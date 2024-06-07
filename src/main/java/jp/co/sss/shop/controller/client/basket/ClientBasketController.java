@@ -1,5 +1,8 @@
 package jp.co.sss.shop.controller.client.basket;
-//aaa
-public class ClientBasketController {
 
+import org.springframework.stereotype.Controller;
+
+@Controller
+public class ClientBasketController {
+	
 }
