@@ -39,11 +39,15 @@ public class ItemShowCustomerController {
 	@GetMapping("/searchCategory")
 	public String searchByCategoryId(Integer categoryId,Model model) {
 		
-		
 		Category category = new Category();
 		category.setId(categoryId);
 		List<Item>items = repository.findByCategory(category);
 		model.addAttribute("items",items);
 		return "client/item/list";
+	}
+	
+	@RequestMapping("/client/item/detail/{id}")
+	public String detail() {
+		return "client/item/detail";
 	}
 }
