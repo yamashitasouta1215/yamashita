@@ -18,17 +18,17 @@
 				<img th:if="*{image == null}" th:src="@{/images/common/no_image.jpg}"></img>
 			</div>
 			<dl class="item_detail_list">
-				<dt>[[#{data.item.name}]]</dt>
+				<dt th:text=#{data.item.name></dt>
 				<dd th:text="*{name}"></dd>
-				<dt>[[#{data.item.price}]]</dt>
+				<dt th:text=#{data.item.price></dt>
 				<dd th:text="*{price}"></dd>
-				<dt>[[#{data.item.stock}]]</dt>
+				<dt th:text=#{data.item.stock></dt>
 				<dd th:if="*{stock > 5}" th:text="#{data.in.stock}"></dd>
 				<dd th:if="*{stock >= 1 and 5 >= stock }" th:text="*{stock}"></dd>
 				<dd th:if="*{stock == 0}" th:text="#{data.out.of.stock}"></dd>
-				<dt>[[#{data.category}]]</dt>
+				<dt th:text=#{data.category></dt>
 				<dd th:text="*{categoryName}"></dd>
-				<dt>[[#{data.description}]]</dt>
+				<dt th:text=#{data.description}></dt>
 				<dd th:text="*{description}"></dd>
 			</dl>
 		</div>

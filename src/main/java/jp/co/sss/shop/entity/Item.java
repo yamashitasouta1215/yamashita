@@ -300,6 +300,10 @@ public class Item {
 		this.artist = artist;
 	}
 
+
+	@Column
+	private Date release_date;
+	
 	public Date getRelease_date() {
 		return release_date;
 	}
@@ -307,9 +311,4 @@ public class Item {
 	public void setRelease_date(Date release_date) {
 		this.release_date = release_date;
 	}
-
-	@Column
-	private Date release_date;
-	
-
 }
