@@ -1,6 +1,7 @@
 package jp.co.sss.shop.controller.client.basket;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +25,21 @@ public class ClientBasketController {
 	
 	//買い物かごタブをクリックした際のメソッド
 	//かご内の一覧表示
-	@RequestMapping(path ="client/basket/list", method = RequestMethod.GET)
+	@RequestMapping(path ="/client/basket/list", method = RequestMethod.GET)
 	public String ShowBasket() {
+		
+//		@SuppressWarnings("unchecked")
+//		List<BasketBean> basketItemList = (List<BasketBean>) session.getAttribute("basketBeans");
+//		if (basketItemList == null) {
+//			basketItemList = new ArrayList<>();
+//		}
+//		BasketBean itemAddToBasket = null;
+//		Item item = itemRepository.getReferenceById(1);
+//		itemAddToBasket = new BasketBean(item.getId(), item.getName(), item.getStock(),2);
+//		//買い物かごリストに追加
+//		basketItemList.add(itemAddToBasket);
+//		session.setAttribute("basketBeans", basketItemList);
+		
 		return "client/basket/list";
 	}
 	
@@ -38,6 +52,9 @@ public class ClientBasketController {
 		if (basketItemList == null) {
 			basketItemList = new ArrayList<>();
 		}
+		
+		//反転している要素をもとに戻す
+		Collections.reverse(basketItemList);
 		
 		//ストックがいくつあるのか確認
 		Item itemStock =itemRepository.getReferenceById(id);
@@ -71,6 +88,8 @@ public class ClientBasketController {
 				basketItemList.add(itemAddToBasket);
 			}
 			
+			//要素を反転する
+			Collections.reverse(basketItemList);
 			
 			//セッションスコープにリスト情報を追加
 			session.setAttribute("basketBeans", basketItemList);
@@ -91,33 +110,50 @@ public class ClientBasketController {
 		return "client/basket/list";
 	}
 	
+	//選択したアイテムの削除
 	@RequestMapping(path ="/client/basket/delete", method = RequestMethod.POST)
 	public String delete(Integer id) {
 		
 		@SuppressWarnings("unchecked")
 		List<BasketBean> basketItemList = (List<BasketBean>) session.getAttribute("basketBeans");
 		
+		//反転している要素を元に戻す
+		Collections.reverse(basketItemList);
+		
 		BasketBean itemAddToBasket = null;
 		
+		int i = 0;
+		
 		for (BasketBean itemInBasket : basketItemList) {
-			int i = 0;
-			i = i + 1;
-			
+		
 			if (itemInBasket.getId() == id) {
 				itemAddToBasket = itemInBasket;
 				int newOrderNum = itemAddToBasket.getOrderNum() - 1;
 				itemAddToBasket.setOrderNum(newOrderNum);
 				
 				//注文数が0になった場合
-				if (newOrderNum == 0) {
-					i = i - 1;
+				if (itemAddToBasket.getOrderNum() == 0) {
 					basketItemList.remove(i);
+					break;
 				}
 			}
+			
+			i = i + 1;
 		}
 		
-		//セッションスコープにリスト情報を追加
-		session.setAttribute("basketBeans", basketItemList);
+		//要素が入っているか確認
+		boolean boo =  basketItemList.isEmpty();
+		
+		if (boo == true) {
+			session.removeAttribute("basketBeans");
+		} else {
+			//要素を反転する
+			Collections.reverse(basketItemList);
+		
+			//セッションスコープにリスト情報を追加
+			session.setAttribute("basketBeans", basketItemList);
+		}
+		
 		
 		return "client/basket/list";
 	}
