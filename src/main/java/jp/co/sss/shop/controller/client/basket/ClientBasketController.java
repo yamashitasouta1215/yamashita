@@ -45,6 +45,7 @@ public class ClientBasketController {
 		
 		if (0 < itemStockNum) {
 			//在庫がある場合
+			
 			boolean existItemBasket = false;
 			BasketBean itemAddToBasket = null;
 			
@@ -54,6 +55,10 @@ public class ClientBasketController {
 					itemAddToBasket = itemInBasket;
 					int newOrderNum = itemAddToBasket.getOrderNum() + 1;
 					itemAddToBasket.setOrderNum(newOrderNum);
+					//注文数が在庫を上回るとき
+					if (newOrderNum > itemStockNum) {
+						model.addAttribute("itemNameListLessThan", itemStock.getName());
+					}
 					existItemBasket = true;
 				}
 			}
@@ -61,20 +66,59 @@ public class ClientBasketController {
 			//かご内に追加したい商品が存在しない場合
 			if (!existItemBasket) {
 				Item item = itemRepository.getReferenceById(id);
-				itemAddToBasket = new BasketBean(item.getId(), item.getName(), item.getStock(), 1);
+				itemAddToBasket = new BasketBean(item.getId(), item.getName(), item.getStock(),1);
 				//買い物かごリストに追加
 				basketItemList.add(itemAddToBasket);
 			}
 			
-			//在庫が残り一個のとき
-			if (1 == itemStockNum) {
-				model.addAttribute("itemNameListLessThan", itemStock.getName());
-			}
+			
+			//セッションスコープにリスト情報を追加
+			session.setAttribute("basketBeans", basketItemList);
+			
+			
 		} else {
 			//在庫がない場合
 			model.addAttribute("itemNameListZero", itemStock.getName());
 		}
 		
-		return "forward:/client/basket/list";
+		return "client/basket/list";
+	}
+	
+	//かご内の全件削除
+	@RequestMapping(path ="/client/basket/allDelete", method = RequestMethod.POST)
+	public String allDelete() {
+		session.removeAttribute("basketBeans");
+		return "client/basket/list";
+	}
+	
+	@RequestMapping(path ="/client/basket/delete", method = RequestMethod.POST)
+	public String delete(Integer id) {
+		
+		@SuppressWarnings("unchecked")
+		List<BasketBean> basketItemList = (List<BasketBean>) session.getAttribute("basketBeans");
+		
+		BasketBean itemAddToBasket = null;
+		
+		for (BasketBean itemInBasket : basketItemList) {
+			int i = 0;
+			i = i + 1;
+			
+			if (itemInBasket.getId() == id) {
+				itemAddToBasket = itemInBasket;
+				int newOrderNum = itemAddToBasket.getOrderNum() - 1;
+				itemAddToBasket.setOrderNum(newOrderNum);
+				
+				//注文数が0になった場合
+				if (newOrderNum == 0) {
+					i = i - 1;
+					basketItemList.remove(i);
+				}
+			}
+		}
+		
+		//セッションスコープにリスト情報を追加
+		session.setAttribute("basketBeans", basketItemList);
+		
+		return "client/basket/list";
 	}
 }
