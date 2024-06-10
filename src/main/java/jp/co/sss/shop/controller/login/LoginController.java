@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import jp.co.sss.shop.bean.UserBean;
 import jp.co.sss.shop.form.LoginForm;
+import jp.co.sss.shop.form.UserForm;
 import jp.co.sss.shop.repository.UserRepository;
 import jp.co.sss.shop.util.Constant;
 
@@ -59,7 +60,7 @@ public class LoginController {
 			運用管理者、システム管理者の場合 "redirect:/adminmenu"管理者メニュー表示処理
 	 */
 	@RequestMapping(path = "/login", method = RequestMethod.POST)
-	public String doLogin(@Valid @ModelAttribute LoginForm form, BindingResult result) {
+	public String doLogin(@Valid @ModelAttribute LoginForm form, BindingResult result,UserForm userform) {
 
 		String returnStr = "login";
 		if (result.hasErrors()) {
@@ -74,7 +75,7 @@ public class LoginController {
 			if (authority.intValue() == Constant.AUTH_CLIENT) {
 				// 一般会員ログインした場合、トップ画面表示処理にリダイレクト
 				// TIPS 仕様に合せて修正必要
-				returnStr = "client/item/list";
+				returnStr = "redirect:/";
 			} else {
 
 				// 運用管理者、もしくはシステム管理者としてログインした場合、管理者用メニュー画面表示処理にリダイレクト

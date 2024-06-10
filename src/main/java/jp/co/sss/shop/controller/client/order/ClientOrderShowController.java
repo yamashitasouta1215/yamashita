@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import jp.co.sss.shop.form.UserForm;
+import jakarta.servlet.http.HttpSession;
 import jp.co.sss.shop.repository.OrderItemRepository;
 import jp.co.sss.shop.repository.OrderRepository;
 
@@ -21,20 +21,23 @@ OrderRepository Orepository;
 
 	
 @RequestMapping("/client/order/list")
-	public String list(Model model,UserForm form) {
+	public String list(Model model,HttpSession session) {
 				
 	//ユーザIDを取得
 	//そのユーザIDを使用してオーダーId取得
 	//オーダーIDからオーダーの全データを取得してスコープ保存
 	
 
-////	System.out.print(userId);
-//	Integer userID=(Integer) session.getAttribute("userId");
-////	System.out.print(userId);
-//	int userID=form.getId();
-//	System.out.print(userID);
-	model.addAttribute("orders",Orepository.findAll());
+
 	
+
+//Integer userID = ((UserBean) session.getAttribute("userid")).getId();	
+//int userID=(int) session.getAttribute("userId");
+//
+//int userID=form.getId();
+//System.out.print(userID);
+	model.addAttribute("orders",Orepository.findAll());
+
 //	model.addAttribute("total",);
 	
 	
