@@ -28,17 +28,22 @@ public class ClientBasketController {
 	@RequestMapping(path ="/client/basket/list", method = RequestMethod.GET)
 	public String ShowBasket() {
 		
-//		@SuppressWarnings("unchecked")
-//		List<BasketBean> basketItemList = (List<BasketBean>) session.getAttribute("basketBeans");
-//		if (basketItemList == null) {
-//			basketItemList = new ArrayList<>();
-//		}
-//		BasketBean itemAddToBasket = null;
-//		Item item = itemRepository.getReferenceById(1);
-//		itemAddToBasket = new BasketBean(item.getId(), item.getName(), item.getStock(),2);
-//		//買い物かごリストに追加
-//		basketItemList.add(itemAddToBasket);
-//		session.setAttribute("basketBeans", basketItemList);
+		@SuppressWarnings("unchecked")
+		List<BasketBean> basketItemList = (List<BasketBean>) session.getAttribute("basketBeans");
+		if (basketItemList == null) {
+			basketItemList = new ArrayList<>();
+		}
+		BasketBean itemAddToBasket = null;
+		Item item = itemRepository.getReferenceById(1);
+		itemAddToBasket = new BasketBean(item.getId(), item.getName(), item.getStock(),2);
+		//買い物かごリストに追加
+		basketItemList.add(itemAddToBasket);
+		
+		Item item2 = itemRepository.getReferenceById(4);
+		itemAddToBasket = new BasketBean(item2.getId(), item2.getName(), item2.getStock(),5);
+		//買い物かごリストに追加
+		basketItemList.add(itemAddToBasket);
+		session.setAttribute("basketBeans", basketItemList);
 		
 		return "client/basket/list";
 	}
