@@ -65,6 +65,9 @@ public class Item {
 	 */
 	@Column(insertable = false)
 	private Integer deleteFlag;
+	
+	@Column
+	private Date releaseDate;
 
 	/**
 	 * 登録日付
@@ -299,16 +302,12 @@ public class Item {
 	public void setArtist(Artist artist) {
 		this.artist = artist;
 	}
-
-
-	@Column
-	private Date release_date;
 	
-	public Date getRelease_date() {
-		return release_date;
+	public Date getreleaseDate() {
+		return releaseDate;
 	}
 
-	public void setRelease_date(Date release_date) {
-		this.release_date = release_date;
+	public void setreleaseDate(Date releaseDate) {
+		this.releaseDate = releaseDate;
 	}
 }
