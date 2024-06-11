@@ -174,6 +174,7 @@ public class ClientBasketController {
 		return "client/basket/list";
 	}
 	
+	//削除ボタンが選択された場合　商品の削除
 	@RequestMapping(path ="/client/basket/oneDelete", method = RequestMethod.POST)
 	public String oneDelete(Integer id) {
 		@SuppressWarnings("unchecked")
@@ -181,8 +182,6 @@ public class ClientBasketController {
 		
 		//反転している要素を元に戻す
 		Collections.reverse(basketItemList);
-		
-		BasketBean itemAddToBasket = null;
 		
 		int i = 0;
 		
@@ -210,4 +209,6 @@ public class ClientBasketController {
 		}
 		return "client/basket/list";
 	}
+	
+
 }
