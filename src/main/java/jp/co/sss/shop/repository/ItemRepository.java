@@ -60,8 +60,6 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 	List<Item> findTop10ByOrderByReleaseDateDesc();
 
 
-	List<Item> findById(Category category);
-
 	List<Item> findByCategory(Category category);
 
 	List<Item> findByName(String name);

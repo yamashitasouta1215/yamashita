@@ -41,6 +41,8 @@ public interface CategoryRepository extends JpaRepository<Category, Integer> {
 	 * @return カテゴリエンティティのリスト
 	 */
 	List<Category> findByDeleteFlagOrderByInsertDateDescIdDesc(int deleteFlag);
+	
+	List<Category>findById();
 
 	List<Category>findAll();
 	
