@@ -29,8 +29,10 @@
 			<tr>
 				<th th:text="#{data.item.image}"></th>
 				<th th:text="#{data.item.name}"></th>
+					<th>アーティスト</th>
 				<th th:text="#{data.item.price}"></th>
 				<th th:text="#{category}"></th>
+			
 			</tr>
 			
 			<tr th:each="item:${items}">
@@ -40,6 +42,7 @@
 
 				</td>
 				<td><a th:href="@{/client/item/detail/{id}(id=${item.id})}" th:text="${item.name}"></a></td>
+				<td th:text="${item.artist.name}"></td>
 				<td th:text="${item.price}"></td>
 				<td th:text="${item.category.name}"></td>
 			</tr>
