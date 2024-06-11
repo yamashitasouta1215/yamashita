@@ -210,8 +210,5 @@ public class ClientBasketController {
 		return "client/basket/list";
 	}
 	
-	@RequestMapping(path ="/client/basket/con", method = RequestMethod.GET)
-	public String con() {
-		return "/client/item/list/1";
-	}
+
 }
