@@ -39,10 +39,8 @@ public class ItemShowCustomerController {
 		return "client/item/list";
 	}
 	
-	
-	
 	@GetMapping("/searchCategory")
-	public String searchById(Integer id,Model model ) {
+	public String searchByCategoryId(Integer id,Model model) {
 		
 		Category category = new Category();
 		category.setId(id);
