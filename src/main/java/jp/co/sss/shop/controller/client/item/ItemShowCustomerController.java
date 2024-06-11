@@ -9,12 +9,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import jakarta.servlet.http.HttpSession;
 import jp.co.sss.shop.bean.ItemBean;
 import jp.co.sss.shop.entity.Category;
 import jp.co.sss.shop.entity.Item;
+import jp.co.sss.shop.repository.ArtistRepository;
 import jp.co.sss.shop.repository.CategoryRepository;
 import jp.co.sss.shop.repository.ItemRepository;
 import jp.co.sss.shop.repository.OrderItemRepository;
@@ -26,6 +28,9 @@ public class ItemShowCustomerController {
 	ItemRepository repository;
 	OrderItemRepository repositoryoi;
 	CategoryRepository repositorycategory;
+	@Autowired
+	ArtistRepository repositorya;
+	
 	
 	@RequestMapping("/client/item/list/1")
 	public String showItemListByOrderById(Model model) {
@@ -50,6 +55,21 @@ public class ItemShowCustomerController {
 		return "client/item/list";
 	}
 	
+
+	//追加機能　CD検索
+	@PostMapping("/searchCD")
+	public String cd(String name,Model model) {
+		
+		Item item=new Item();
+		item.setName(name);
+		List<Item>items=repository.findByNameContaining(name);
+		model.addAttribute("items",items);
+		
+		return "client/item/list";
+	}
+
+
+
 	@RequestMapping("/client/item/detail/{id}")
 	public String detail(@PathVariable Integer id,Model model, HttpSession session) {
 		
@@ -58,7 +78,8 @@ public class ItemShowCustomerController {
 		BeanUtils.copyProperties(item, bean);
 		model.addAttribute("items", bean);
 		session.setAttribute("id", bean.getId());
-		//asd
 		return "client/item/detail";
 	}
+	
+	
 }
