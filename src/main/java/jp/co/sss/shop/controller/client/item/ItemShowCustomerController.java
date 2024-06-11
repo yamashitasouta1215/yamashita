@@ -58,7 +58,7 @@ public class ItemShowCustomerController {
 		BeanUtils.copyProperties(item, bean);
 		model.addAttribute("items", bean);
 		session.setAttribute("id", bean.getId());
-		
+		//asd
 		return "client/item/detail";
 	}
 }
