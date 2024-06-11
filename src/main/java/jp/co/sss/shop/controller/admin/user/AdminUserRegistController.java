@@ -1,6 +1,6 @@
 package jp.co.sss.shop.controller.admin.user;
 
-<<<<<<< HEAD
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -195,10 +195,6 @@ public class AdminUserRegistController {
 
 		return "admin/user/regist_complete";
 	}
-=======
-public class AdminUserRegistController {
 
-	
->>>>>>> branch 'master' of https://yamashitasouta1215@github.com/yamashitasouta1215/yamashita.git
 
 }

@@ -32,9 +32,13 @@ public class ClientUserShowController {
 	
 	//会員詳細表示
 	@RequestMapping(path = "/client/user/detail/{id}", method = { RequestMethod.GET, RequestMethod.POST })
-	 public String showUser(@PathVariable int id, Model model) {
+	 public String showUser(@PathVariable Integer id, Model model) {
 		
 		// 表示対象の情報を取得
+		User user2=new User();
+				user2.setId(id);
+				session.setAttribute("id", user2.getId());
+		
 		User user = userRepository.findByIdAndDeleteFlag(id, Constant.NOT_DELETED);
 			if (user == null) {
 				// 対象が無い場合、エラー
