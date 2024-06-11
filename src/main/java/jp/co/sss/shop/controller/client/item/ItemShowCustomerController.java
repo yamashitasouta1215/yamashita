@@ -28,10 +28,15 @@ public class ItemShowCustomerController {
 	CategoryRepository repositorycategory;
 	
 	@RequestMapping("/client/item/list/1")
-	public String showItemListByOrderById(Model model) {
+	public String showItemListByOrderById(Model model,Integer categoryId) {
 	//	session.setAttribute("categories",repositorycategory.findAll());
 		model.addAttribute("items",repository.findTop10ByOrderByReleaseDateDesc());
+		Category category = new Category();
+		category.setId(categoryId);
+		List<Item>items = repository.findByCategory(category);
+		model.addAttribute("items",items);
 		return "client/item/list";
+		
 	}
 	
 	@RequestMapping("/client/item/list/2")
