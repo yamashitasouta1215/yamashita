@@ -50,7 +50,7 @@ public class ClientBasketController {
 	
 	//商品のかごへの追加
 	@RequestMapping(path ="/client/basket/add", method = RequestMethod.POST)
-	public String addBasket( Model model) {
+	public String addBasket(Integer id, Model model) {
 		//セッションスコープ内にリスト要素がない場合、リストを作る
 		@SuppressWarnings("unchecked")
 		List<BasketBean> basketItemList = (List<BasketBean>) session.getAttribute("basketBeans");
@@ -58,14 +58,14 @@ public class ClientBasketController {
 			basketItemList = new ArrayList<>();
 		}
 		
-		int id = (int) session.getAttribute("id");
+//		int id = (int) session.getAttribute("id");
 		
 		//反転している要素をもとに戻す
 		Collections.reverse(basketItemList);
 		
 		//ストックがいくつあるのか確認
-//		Item itemStock =itemRepository.getReferenceById(id);
-//		int itemStockNum = itemStock.getStock();
+		Item itemStock =itemRepository.getReferenceById(id);
+		int itemStockNum = itemStock.getStock();
 		
 //		if (0 < itemStockNum) {
 			//在庫がある場合
@@ -81,11 +81,13 @@ public class ClientBasketController {
 					if (itemInBasket.getId() == id) {
 						itemAddToBasket = itemInBasket;
 						int newOrderNum = itemAddToBasket.getOrderNum() + 1;
-						itemAddToBasket.setOrderNum(newOrderNum);
+						
 						//注文数が在庫を上回るとき
-//						if (newOrderNum > itemStockNum) {
-//							model.addAttribute("itemNameListLessThan", itemStock.getName());
-//						}
+						if (newOrderNum > itemStockNum) {
+							model.addAttribute("itemNameListLessThan", itemStock.getName());
+						} else {
+							itemAddToBasket.setOrderNum(newOrderNum);
+						}
 						existItemBasket = true;
 					}
 				}

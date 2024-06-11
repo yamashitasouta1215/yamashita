@@ -71,13 +71,17 @@ public class ItemShowCustomerController {
 
 
 	@RequestMapping("/client/item/detail/{id}")
-	public String detail(@PathVariable Integer id,Model model, HttpSession session) {
+	public String detail(@PathVariable Integer id,Model model,HttpSession session) {
 		
 		Item item=repository.getReferenceById(id);
 		ItemBean bean=new ItemBean();
 		BeanUtils.copyProperties(item, bean);
 		model.addAttribute("items", bean);
 		session.setAttribute("id", bean.getId());
+<<<<<<< HEAD
+=======
+		
+>>>>>>> branch 'master' of https://yamashitasouta1215@github.com/yamashitasouta1215/yamashita.git
 		return "client/item/detail";
 	}
 	
