@@ -58,8 +58,13 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 	@Query("SELECT i FROM OrderItem o INNER JOIN Item i on o.item.id=i.id WHERE i.category.id =:categoryId GROUP BY i  ORDER BY COUNT(i) DESC,i.id ASC")
 	public List<Item> findCategoryByQuery(@Param("categoryId") Integer categoryId);
 
+
 	//新着順表示かつカテゴリ別表示
 	List<Item> findByCategoryOrderByInsertDateDesc(Category category);
 
+
+	List<Item> findByNameContaining(String name);
+	
+	
 	
 }

@@ -19,7 +19,9 @@
 				<dt th:text=#{data.item.name}></dt>
 	
 				<dd th:text="${items.name}"></dd>
+				<dt>アーティスト名</dt>
 	
+				<dd th:text="${items.artist.name}"></dd>
 				<dt th:text=#{data.item.price}></dt>
 	
 				<dd th:text="${items.price}"></dd>
@@ -42,7 +44,7 @@
 		<div class="detail_button_area">
 			
 			<form th:action="@{/client/basket/add}" method="post" class="user_info_form" th:if="${items.stock > 0}">
-				<input type="hidden" name="id" />
+				<input type="hidden" name="id" th:value="${items.id}"/>
 				<input type="submit" value="買い物かごに入れる" class="send_button" />
 			</form>
 			<form th:action="@{/client/item/list/1}" method="post">
