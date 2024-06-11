@@ -93,7 +93,7 @@ public class ClientBasketController {
 			
 			//かご内に追加したい商品が存在しない場合
 			if (!existItemBasket) {
-				System.out.println("aaaaa");
+				
 				Item item = itemRepository.getReferenceById(id);
 				itemAddToBasket = new BasketBean(item.getId(), item.getName(), item.getStock(),1);
 				//買い物かごリストに追加
