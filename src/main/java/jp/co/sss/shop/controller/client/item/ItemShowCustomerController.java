@@ -67,6 +67,7 @@ public class ItemShowCustomerController {
 		
 		return "client/item/list";
 	}
+	
 
 	@RequestMapping("/client/item/detail/{id}")
 	public String detail(@PathVariable Integer id,Model model,HttpSession session) {
