@@ -11,7 +11,6 @@ import org.springframework.stereotype.Repository;
 
 import jp.co.sss.shop.entity.Category;
 import jp.co.sss.shop.entity.Item;
-import jp.co.sss.shop.entity.OrderItem;
 
 /**
  * itemsテーブル用リポジトリ
@@ -48,24 +47,20 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 	 */
 	public Item findByNameAndDeleteFlag(String name, int notDeleted);
 	
+	//トップページ
+	@Query("SELECT i FROM OrderItem o INNER JOIN Item i on o.item.id=i.id GROUP BY i  ORDER BY COUNT(i) DESC,i.id ASC")
+	public List<Item>findAllByQuery();
 
-	List<Item> findAllByOrderByPriceDesc();
-
-	List<Item> findByPrice(Integer price);
-
-	List<Item> findByNameAndPrice(String name, Integer price);
-
-	List<Item> findByNameLike(String name);
-
+	//新着順表示
 	List<Item> findTop10ByOrderByReleaseDateDesc();
 
-	List<Item> findByCategory(Category category);
+	//売れ筋順表示かつカテゴリ別表示
+	@Query("SELECT i FROM OrderItem o INNER JOIN Item i on o.item.id=i.id WHERE i.category.id =:categoryId GROUP BY i  ORDER BY COUNT(i) DESC,i.id ASC")
+	public List<Item> findCategoryByQuery(@Param("categoryId") Integer categoryId);
 
-	List<Item> findByName(String name);
-	
-	@Query("SELECT i FROM OrderItem o RIGHT OUTER JOIN Item i on o.item.id=i.id GROUP BY i  ORDER BY COUNT(i) DESC,i.id ASC")
-	public List<OrderItem>findByQuantity(Integer quantity);
 
+	//新着順表示かつカテゴリ別表示
+	List<Item> findByCategoryOrderByInsertDateDesc(Category category);
 
 
 	List<Item> findByNameContaining(String name);

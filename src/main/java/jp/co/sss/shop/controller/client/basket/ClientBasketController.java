@@ -173,4 +173,42 @@ public class ClientBasketController {
 		
 		return "client/basket/list";
 	}
+	
+	//削除ボタンが選択された場合　商品の削除
+	@RequestMapping(path ="/client/basket/oneDelete", method = RequestMethod.POST)
+	public String oneDelete(Integer id) {
+		@SuppressWarnings("unchecked")
+		List<BasketBean> basketItemList = (List<BasketBean>) session.getAttribute("basketBeans");
+		
+		//反転している要素を元に戻す
+		Collections.reverse(basketItemList);
+		
+		int i = 0;
+		
+		for (BasketBean itemInBasket : basketItemList) {
+		
+			if (itemInBasket.getId() == id) {
+				basketItemList.remove(i);
+				break;
+			}
+			
+			i = i + 1;
+		}
+		
+		//要素が入っているか確認
+		boolean boo =  basketItemList.isEmpty();
+		
+		if (boo == true) {
+			session.removeAttribute("basketBeans");
+		} else {
+			//要素を反転する
+			Collections.reverse(basketItemList);
+		
+			//セッションスコープにリスト情報を追加
+			session.setAttribute("basketBeans", basketItemList);
+		}
+		return "client/basket/list";
+	}
+	
+
 }

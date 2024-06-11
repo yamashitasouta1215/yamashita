@@ -6,6 +6,7 @@
 </head>
 
 <body>
+
 	<aside th:fragment="layout-sidebar"
 		th:class="${session.user == null or session.user.authority == 2} ? ${'search'} : ${'admin_menu'}">
 		<!--/* 検索メニュー(非会員、一般会員用) */-->
@@ -13,7 +14,8 @@
 			<h2 th:class="title" th:text="#{category.select.title}"></h2>
 			<div class="form">
 				<!--			 商品一覧画面以外で表示 -->
-				<form th:if="${sortType == null}" th:action="@{/searchCategory}">
+
+				<form th:if="${sortType == null}" th:action="@{/client/item/list/1}">
 					<select name="categoryId">
 						<option th:value="#{constants.category.select.none.no}"
 							th:text="#{constants.category.select.none}"></option>
@@ -22,7 +24,7 @@
 					</select> <input type="submit" th:value="#{select}" />
 				</form>
 				<!--			 商品一覧画面上で表示 -->
-				<form th:unless="${sortType == null}" th:action="@{/searchCategory} + ${sortType}">
+				<form th:unless="${sortType == null}" th:action="@{/client/item/list/} + ${sortType}">
 					<select name="categoryId">
 						<option th:value="#{constants.category.select.none.no}"
 							th:text="#{constants.category.select.none}"></option>
@@ -31,7 +33,6 @@
 					</select> <input type="submit" th:value="#{select}" />
 				</form>
 			</div>
-
 			<h2 th:class="title" th:text="CDタイトル検索"></h2>
 			<div class="form">
 
@@ -40,6 +41,18 @@
 					<input type="submit" th:value="検索" />
 				</form>
 			</div>
+
+
+			<h2 th:class="title" th:text="アーティスト検索"></h2>
+			<div class="form">
+
+				<form method="post" th:action="@{/searchArtist}">
+					<input type="text" name="name" />
+					<input type="submit" th:value="検索" />
+				</form>
+			</div>
+
+
 		</div>
 		<!--/* メニュー(運用管理者、及びシステム管理者用) */-->
 		<div th:if="${session.user != null and session.user.authority != 2}">
