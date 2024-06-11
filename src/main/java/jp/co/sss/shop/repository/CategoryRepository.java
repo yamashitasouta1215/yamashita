@@ -42,6 +42,7 @@ public interface CategoryRepository extends JpaRepository<Category, Integer> {
 	 */
 	List<Category> findByDeleteFlagOrderByInsertDateDescIdDesc(int deleteFlag);
 
+	List<Category>findAll();
 	
 	/**
 	 * カテゴリ情報を登録日付順に取得(ページング)
@@ -52,5 +53,7 @@ public interface CategoryRepository extends JpaRepository<Category, Integer> {
 	@Query("SELECT c FROM Category c WHERE c.deleteFlag =:deleteFlag ORDER BY c.insertDate DESC,c.id DESC")
 	Page<Category> findByDeleteFlagOrderByInsertDateDescIdDescPage(
 			@Param(value = "deleteFlag") int deleteFlag, Pageable pageable);
+	
+	
 
 }

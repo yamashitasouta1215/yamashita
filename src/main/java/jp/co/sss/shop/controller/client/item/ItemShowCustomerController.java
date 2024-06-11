@@ -28,26 +28,28 @@ public class ItemShowCustomerController {
 	
 	@RequestMapping("/client/item/list/1")
 	public String showItemListByOrderById(Model model) {
-	//	session.setAttribute("categories",repositorycategory.findAll());
+	
 		model.addAttribute("items",repository.findTop10ByOrderByReleaseDateDesc());
 		return "client/item/list";
 	}
 	
 	@RequestMapping("/client/item/list/2")
-	public String showItemListByOrderByQuantity(Model model,Integer quantity) {
-		model.addAttribute("items",repositoryoi.findByOrderByQuantity());
+	public String showItemListByOrderByQuantity(@PathVariable Integer quantity,Model model) {
+		model.addAttribute("items",repository.findByIdAndQuantityQuery(quantity));
 		return "client/item/list";
 	}
 	
 	
 	
 	@GetMapping("/searchCategory")
-	public String searchByCategoryId(Integer categoryId,Model model ) {
+	public String searchById(Integer id,Model model ) {
 		
 		Category category = new Category();
-		category.setId(categoryId);
-		List<Item>items = repository.findByCategory(category);
+		category.setId(id);
+		List<Item>items = repository.findById(category);
 		model.addAttribute("items",items);
+		
+		
 		return "client/item/list";
 	}
 	
@@ -62,4 +64,12 @@ public class ItemShowCustomerController {
 		
 		return "client/item/detail";
 	}
+	
+//	@GetMapping("/allcategori")
+//	public String all(Model model) {
+//		model.addAttribute("categori", repositorycategory.findAll());
+//		return "common/sidebar";
+//		
+//	}
+
 }
