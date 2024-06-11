@@ -19,4 +19,6 @@ public interface OrderItemRepository extends JpaRepository<OrderItem, Integer> {
 	
 	List<OrderItem> findByOrderByQuantity();
 
+//	List<OrderItem> findByUserIdOrderByInsertDate(Integer userid);
+
 }
