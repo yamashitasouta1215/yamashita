@@ -177,7 +177,7 @@ public class ClientUserUpdateIController {
 			User user = userRepository.getReferenceById(id);
 			
 //			user.setAuthority(Constant.DELETED)
-			
+			//aaa
 			// 入力フォーム情報をエンティティに設定
 			BeanUtils.copyProperties(form, user,"id");
 
