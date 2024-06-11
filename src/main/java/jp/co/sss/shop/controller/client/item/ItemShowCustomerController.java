@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import jakarta.servlet.http.HttpSession;
 import jp.co.sss.shop.bean.ItemBean;
 import jp.co.sss.shop.entity.Category;
 import jp.co.sss.shop.entity.Item;
@@ -50,13 +51,13 @@ public class ItemShowCustomerController {
 	}
 	
 	@RequestMapping("/client/item/detail/{id}")
-	public String detail(@PathVariable Integer id,Model model) {
+	public String detail(@PathVariable Integer id,Model model, HttpSession session) {
 		
 		Item item=repository.getReferenceById(id);
 		ItemBean bean=new ItemBean();
 		BeanUtils.copyProperties(item, bean);
 		model.addAttribute("items", bean);
-		
+		session.setAttribute("id", bean.getId());
 		
 		return "client/item/detail";
 	}
