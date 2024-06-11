@@ -78,10 +78,7 @@ public class ItemShowCustomerController {
 		BeanUtils.copyProperties(item, bean);
 		model.addAttribute("items", bean);
 		session.setAttribute("id", bean.getId());
-<<<<<<< HEAD
-=======
-		
->>>>>>> branch 'master' of https://yamashitasouta1215@github.com/yamashitasouta1215/yamashita.git
+
 		return "client/item/detail";
 	}
 	
