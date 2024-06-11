@@ -1,5 +1,7 @@
 package jp.co.sss.shop.bean;
 
+import jp.co.sss.shop.entity.Artist;
+
 /**
  * 商品情報クラス
  *
@@ -46,6 +48,17 @@ public class ItemBean {
 	 * カテゴリ名
 	 */
 	private String categoryName;
+	
+	public Artist getArtist() {
+		return artist;
+	}
+
+	public void setArtist(Artist artist) {
+		this.artist = artist;
+	}
+
+	private Artist artist;
+	
 
 	/**
 	 * 商品ID取得
