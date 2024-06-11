@@ -50,7 +50,7 @@ public class ClientBasketController {
 	
 	//商品のかごへの追加
 	@RequestMapping(path ="/client/basket/add", method = RequestMethod.POST)
-	public String addBasket(Integer id, Model model) {
+	public String addBasket( Model model) {
 		//セッションスコープ内にリスト要素がない場合、リストを作る
 		@SuppressWarnings("unchecked")
 		List<BasketBean> basketItemList = (List<BasketBean>) session.getAttribute("basketBeans");
@@ -58,35 +58,42 @@ public class ClientBasketController {
 			basketItemList = new ArrayList<>();
 		}
 		
+		int id = (int) session.getAttribute("id");
+		
 		//反転している要素をもとに戻す
 		Collections.reverse(basketItemList);
 		
 		//ストックがいくつあるのか確認
-		Item itemStock =itemRepository.getReferenceById(id);
-		int itemStockNum = itemStock.getStock();
+//		Item itemStock =itemRepository.getReferenceById(id);
+//		int itemStockNum = itemStock.getStock();
 		
-		if (0 < itemStockNum) {
+//		if (0 < itemStockNum) {
 			//在庫がある場合
 			
 			boolean existItemBasket = false;
 			BasketBean itemAddToBasket = null;
 			
-			//かご内に追加したい商品が存在する場合、その数を増やす
-			for (BasketBean itemInBasket : basketItemList) {
-				if (itemInBasket.getId() == id) {
-					itemAddToBasket = itemInBasket;
-					int newOrderNum = itemAddToBasket.getOrderNum() + 1;
-					itemAddToBasket.setOrderNum(newOrderNum);
-					//注文数が在庫を上回るとき
-					if (newOrderNum > itemStockNum) {
-						model.addAttribute("itemNameListLessThan", itemStock.getName());
+//			boolean boo =  basketItemList.isEmpty();
+			
+//			if (boo == false) {
+				//かご内に追加したい商品が存在する場合、その数を増やす
+				for (BasketBean itemInBasket : basketItemList) {
+					if (itemInBasket.getId() == id) {
+						itemAddToBasket = itemInBasket;
+						int newOrderNum = itemAddToBasket.getOrderNum() + 1;
+						itemAddToBasket.setOrderNum(newOrderNum);
+						//注文数が在庫を上回るとき
+//						if (newOrderNum > itemStockNum) {
+//							model.addAttribute("itemNameListLessThan", itemStock.getName());
+//						}
+						existItemBasket = true;
 					}
-					existItemBasket = true;
 				}
-			}
+//			}
 			
 			//かご内に追加したい商品が存在しない場合
 			if (!existItemBasket) {
+				System.out.println("aaaaa");
 				Item item = itemRepository.getReferenceById(id);
 				itemAddToBasket = new BasketBean(item.getId(), item.getName(), item.getStock(),1);
 				//買い物かごリストに追加
@@ -100,11 +107,13 @@ public class ClientBasketController {
 			session.setAttribute("basketBeans", basketItemList);
 			
 			
-		} else {
+//		} else {
 			//在庫がない場合
-			model.addAttribute("itemNameListZero", itemStock.getName());
-		}
+//			model.addAttribute("itemNameListZero", itemStock.getName());
+//		}
 		
+		session.removeAttribute("id");
+			
 		return "client/basket/list";
 	}
 	
