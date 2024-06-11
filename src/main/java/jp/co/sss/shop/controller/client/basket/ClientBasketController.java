@@ -212,6 +212,6 @@ public class ClientBasketController {
 	
 	@RequestMapping(path ="/client/basket/con", method = RequestMethod.GET)
 	public String con() {
-		return "redirect:/";
+		return "/client/item/list/1";
 	}
 }
