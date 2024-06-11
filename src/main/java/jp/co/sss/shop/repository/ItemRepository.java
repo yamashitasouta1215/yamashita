@@ -65,6 +65,10 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 	
 	@Query("SELECT i FROM OrderItem o RIGHT OUTER JOIN Item i on o.item.id=i.id GROUP BY i  ORDER BY COUNT(i) DESC,i.id ASC")
 	public List<OrderItem>findByQuantity(Integer quantity);
+
+
+
+	List<Item> findByNameContaining(String name);
 	
 	
 	
