@@ -1,16 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	th:replace="~{common/layout_5block :: layout(~{::title},~{::body/content()})}">
-
 <head>
 	<title th:text="#{item}+#{title.detail}+' | '+ #{shop.title}"> </title>
 	<meta charset="UTF-8" />
 </head>
-
 <body class="user">
-
 	<h2 th:class="title" th:text="#{item}+#{title.detail}"></h2>
-
 	<div class="info_form_area" th:object="${item}">
 		<div class="item_detail_area">
 			<div class="item_image_area">
@@ -54,7 +50,12 @@
 			</form>
 		</div>
 	</div>
-
 </body>
-
 </html>
+
+
+
+
+
+
+
