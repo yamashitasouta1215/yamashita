@@ -1,40 +1,48 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	th:replace="~{common/layout_5block :: layout(~{::title},~{::body/content()})}">
-
 <head>
 	<title th:text="#{item}+#{title.detail}+' | '+ #{shop.title}"> </title>
 	<meta charset="UTF-8" />
 </head>
-
 <body class="user">
-
 	<h2 th:class="title" th:text="#{item}+#{title.detail}"></h2>
-
 	<div class="info_form_area" th:object="${item}">
 		<div class="item_detail_area">
 			<div class="item_image_area">
-				<img th:if="*{image != null}" th:src="@{/images/{image}(image=*{image})}"></img>
-				<img th:if="*{image == null}" th:src="@{/images/common/no_image.jpg}"></img>
+					
+				
+				<img th:src="@{/static/images/{image}(image=${items.image})}" th:if="${items.image != null}"></img>
+				<img th:src="@{/static/images/common/no_image.jpg}" th:if="${items.image == null}"></img>
 			</div>
 			<dl class="item_detail_list">
-				<dt th:text=#{data.item.name></dt>
-				<dd th:text="*{name}"></dd>
-				<dt th:text=#{data.item.price></dt>
-				<dd th:text="*{price}"></dd>
-				<dt th:text=#{data.item.stock></dt>
-				<dd th:if="*{stock > 5}" th:text="#{data.in.stock}"></dd>
-				<dd th:if="*{stock >= 1 and 5 >= stock }" th:text="*{stock}"></dd>
-				<dd th:if="*{stock == 0}" th:text="#{data.out.of.stock}"></dd>
-				<dt th:text=#{data.category></dt>
-				<dd th:text="*{categoryName}"></dd>
+				<dt th:text=#{data.item.name}></dt>
+	
+				<dd th:text="${items.name}"></dd>
+	
+				<dt th:text=#{data.item.price}></dt>
+	
+				<dd th:text="${items.price}"></dd>
+	
+				<dt th:text=#{data.item.stock}></dt>
+	
+				<dd th:if="${items.stock>5}" th:text="#{data.in.stock}"></dd>
+				<dd th:if="${items.stock >= 1 and 5 >= items.stock }" th:text="${items.stock}"></dd>
+					<dd th:if="${items.stock == 0}" th:text="#{data.out.of.stock}"></dd>
+	
+				<dt th:text=#{data.category}></dt>
+	
+				<dd th:text="${items.categoryName}"></dd>
+	
 				<dt th:text=#{data.description}></dt>
-				<dd th:text="*{description}"></dd>
+	
+				<dd th:text="${items.description}"></dd>
 			</dl>
 		</div>
 		<div class="detail_button_area">
-			<form th:action="@{/client/basket/add}" method="post" class="user_info_form" th:if="*{stock > 0}">
-				<input type="hidden" th:field="*{id}" />
+			
+			<form th:action="@{/client/basket/add}" method="post" class="user_info_form" th:if="${items.stock > 0}">
+				<input type="hidden" name="id" th:value="${items.id}"/>
 				<input type="submit" value="買い物かごに入れる" class="send_button" />
 			</form>
 			<form th:action="@{/client/item/list/1}" method="post">
@@ -42,7 +50,12 @@
 			</form>
 		</div>
 	</div>
-
 </body>
-
 </html>
+
+
+
+
+
+
+
