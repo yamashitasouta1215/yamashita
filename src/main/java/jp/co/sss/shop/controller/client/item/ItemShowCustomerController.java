@@ -51,14 +51,14 @@ public class ItemShowCustomerController {
 	}
 	
 	@RequestMapping("/client/item/detail/{id}")
-	public String detail(@PathVariable Integer id,Model model, HttpSession session) {
+	public String detail(@PathVariable Integer id,Model model,HttpSession session) {
 		
 		Item item=repository.getReferenceById(id);
 		ItemBean bean=new ItemBean();
 		BeanUtils.copyProperties(item, bean);
 		model.addAttribute("items", bean);
 		session.setAttribute("id", bean.getId());
-		//asd
+		
 		return "client/item/detail";
 	}
 }
