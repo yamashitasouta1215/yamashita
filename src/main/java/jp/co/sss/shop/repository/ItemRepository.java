@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import jp.co.sss.shop.entity.Category;
 import jp.co.sss.shop.entity.Item;
+import jp.co.sss.shop.entity.OrderItem;
 
 /**
  * itemsテーブル用リポジトリ
@@ -59,6 +60,9 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 	List<Item> findTop10ByOrderByReleaseDateDesc();
 
 	List<Item> findByCategory(Category category);
+	
+	@Query("SELECT i FROM OrderItem o RIGHT OUTER JOIN Item i on o.item.id=i.id GROUP BY i  ORDER BY COUNT(i) DESC,i.id ASC")
+	public List<OrderItem>findByQuantity(Integer quantity);
 	
 	
 	
