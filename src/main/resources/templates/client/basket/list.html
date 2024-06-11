@@ -74,6 +74,10 @@
 			<form th:action="@{/client/basket/allDelete}" method="post">
 				<input type="submit" value="買い物かごを空にする" class="delete" />
 			</form>
+			
+			<form th:action="@{/client/basket/con}" method="get">
+				<input type="submit" value="買い物を続ける" />
+			</form>
 		</div>
 	</th:block>
 </body>
