@@ -24,38 +24,6 @@ public class ItemShowCustomerController {
 	@Autowired
 	ArtistRepository repositorya;
 	
-<<<<<<< HEAD
-	
-	@RequestMapping("/client/item/list/1")
-	public String showItemListByOrderById(Model model,Integer categoryId) {
-	//	session.setAttribute("categories",repositorycategory.findAll());
-		model.addAttribute("items",repository.findTop10ByOrderByReleaseDateDesc());
-		Category category = new Category();
-		category.setId(categoryId);
-		List<Item>items = repository.findByCategory(category);
-		model.addAttribute("items",items);
-		return "client/item/list";
-		
-	}
-	
-	@RequestMapping("/client/item/list/2")
-	public String showItemListByOrderByQuantity(Model model,Integer quantity) {
-		model.addAttribute("items",repositoryoi.findByOrderByQuantity());
-		return "client/item/list";
-	}
-	
-	@GetMapping("/searchCategory")
-	public String searchByCategoryId(Integer categoryId,Model model) {
-		
-		Category category = new Category();
-		category.setId(categoryId);
-		List<Item>items = repository.findByCategory(category);
-		model.addAttribute("items",items);
-		return "client/item/list";
-	}
-	
-=======
->>>>>>> branch 'master' of https://yamashitasouta1215@github.com/yamashitasouta1215/yamashita.git
 
 	//追加機能　CD検索
 	@PostMapping("/searchCD")
