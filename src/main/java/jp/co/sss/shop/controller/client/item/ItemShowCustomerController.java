@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import jp.co.sss.shop.entity.Artist;
 import jp.co.sss.shop.entity.Item;
 import jp.co.sss.shop.repository.ArtistRepository;
 import jp.co.sss.shop.repository.CategoryRepository;
@@ -27,13 +28,18 @@ public class ItemShowCustomerController {
 	@PostMapping("/searchCD")
 	public String cd(String name,Model model) {
 		
-		Item item=new Item();
-		item.setName(name);
-		List<Item>items=repository.findTop10ByNameContaining(name);
+		List<Item>items=repository.findByNameContaining(name);
 		model.addAttribute("items",items);
 		
 		return "client/item/list";
 	}
-	
-
+	@PostMapping("/searchArtist")
+	public String artist(Model model,String name) {
+		
+		List<Artist> artists=repositorya.findByNameContaining(name);
+		
+		
+		model.addAttribute("items",artists);
+		return "client/item/list";
+	}
 }
