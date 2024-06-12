@@ -78,7 +78,7 @@ header .container {
 	justify-content: space-between;
 }
 header {
-	background: #87ceeb;
+	background: #fdcd01;
 	padding: 10px 0;
 }
 .admin header {
@@ -129,17 +129,17 @@ header {
 .search_area .title,
 .main .title
  {
-	background-color: #3d98bf;
+	background-color: #fdcd01; 
 	margin: 0;
 	padding: 5px 8px;
-	color: #fff;
-	text-shadow: 1px 1px 1px #12526d;
+	color: #000000;
+	text-shadow: 1px 1px 1px #ffffff;
 }
 
 
 /* ---- ナビゲーションバー ---- */
 .navi_area {
-	background: #edf9fe;
+	background: #f8f4e6;
 }
 .navi_menu {
 	width: 960px;
@@ -155,14 +155,14 @@ header {
 	width: 100%;
 	font-size: 1.5em;
 	line-height: 2.5em;
-	border: 1px solid #5fb4d9;
+	border: 1px solid #d70d19;
 	text-align: center;
 	text-decoration: none;
-	background: #fff;
+	background: #ffffff;
 	transition: 0.18s;
 }
 .navi_menu a:hover {
-	background: #3d98bf;
+	background: #d70d19;
 	color: #fff;
 	text-shadow: 1px 1px 1px #12526d;
 	border-color : #3d98bf;
@@ -361,7 +361,7 @@ aside.admin_menu {
  * footer要素は画面、もしくはページの最下部に表示されるようになります。
  */
 footer {
-	background-color: #87ceeb;
+	background-color: #fdcd01;
 	text-align: center;
 	position: absolute;
 	bottom: 0;
