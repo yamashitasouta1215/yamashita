@@ -34,4 +34,6 @@ public class ItemShowCustomerController {
 		
 		return "client/item/list";
 	}
+	
+
 }
