@@ -60,7 +60,7 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 
 
 	//新着順表示かつカテゴリ別表示
-	List<Item> findByCategoryOrderByInsertDateDesc(Category category);
+	List<Item> findByCategoryOrderByReleaseDateDesc(Category category);
 
 
 	List<Item> findByNameContaining(String name);
