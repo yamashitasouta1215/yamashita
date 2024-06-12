@@ -1,6 +1,4 @@
 package jp.co.sss.shop.controller.client.item;
-
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +11,6 @@ import jp.co.sss.shop.repository.ArtistRepository;
 import jp.co.sss.shop.repository.CategoryRepository;
 import jp.co.sss.shop.repository.ItemRepository;
 import jp.co.sss.shop.repository.OrderItemRepository;
-
 @Controller
 public class ItemShowCustomerController {
 	
@@ -24,7 +21,8 @@ public class ItemShowCustomerController {
 	@Autowired
 	ArtistRepository repositorya;
 	
-
+	
+	
 	//追加機能　CD検索
 	@PostMapping("/searchCD")
 	public String cd(String name,Model model) {
@@ -36,9 +34,4 @@ public class ItemShowCustomerController {
 		
 		return "client/item/list";
 	}
-
-	
-
-	
 }
-	
