@@ -43,11 +43,11 @@
 			<form th:action="@{/client/user/update/input/{id}(id=*{id})}" method="post">
 				<input type="submit" value="変更" />
 			</form>
-			<form th:action="@{/client/user/delete/check}" method="post">
+			<form th:action="@{/client/user/delete/check/{id}(id=*{id})}" method="post">
 				<input type="submit" value="退会" class="delete" />
 			</form>
 		</div>
 	</div>
 </body>
-
+<!--aa-->
 </html>

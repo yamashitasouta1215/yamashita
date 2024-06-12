@@ -102,13 +102,13 @@ public class Item {
 	 * @param image 画像ファイル名
 	 * @param category_name カテゴリ名
 	 */
-	public Item(Integer id, String name, String description, String image, String category_name) {
+	public Item(Integer id, String name, String description, String image, String categoryName) {
 		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.image = image;
 		this.category = new Category();
-		this.category.setName(category_name);
+		this.category.setName(categoryName);
 	}
 
 	/**
@@ -120,14 +120,14 @@ public class Item {
 	 * @param image 画像ファイル名
 	 * @param category_name カテゴリ名
 	 */
-	public Item(Integer id, String name, Integer price, String description, String image, String category_name) {
+	public Item(Integer id, String name, Integer price, String description, String image, String categoryName) {
 		this.id = id;
 		this.name = name;
 		this.price = price;
 		this.description = description;
 		this.image = image;
 		this.category = new Category();
-		this.category.setName(category_name);
+		this.category.setName(categoryName);
 	}
 
 	/**
