@@ -3,26 +3,19 @@
 	th:replace="~{common/layout_5block :: layout(~{::title},~{::body/content()})}">
 	
 <head>
-	<title th:text="#{user}+#{title.input}+' | '+ #{shop.title}"> </title>
+	<title th:text="#{user}+#{title.input.new}+' | '+ #{shop.title}"> </title>
 	<meta charset="UTF-8" />
 </head>
 
-<body class="admin user_regist_input_client">
+<body class="client user_regist_input_client">
 	
-	<h2 th:class="title" th:text="#{user}+#{title.input}"></h2>
+	<h2 th:class="title" th:text="#{user}+#{title.input.new}"></h2>
 	
 	<p th:class="input_message" th:text="#{msg.regist.input}"></p>
 	
 	<div class="user_info_form_area">
 	
-		<form th:action="@{/client/user/regist/check}" method="post" class="user_info_form" th:object="${userForm}">
-	
-			<th:block th:if="${#fields.hasErrors()}">
-				<ul class="error_list">
-					<li th:each="err:${#fields.detailedErrors()}" th:text="${err.message}"></li>
-				</ul>
-				<br />
-			</th:block>
+		<form th:action="@{/client/user/forget/check}" method="post" class="user_info_form" th:object="${userForm}">
 	
 			<ul class="input_list">
 				<li>
@@ -64,7 +57,7 @@
 		<form th:action="@{/admin/user/list}" method="post">
 			<input type="submit" value="戻る" class="back_button" />
 		</form>
-<!--	aa-->
+
 	</div>
 </body>
 </html>
