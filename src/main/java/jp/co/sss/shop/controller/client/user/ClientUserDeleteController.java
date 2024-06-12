@@ -1,5 +1,5 @@
 package jp.co.sss.shop.controller.client.user;
-
+//a
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -131,5 +131,5 @@ public class ClientUserDeleteController {
 
 			return "client/user/delete_complete";
 		}
-//aaa
+
 }
