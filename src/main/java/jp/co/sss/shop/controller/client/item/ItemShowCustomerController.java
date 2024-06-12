@@ -28,6 +28,8 @@ public class ItemShowCustomerController {
 	@PostMapping("/searchCD")
 	public String cd(String name,Model model) {
 		
+		Item item=new Item();
+		item.setName(name);
 		List<Item>items=repository.findByNameContaining(name);
 		model.addAttribute("items",items);
 		
@@ -42,3 +44,4 @@ public class ItemShowCustomerController {
 		model.addAttribute("items",artists);
 		return "client/item/list";
 	}
+}
