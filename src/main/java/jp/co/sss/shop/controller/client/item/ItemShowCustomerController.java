@@ -24,8 +24,6 @@ public class ItemShowCustomerController {
 	@Autowired
 	ArtistRepository repositorya;
 	
-	
-	
 
 	//追加機能　CD検索
 	@PostMapping("/searchCD")
