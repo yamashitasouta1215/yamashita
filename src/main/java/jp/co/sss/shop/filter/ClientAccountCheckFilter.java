@@ -2,6 +2,8 @@ package jp.co.sss.shop.filter;
 
 import java.io.IOException;
 
+import org.springframework.stereotype.Component;
+
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpFilter;
@@ -17,7 +19,7 @@ import jp.co.sss.shop.util.URLCheck;
  * 
  * @author System Shared
  */
-
+@Component
 public class ClientAccountCheckFilter extends HttpFilter {
 	@Override
 	public void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
