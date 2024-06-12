@@ -29,7 +29,7 @@ public class ItemShowCustomerController {
 		
 		Item item=new Item();
 		item.setName(name);
-		List<Item>items=repository.findTop10ByNameContaining(name);
+		List<Item>items=repository.findByNameContaining(name);
 		model.addAttribute("items",items);
 		
 		return "client/item/list";

@@ -45,7 +45,7 @@ public class ClientItemShowController {
 	 */
 	@RequestMapping(path = "/" , method = { RequestMethod.GET, RequestMethod.POST })
 	public String index(Model model) {
-		model.addAttribute("items",itemRepository.findTop10AllByQuery());
+		model.addAttribute("items",itemRepository.findAllByQuery());
 		return "index";
 	}
 	
@@ -56,15 +56,15 @@ public class ClientItemShowController {
 		category.setId(categoryId);
 		if(sortType==1) {
 			if(categoryId==0){
-				model.addAttribute("items",itemRepository.findTop10ByOrderByReleaseDateDesc());
+				model.addAttribute("items",itemRepository.findByOrderByReleaseDateDesc());
 			}else {
-				model.addAttribute("items",itemRepository.findTop10ByCategoryOrderByInsertDateDesc(category));
+				model.addAttribute("items",itemRepository.findByCategoryOrderByInsertDateDesc(category));
 			}
 		}else {
 			if(categoryId==0) {
-				model.addAttribute("items",itemRepository.findTop10AllByQuery());
+				model.addAttribute("items",itemRepository.findAllByQuery());
 			}else {
-				model.addAttribute("items",itemRepository.findTop10CategoryByQuery(categoryId));
+				model.addAttribute("items",itemRepository.findCategoryByQuery(categoryId));
 			}
 		}
 		return "client/item/list";
