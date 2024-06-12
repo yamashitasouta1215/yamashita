@@ -42,4 +42,3 @@ public class ItemShowCustomerController {
 		model.addAttribute("items",artists);
 		return "client/item/list";
 	}
-}

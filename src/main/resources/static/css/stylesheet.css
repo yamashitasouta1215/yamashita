@@ -440,6 +440,25 @@ select {
 	text-shadow: 1px 1px 1px #d8d8d8;
 }
 
+.plus_button {
+	border: 1px solid #808080;
+	border-radius: 100px;
+	padding: 2px 10px;
+	background: chartreuse;
+	box-shadow: 1px 2px 2px #eee;
+	text-shadow: 1px 1px 1px #d8d8d8;
+}
+
+.minus_button {
+	border: 1px solid #808080;
+	border-radius: 100px;
+	padding: 2px 10px;
+	background: rgb(255, 0, 0);
+	box-shadow: 1px 2px 2px #eee;
+	text-shadow: 1px 1px 1px #d8d8d8;
+	color: #fff;
+}
+
 /* スキルアップテクニック10
  * background-imageプロパティの値linear-gradientによってグラデーションを設定しています。
  * ブラウザの実装状況によりベンダープレフィックスを設定。
