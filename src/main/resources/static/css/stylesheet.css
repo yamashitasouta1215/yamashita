@@ -565,6 +565,10 @@ select {
 	clear: both;
 }
 
+.sign_up_artist {
+	width: auto;
+}
+
 /* ---- 商品一覧 ---- */
 .list_table.item_list th:last-of-type {
 	width:20%;

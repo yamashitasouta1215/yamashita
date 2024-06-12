@@ -1,4 +1,4 @@
-package jp.co.sss.shop.controller.admin.category;
+package jp.co.sss.shop.controller.admin.artist;
 import java.util.List;
 
 import org.springframework.beans.BeanUtils;
@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import jakarta.servlet.http.HttpSession;
-import jp.co.sss.shop.bean.CategoryBean;
-import jp.co.sss.shop.entity.Category;
-import jp.co.sss.shop.repository.CategoryRepository;
+import jp.co.sss.shop.bean.ArtistBean;
+import jp.co.sss.shop.entity.Artist;
+import jp.co.sss.shop.repository.ArtistRepository;
 import jp.co.sss.shop.util.Constant;
 /**
  * カテゴリ管理 一覧表示機能のコントローラクラス
@@ -22,12 +22,12 @@ import jp.co.sss.shop.util.Constant;
  * @author SystemShared
  */
 @Controller
-public class AdminCategoryShowController {
+public class AdminArtistShowController {
 	/**
 	 * カテゴリ情報　リポジトリ
 	 */
 	@Autowired
-	CategoryRepository categoryRepository;
+	ArtistRepository artistRepository;
 	/**
 	 * セッション
 	 */
@@ -38,52 +38,52 @@ public class AdminCategoryShowController {
 	 *
 	 * @param model Viewとの値受渡し
 	 * @param pageable ページング制御
-	 * @return "admin/category/list" カテゴリ情報 一覧画面へ
+	 * @return "admin/artist/list" カテゴリ情報 一覧画面へ
 	 */
-	@RequestMapping(path = "/admin/category/list", method = { RequestMethod.GET, RequestMethod.POST })
-	public String showCategoryList(Model model, Pageable pageable) {
+	@RequestMapping(path = "/admin/artist/list", method = { RequestMethod.GET, RequestMethod.POST })
+	public String showArtistList(Model model, Pageable pageable) {
 		// 商品情報の登録数の取得と新規追加可否チェック
-		Long categoriesCount = categoryRepository.count();
+		Long artistCount = artistRepository.count();
 		Boolean registrable = true;
-		if (categoriesCount == Constant.CATEGORIES_MAX_COUNT) {
+		if (artistCount == Constant.CATEGORIES_MAX_COUNT) {
 			//カテゴリ情報の登録数が最大値の場合、新規追加不可
 			registrable = false;
 		}
 		// 表示画面でページングが必要なため、ページ情報付きのカテゴリ情報を取得する検索を行う
-		Page<Category> categoriesPage = categoryRepository
+		Page<Artist> artistPage = artistRepository
 				.findByDeleteFlagOrderByInsertDateDescIdDescPage(Constant.NOT_DELETED, pageable);
 		// カテゴリ情報をViewへ渡す
 		//ページ情報付きの検索結果からgetContent()メソッドを使用してレコード情報のみを取り出す
-		List<Category> categoryList = categoriesPage.getContent();
-		model.addAttribute("pages", categoriesPage);
-		model.addAttribute("categories", categoryList);
+		List<Artist> artistList = artistPage.getContent();
+		model.addAttribute("pages", artistPage);
+		model.addAttribute("artist", artistList);
 		model.addAttribute("registrable", registrable);
 		//カテゴリ登録・変更・削除用のセッションスコープを初期化
-		session.removeAttribute("categoryForm");
-		return "admin/category/list";
+		session.removeAttribute("artistForm");
+		return "admin/artist/list";
 	}
 	/**
 	 * 詳細画面表示 処理
 	 *
 	 * @param id ID
 	 * @param model Viewとの値受渡し
-	 * @return "admin/category/detail" 詳細画面 表示
+	 * @return "admin/artist/detail" 詳細画面 表示
 	 */
-	@RequestMapping(path = "/admin/category/detail/{id}", method = { RequestMethod.GET, RequestMethod.POST })
-	public String showCategory(@PathVariable Integer id, Model model) {
+	@RequestMapping(path = "/admin/artist/detail/{id}", method = { RequestMethod.GET, RequestMethod.POST })
+	public String showArtist(@PathVariable Integer id, Model model) {
 		// 表示対象の情報取得
-		Category category = categoryRepository.findByIdAndDeleteFlag(id, Constant.NOT_DELETED);
-		if (category == null) {
+		Artist artist = artistRepository.findByIdAndDeleteFlag(id, Constant.NOT_DELETED);
+		if (artist == null) {
 			// 対象が無い場合、エラー
 			return "redirect:/syserror";
 		}
-		CategoryBean categoryBean = new CategoryBean();
-		// Categoryエンティティの各フィールドの値をCategoryBeanにコピー
-		BeanUtils.copyProperties(category, categoryBean);
+		ArtistBean artistBean = new ArtistBean();
+		// Artistエンティティの各フィールドの値をArtistBeanにコピー
+		BeanUtils.copyProperties(artist, artistBean);
 		// カテゴリ情報をViewへ渡す
-		model.addAttribute("category", categoryBean);
+		model.addAttribute("artist", artistBean);
 		//カテゴリ登録・変更・削除用のセッションスコープを初期化
-		session.removeAttribute("categoryForm");
-		return "admin/category/detail";
+		session.removeAttribute("artistForm");
+		return "admin/artist/detail";
 	}
 }

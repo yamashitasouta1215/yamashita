@@ -1,9 +1,5 @@
 package jp.co.sss.shop.controller.admin.item;
 
-import jakarta.servlet.ServletContext;
-import jakarta.servlet.http.HttpSession;
-import jakarta.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,9 +8,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import jp.co.sss.shop.entity.Category;
 import jp.co.sss.shop.entity.Item;
 import jp.co.sss.shop.form.ItemForm;
+import jp.co.sss.shop.repository.ArtistRepository;
 import jp.co.sss.shop.repository.CategoryRepository;
 import jp.co.sss.shop.repository.ItemRepository;
 import jp.co.sss.shop.service.BeanTools;
@@ -64,7 +64,10 @@ public class AdminItemRegistController {
 	 */
 	@Autowired
 	BeanTools beanTools;
-
+	
+	@Autowired
+	ArtistRepository ar;
+	
 	/**
 	 * 入力画面　表示処理(POST)
 	 * 
@@ -81,7 +84,7 @@ public class AdminItemRegistController {
 			session.setAttribute("itemForm", new ItemForm());
 
 		}
-
+		
 		//登録入力画面　表示処理
 		return "redirect:/admin/item/regist/input";
 
@@ -112,6 +115,9 @@ public class AdminItemRegistController {
 		// 入力フォーム情報をスコープに設定
 		model.addAttribute("itemForm", itemForm);
 
+//		List<Artist> artist = ar.findAll();
+//		model.addAttribute("artist",artist);
+		
 		// 入力画面　表示
 		return "admin/item/regist_input";
 

@@ -2,13 +2,12 @@ package jp.co.sss.shop.form;
 
 import java.io.Serializable;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-
-import org.springframework.web.multipart.MultipartFile;
-
 import jp.co.sss.shop.annotation.ItemCheck;
 
 /**
@@ -64,6 +63,7 @@ public class ItemForm implements Serializable {
 	 */
 	private String image;
 
+	
 	/**
 	 * カテゴリID
 	 */
@@ -217,4 +217,6 @@ public class ItemForm implements Serializable {
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
 	}
+
+
 }
