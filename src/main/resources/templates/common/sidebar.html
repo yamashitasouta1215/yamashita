@@ -33,25 +33,29 @@
 					</select> <input type="submit" th:value="#{select}" />
 				</form>
 			</div>
-			<h2 th:class="title" th:text="CDタイトル検索"></h2>
-			<div class="form">
 
-				<form method="post" th:action="@{/searchCD}">
-					<input type="text" name="name" />
-					<input type="submit" th:value="検索" />
-				</form>
+			<div th:if="${session.user != null and session.user.authority == 2}">
+				<h2 th:class="title" th:text="CDタイトル検索"></h2>
+				<div class="form">
+
+					<form method="post" th:action="@{/searchCD}">
+						<input type="text" name="name" />
+						<input type="submit" th:value="検索" />
+					</form>
+				</div>
+
+
+
+				<h2 th:class="title" th:text="アーティスト検索"></h2>
+				<div class="form">
+
+					<form method="post" th:action="@{/searchArtist}">
+						<input type="text" name="name" />
+						<input type="submit" th:value="検索" />
+					</form>
+				</div>
+
 			</div>
-
-
-			<h2 th:class="title" th:text="アーティスト検索"></h2>
-			<div class="form">
-
-				<form method="post" th:action="@{/searchArtist}">
-					<input type="text" name="name" />
-					<input type="submit" th:value="検索" />
-				</form>
-			</div>
-
 
 		</div>
 		<!--/* メニュー(運用管理者、及びシステム管理者用) */-->
