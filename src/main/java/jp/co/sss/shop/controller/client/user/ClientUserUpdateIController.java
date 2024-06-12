@@ -1,5 +1,7 @@
 package jp.co.sss.shop.controller.client.user;
 
+import java.sql.Date;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -159,52 +161,113 @@ public class ClientUserUpdateIController {
 			return "client/user/update_check";
 			}
 		
-		
-		//変更ボタン押下時　処理５
+		/**
+		 * 変更登録、完了画面表示処理　処理５
+		 *
+		 * @return "redirect:/admin/user/update/complete" 変更完了画面　表示へ
+		 */
 		@RequestMapping(path = "/client/user/update/complete", method = RequestMethod.POST)
-		public String registComplete(@PathVariable Integer id,UserForm form,Model model) {
+		public String updateComplete() {
 
 			//セッション保持情報から入力値再取得
-//			UserForm userForm = (UserForm) session.getAttribute("userForm");
-//			if (userForm == null) {
-//			
-//				// セッション情報がない場合、エラー
-//				return "redirect:/syserror";
-//			}
-//			User user2=new User();
-//			user2.setId(id);
-			// 会員情報を生成
-			User user = userRepository.getReferenceById(id);
-			
-//			user.setAuthority(Constant.DELETED)
-			//aaa
-			// 入力フォーム情報をエンティティに設定
-			BeanUtils.copyProperties(form, user,"id");
+			UserForm userForm = (UserForm) session.getAttribute("userForm");
+			if (userForm == null) {
+				// セッション情報がない場合、エラー
+				return "redirect:/syserror";
+			}
 
-//			authority = 2;
-//			
-//			user.setAuthority(authority);
-//			user.getAuthority();
-			
-			// DB登録
-			user=userRepository.save(user);
+			// 変更対象情報を取得
+			User user = userRepository.findByIdAndDeleteFlag(userForm.getId(), Constant.NOT_DELETED);
+			if (user == null) {
+				// 対象が無い場合、エラー
+				return "redirect:/syserror" ;
+			}
 
-			UserBean userBean = new UserBean();
-			BeanUtils.copyProperties(user, userBean);
+			Integer deleteFlag = user.getDeleteFlag();
+			Date insertDate = user.getInsertDate();
+
+			// 入力フォーム情報を変更用エンティティに設定
+			BeanUtils.copyProperties(userForm, user);
+
+			// 入力値以外の項目を設定
+			user.setDeleteFlag(deleteFlag);
+			user.setInsertDate(insertDate);
+
+			// 情報を保存
+			userRepository.save(user);
+
+			// ログインユーザ情報変更の場合、セッション保存ユーザ情報を更新
+			UserBean loginUser = (UserBean)session.getAttribute("user") ; 
+			if (loginUser.getId() == userForm.getId()) {
+				loginUser.setName(userForm.getName()) ;
+			}
+			session.setAttribute("user", loginUser) ;
 			
-			model.addAttribute("userinput", userBean);
-			
-			//登録完了画面　表示処理
+			//セッション情報の削除
+			session.removeAttribute("userForm");
+
+			// 変更完了画面　表示処理
 			//二重送信防止のためリダイレクトを行う
 			return "redirect:/client/user/update/complete";
 		}
 
-			
-		//登録完了画面表示処理　処理７
+		/**
+		 * 変更完了画面　表示　処理６
+		 * 
+		 * @return "admin/user/update_complete"
+		 */
 		@RequestMapping(path = "/client/user/update/complete", method = RequestMethod.GET)
-		public String registCompleteFinish() {
+		public String updateCompleteFinish() {
+			
+			return "client/user/update_complete";
+		}
 
-				return "client/user/update_complete";
-			}
+		
+		//変更ボタン押下時　処理５
+//		@RequestMapping(path = "/client/user/update/complete", method = RequestMethod.POST)
+//		public String registComplete(@PathVariable Integer id,UserForm form,Model model) {
+//
+//			//セッション保持情報から入力値再取得
+////			UserForm userForm = (UserForm) session.getAttribute("userForm");
+////			if (userForm == null) {
+////			
+////				// セッション情報がない場合、エラー
+////				return "redirect:/syserror";
+////			}
+////			User user2=new User();
+////			user2.setId(id);
+//			// 会員情報を生成
+//			User user = userRepository.getReferenceById(id);
+//			
+////			user.setAuthority(Constant.DELETED)
+//			//aaa
+//			// 入力フォーム情報をエンティティに設定
+//			BeanUtils.copyProperties(form, user,"id");
+//
+////			authority = 2;
+////			
+////			user.setAuthority(authority);
+////			user.getAuthority();
+//			
+//			// DB登録
+//			user=userRepository.save(user);
+//
+//			UserBean userBean = new UserBean();
+//			BeanUtils.copyProperties(user, userBean);
+//			
+//			model.addAttribute("userinput", userBean);
+//			
+//			//登録完了画面　表示処理
+//			//二重送信防止のためリダイレクトを行う
+//			return "redirect:/client/user/update/complete";
+//		}
+//
+//			
+//		//登録完了画面表示処理　処理７
+//		@RequestMapping(path = "/client/user/update/complete", method = RequestMethod.GET)
+//		public String registCompleteFinish() {
+//
+//				return "client/user/update_complete";
+//			}
 
 }
