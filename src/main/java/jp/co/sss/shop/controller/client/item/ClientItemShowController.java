@@ -56,7 +56,7 @@ public class ClientItemShowController {
 			if(categoryId==0){
 				model.addAttribute("items",itemRepository.findByOrderByReleaseDateDesc());
 			}else {
-				model.addAttribute("items",itemRepository.findByCategoryOrderByInsertDateDesc(category));
+				model.addAttribute("items",itemRepository.findByCategoryOrderByReleaseDateDesc(category));
 			}
 		}else {
 			if(categoryId==0) {
