@@ -1,7 +1,7 @@
 ﻿@charset "UTF-8";
 
 body {
-	color: #12526d;
+	color: #000000;
 	font-size: 14px;
 }
 
@@ -148,7 +148,7 @@ p {
 
 .item .item_name {
 	padding: 5px 10px;
-	color: #3d98bf;
+	color: #d70d19;
 	font-weight: bold;
 	position: absolute;
 	top: 5px;
@@ -482,7 +482,7 @@ select {
 /* ---- 共通 ---- */
 .list_table,
 .detail_table {
-	border-bottom: 1px solid #f0f8fb;
+	border-bottom: 1px solid #fff1cf;
 	background-color: #fff;
 	border-collapse: collapse;
 	margin: 50px auto 20px;
@@ -491,7 +491,7 @@ select {
 .detail_table th {
 	white-space: nowrap;
 	padding: 5px;
-    background: #add8e6;
+    background: #fdcd01;
     font-weight: normal;
     position: relative;
 }
@@ -507,7 +507,7 @@ select {
 	text-align: center;
 }
 .list_table tr:nth-of-type(odd) {
-    background: #f0f8fb;
+    background: 	#ffffef;
 }
 .admin .list_table tr:nth-of-type(odd) {
     background: #fff0ec;
