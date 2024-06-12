@@ -30,7 +30,7 @@
 	
 				<dd th:if="${items.stock>5}" th:text="#{data.in.stock}"></dd>
 				<dd th:if="${items.stock >= 1 and 5 >= items.stock }" th:text="${items.stock}"></dd>
-					<dd th:if="${items.stock == 0}" th:text="#{data.out.of.stock}"></dd>
+				<dd th:if="${items.stock == 0}" th:text="#{data.out.of.stock}"></dd>
 	
 				<dt th:text=#{data.category}></dt>
 	
