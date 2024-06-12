@@ -46,12 +46,12 @@
 					
 					<form th:action="@{/client/basket/add}" method="post">
 						<input type="hidden" name="id" th:value="${item.id}" /> 
-						<input type="submit" value="＋" />
+						<input type="submit" value="＋" class="plus_button"/>
 					</form>
 					<form th:text="${item.orderNum}"></form>
 					<form th:action="@{/client/basket/delete}" method="post">
 						<input type="hidden" name="id" th:value="${item.id}" /> 
-						<input type="submit" value="ー"/>
+						<input type="submit" value="ー" class="minus_button"/>
 					</form>
 				</td>
 				<td>
