@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import jp.co.sss.shop.entity.Artist;
 import jp.co.sss.shop.entity.Item;
 import jp.co.sss.shop.repository.ArtistRepository;
 import jp.co.sss.shop.repository.CategoryRepository;
@@ -32,6 +33,36 @@ public class ItemShowCustomerController {
 		List<Item>items=repository.findByNameContaining(name);
 		model.addAttribute("items",items);
 		
+		return "client/item/list";
+	}
+	
+	
+	@PostMapping("/searchArtist")
+	public String artist(Model model,String name) {
+//		
+//		if(name!=null) {
+//		Artist artist =new Artist();
+//		artist.setName(name);
+//		List<Artist>artists=repositorya.findByNameContaining(name);
+//		int artistId = 0;
+		
+//		int artistId=((Artist) artist).getId();
+//		int artistId=artist.getId();	
+//		System.out.print(artistId);
+//		List<Item> items=repository.findByArtistId(artistId);
+//		model.addAttribute("items",items);
+////		}
+//		model.addAttribute("items",repository.findAll());
+		
+		
+		if(name!=null) {
+		Artist artist =new Artist();
+		artist=repositorya.findByNameContaining(name);
+//		int artistId=artist.getId();	
+//		System.out.print(artistId);
+		List<Item> items=repository.findByArtistId(artist.getId());
+		model.addAttribute("items",items);
+		}
 		return "client/item/list";
 	}
 }
