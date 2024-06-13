@@ -79,11 +79,11 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 	List<Item> findByArtistName(Artist artist);
 
 
-	List<Item> findByPriceLessThanOrderByPrice(Integer price);
+	Page<Item> findByPriceLessThanOrderByPrice(Integer price,Pageable pageable);
 
-	List<Item> findByPriceBetweenOrderByPrice(int i, int j);
+	Page<Item> findByPriceBetweenOrderByPrice(int i, int j,Pageable pageable);
 
-	List<Item> findByPriceGreaterThanOrderByPrice(int i);
+	Page<Item> findByPriceGreaterThanOrderByPrice(int i,Pageable pageable);
 
 
 	

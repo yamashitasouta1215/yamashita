@@ -61,7 +61,7 @@
 
 				<h2 th:class="title" th:text="値段検索"></h2>
 				<div class="form">
-					<form method="post" th:action="@{/searchPrice}">
+					<form method="get" th:action="@{/searchPrice}">
 						<select name="price">
 							<option th:value="#{constants.category.select.none.no}"
 							th:text="#{constants.category.select.none}"></option>

@@ -135,6 +135,153 @@
 				</li>
 			</ul>
 		</div>
+		
+		<div th:if="${pageNum}==4">
+			<ul class="paging">
+				<li>
+					<span th:if="${pages.first}">&lt;&lt;</span>
+					<a th:if="${not pages.first}"th:href="@{/searchPrice(page=0)}">&lt;&lt;</a>
+				</li>
+				
+				<li th:each="i:${#numbers.sequence(0,pages.totalPages-1)}">
+					<span th:if="${i}==${pages.number}"th:text="${i+1}"></span>
+					<a th:if="${i}!=${pages.number}"th:href="@{/searchPrice(page=${i})}">
+						<span th:text="${i+1}"></span>
+					</a>
+				</li>
+				
+				<li>
+					<span th:if="${pages.last}">&gt;&gt;</span>
+					<a th:if="${not pages.last}"th:href="@{/searchPrice(page=(${pages.totalPages}-1))}">&gt;&gt;</a>
+				</li>
+			</ul>
+		</div>
+		
+		<div th:if="${pageNum}==5">
+			<ul class="paging">
+				<li>
+					<span th:if="${pages.first}">&lt;&lt;</span>
+					<a th:if="${not pages.first}"th:href="@{/searchPrice(page=0)}">&lt;&lt;</a>
+				</li>
+				
+				<li th:each="i:${#numbers.sequence(0,pages.totalPages-1)}">
+					<span th:if="${i}==${pages.number}"th:text="${i+1}"></span>
+					<a th:if="${i}!=${pages.number}"th:href="@{/searchPrice(page=${i})}">
+						<span th:text="${i+1}"></span>
+					</a>
+				</li>
+				
+				<li>
+					<span th:if="${pages.last}">&gt;&gt;</span>
+					<a th:if="${not pages.last}"th:href="@{/searchPrice(page=(${pages.totalPages}-1))}">&gt;&gt;</a>
+				</li>
+			</ul>
+		</div>
+		
+		<div th:if="${pageNum}==6">
+			<ul class="paging">
+				<li>
+					<span th:if="${pages.first}">&lt;&lt;</span>
+					<a th:if="${not pages.first}"th:href="@{/searchPrice(page=0)}">&lt;&lt;</a>
+				</li>
+				
+				<li th:each="i:${#numbers.sequence(0,pages.totalPages-1)}">
+					<span th:if="${i}==${pages.number}"th:text="${i+1}"></span>
+					<a th:if="${i}!=${pages.number}"th:href="@{/searchPrice(page=${i})}">
+						<span th:text="${i+1}"></span>
+					</a>
+				</li>
+				
+				<li>
+					<span th:if="${pages.last}">&gt;&gt;</span>
+					<a th:if="${not pages.last}"th:href="@{/searchPrice(page=(${pages.totalPages}-1))}">&gt;&gt;</a>
+				</li>
+			</ul>
+		</div>
+		
+		<div th:if="${pageNum}==7">
+			<ul class="paging">
+				<li>
+					<span th:if="${pages.first}">&lt;&lt;</span>
+					<a th:if="${not pages.first}"th:href="@{/searchPrice(page=0)}">&lt;&lt;</a>
+				</li>
+				
+				<li th:each="i:${#numbers.sequence(0,pages.totalPages-1)}">
+					<span th:if="${i}==${pages.number}"th:text="${i+1}"></span>
+					<a th:if="${i}!=${pages.number}"th:href="@{/searchPrice(page=${i})}">
+						<span th:text="${i+1}"></span>
+					</a>
+				</li>
+				
+				<li>
+					<span th:if="${pages.last}">&gt;&gt;</span>
+					<a th:if="${not pages.last}"th:href="@{/searchPrice(page=(${pages.totalPages}-1))}">&gt;&gt;</a>
+				</li>
+			</ul>
+		</div>
+		
+		<div th:if="${pageNum}==8">
+			<ul class="paging">
+				<li>
+					<span th:if="${pages.first}">&lt;&lt;</span>
+					<a th:if="${not pages.first}"th:href="@{/searchPrice(page=0)}">&lt;&lt;</a>
+				</li>
+				
+				<li th:each="i:${#numbers.sequence(0,pages.totalPages-1)}">
+					<span th:if="${i}==${pages.number}"th:text="${i+1}"></span>
+					<a th:if="${i}!=${pages.number}"th:href="@{/searchPrice(page=${i})}">
+						<span th:text="${i+1}"></span>
+					</a>
+				</li>
+				
+				<li>
+					<span th:if="${pages.last}">&gt;&gt;</span>
+					<a th:if="${not pages.last}"th:href="@{/searchPrice(page=(${pages.totalPages}-1))}">&gt;&gt;</a>
+				</li>
+			</ul>
+		</div>
+		
+		<div th:if="${pageNum}==9">
+			<ul class="paging">
+				<li>
+					<span th:if="${pages.first}">&lt;&lt;</span>
+					<a th:if="${not pages.first}"th:href="@{/searchPrice(page=0)}">&lt;&lt;</a>
+				</li>
+				
+				<li th:each="i:${#numbers.sequence(0,pages.totalPages-1)}">
+					<span th:if="${i}==${pages.number}"th:text="${i+1}"></span>
+					<a th:if="${i}!=${pages.number}"th:href="@{/searchPrice(page=${i})}">
+						<span th:text="${i+1}"></span>
+					</a>
+				</li>
+				
+				<li>
+					<span th:if="${pages.last}">&gt;&gt;</span>
+					<a th:if="${not pages.last}"th:href="@{/searchPrice(page=(${pages.totalPages}-1))}">&gt;&gt;</a>
+				</li>
+			</ul>
+		</div>
+		
+		<div th:if="${pageNum}==10">
+			<ul class="paging">
+				<li>
+					<span th:if="${pages.first}">&lt;&lt;</span>
+					<a th:if="${not pages.first}"th:href="@{/searchPrice(page=0)}">&lt;&lt;</a>
+				</li>
+				
+				<li th:each="i:${#numbers.sequence(0,pages.totalPages-1)}">
+					<span th:if="${i}==${pages.number}"th:text="${i+1}"></span>
+					<a th:if="${i}!=${pages.number}"th:href="@{/searchPrice(page=${i})}">
+						<span th:text="${i+1}"></span>
+					</a>
+				</li>
+				
+				<li>
+					<span th:if="${pages.last}">&gt;&gt;</span>
+					<a th:if="${not pages.last}"th:href="@{/searchPrice(page=(${pages.totalPages}-1))}">&gt;&gt;</a>
+				</li>
+			</ul>
+		</div>
 
 </body>
 
