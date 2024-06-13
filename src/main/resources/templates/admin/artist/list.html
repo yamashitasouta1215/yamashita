@@ -22,7 +22,7 @@
 		<p th:text="#{msg.admin.list.none(#{artist})}"></p>
 	</div>
 	<form th:action="@{/admin/artist/regist/input}" method="post" class="sign_up_form">
-		<input type="submit" value="カテゴリ新規登録" class="menu_button" th:if="${registrable}" />
+		<input type="submit" value="アーティスト登録" class="menu_button" th:if="${registrable}" />
 	</form>
 	
 	<table class="list_table artist_list" th:if="!${#lists.isEmpty(artist)}">

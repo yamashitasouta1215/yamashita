@@ -140,6 +140,8 @@ public String showOrderList(Model model, Pageable pageable) {
 		// 合計金額を算出
 		int total = priceCalc.orderItemBeanPriceTotalUseSubtotal(orderItemBeanList);
 
+		
+		
 		// 注文情報をViewへ渡す
 		model.addAttribute("order", orderBean);
 		model.addAttribute("orderItemBeans", orderItemBeanList);
