@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{common/layout_4block :: layout(~{::title},~{::body/content()})}">
+
+<head>
+	<title th:text="#{artist}+#{title.update.input}+' | '+ #{shop.title}"> </title>
+	<meta charset="UTF-8" />
+</head>
+
+<body class="admin artist_update_input">
+	<h2 th:class="title" th:text="#{artist}+#{title.update.input}"></h2>
+	<p th:class="input_message" th:text="#{msg.update.input}"></p>
+
+	<div class="user_info_form_area">
+		<form th:action="@{/admin/artist/update/check}" method="post" class="user_info_form" th:object="${artistForm}">
+			<th:block th:if="${#fields.hasErrors()}">
+				<ul class="error_list">
+					<li th:each="err:${#fields.detailedErrors()}" th:text="${err.message}"></li>
+				</ul>
+				<br />
+			</th:block>
+
+			<ul class="input_list">
+				<li>
+					<label>
+						<span class="input_title">[[#{artistForm.name}]]</span>
+						<input type="text" name="name" th:value="*{name}" />
+					</label>
+				</li>
+				
+			</ul>
+			<input type="hidden" th:field="*{id}" />
+			<input type="submit" value="確認" class="send_button" />
+		</form>
+		<form th:action="@{/admin/artist/list}" method="post">
+			<input type="submit" value="戻る" class="back_button" />
+		</form>
+	</div>
+</body>
+
+</html>

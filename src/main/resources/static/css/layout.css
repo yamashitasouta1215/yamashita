@@ -163,14 +163,16 @@ font-family: "BIZ UDPゴシック";
 /*	    font-weight: bold;*/
 	text-align: center;
 	text-decoration: none;
-	background: #000000;
+	background: #D70010;
 	transition: 0.18s;
 }
+
+
 .navi_menu a:hover {
-	background: #D70010;
-	color: #fff;
-	text-shadow: 1px 1px 1px #12526d;
-	border-color : #000000;
+	background:#fdcd01 ;
+	color: #D70010;
+	text-shadow: 1px 1px 1px #ffffff;
+	border-color : #ffffff;
 }
 .navi_menu li:first-of-type a{
 	border-radius: 6px 0px 0px 6px;
