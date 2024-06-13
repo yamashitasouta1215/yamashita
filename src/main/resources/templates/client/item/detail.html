@@ -8,6 +8,7 @@
 <body class="user">
 	<h2 th:class="title" th:text="#{item}+#{title.detail}"></h2>
 
+
 		<div class="info_stock">
 			<p th:if="${items.stock>5}" th:text="まだ在庫があります"></p>
 			<p class="low_in_stock" th:if="${items.stock >= 1 and 5 >= items.stock }" >
@@ -25,15 +26,21 @@
 				<img th:src="@{/static/images/common/no_image.jpg}" th:if="${items.image == null}"></img>
 			</div>
 			<dl class="item_detail_list">
+
 				
 				<dt th:text=#{data.item.name} id="dai1"></dt>
 				<br>
+
 				<dd th:text="${items.name}" ></dd>
 				<br>
 				
 				<dt th:text=#{date.artist.name} id="dai2"></dt>
 				<br>
 				<dd th:text="${items.artist.name}"></dd>
+<!--				<dt th:text="#{data.item.release_date}"><dt>-->
+	
+	
+				<dd th:text="${#dates.format(items.releaseDate, 'yyyy/MM/dd')}"></dd>
 				<br>
 				
 				<dt th:text=#{data.item.price} id="dai3"></dt>

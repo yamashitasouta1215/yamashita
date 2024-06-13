@@ -303,11 +303,11 @@ public class Item {
 		this.artist = artist;
 	}
 	
-	public Date getreleaseDate() {
+	public Date getReleaseDate() {
 		return releaseDate;
 	}
 
-	public void setreleaseDate(Date releaseDate) {
+	public void setReleaseDate(Date releaseDate) {
 		this.releaseDate = releaseDate;
 	}
 }
