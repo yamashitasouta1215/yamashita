@@ -1,6 +1,7 @@
 package jp.co.sss.shop.form;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -43,7 +44,8 @@ public class ItemForm implements Serializable {
 	/**
 	 * 発売日
 	 */
-	private 
+	private Date releaseDate;
+	
 	/**
 	 * 在庫数
 	 */
@@ -239,6 +241,14 @@ public class ItemForm implements Serializable {
 
 	public void setArtistName(String artistName) {
 		this.artistName = artistName;
+	}
+
+	public Date getReleaseDate() {
+		return releaseDate;
+	}
+
+	public void setReleaseDate(Date releaseDate) {
+		this.releaseDate = releaseDate;
 	}
 
 
