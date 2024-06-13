@@ -391,7 +391,9 @@ div.info_stock{
 	text-align: center;
 	font-size:20px
 }
-/*aa*/
+
+
+/*商品詳細の題*/
 #dai1 {
 	background: linear-gradient(transparent 50%, #bde4f7 50%);
     padding: 0 0.1em;
