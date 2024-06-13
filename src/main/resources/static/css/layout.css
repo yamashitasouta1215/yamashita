@@ -78,11 +78,11 @@ header .container {
 	justify-content: space-between;
 }
 header {
-	background: #87ceeb;
+	background: #fdcd01;
 	padding: 10px 0;
 }
 .admin header {
-	background: #ff8669;
+	background: #fdcd01;
 }
 
 /* スキルアップテクニック3
@@ -129,17 +129,19 @@ header {
 .search_area .title,
 .main .title
  {
-	background-color: #3d98bf;
+	background-color: #fdcd01; 
 	margin: 0;
 	padding: 5px 8px;
-	color: #fff;
-	text-shadow: 1px 1px 1px #12526d;
+	color: #000000;
+	text-shadow: 1px 1px 1px #ffffff;
+	font-family: "BIZ UDPゴシック";
+	    font-weight: bold;
 }
 
 
 /* ---- ナビゲーションバー ---- */
 .navi_area {
-	background: #edf9fe;
+	background: #ffffff;
 }
 .navi_menu {
 	width: 960px;
@@ -155,17 +157,22 @@ header {
 	width: 100%;
 	font-size: 1.5em;
 	line-height: 2.5em;
-	border: 1px solid #5fb4d9;
+/*	border: 1px solid #000000;*/
+color:#ffffff;
+font-family: "BIZ UDPゴシック";
+/*	    font-weight: bold;*/
 	text-align: center;
 	text-decoration: none;
-	background: #fff;
+	background: #D70010;
 	transition: 0.18s;
 }
+
+
 .navi_menu a:hover {
-	background: #3d98bf;
-	color: #fff;
-	text-shadow: 1px 1px 1px #12526d;
-	border-color : #3d98bf;
+	background:#fdcd01 ;
+	color: #D70010;
+	text-shadow: 1px 1px 1px #ffffff;
+	border-color : #ffffff;
 }
 .navi_menu li:first-of-type a{
 	border-radius: 6px 0px 0px 6px;
@@ -361,7 +368,7 @@ aside.admin_menu {
  * footer要素は画面、もしくはページの最下部に表示されるようになります。
  */
 footer {
-	background-color: #87ceeb;
+	background-color: #fdcd01;
 	text-align: center;
 	position: absolute;
 	bottom: 0;
@@ -377,4 +384,60 @@ small {
 	line-height:30px;
 	text-shadow: 1px 1px 1px #fff;
 	font-size: 8pt;
+}
+
+div.info_stock{
+	color:#d70d19;
+	text-align: center;
+	font-size:20px
+}
+
+
+/*商品詳細の題*/
+#dai1 {
+	background: linear-gradient(transparent 50%, #bde4f7 50%);
+    padding: 0 0.1em;
+    width: 60px;
+	color:#DB9501;
+	font-size: 20px;
+}
+
+#dai2 {
+	background: linear-gradient(transparent 50%, #bde4f7 50%);
+    padding: 0 0.1em;
+    width: 130px;
+	color:#DB9501;
+	font-size: 20px;
+}
+
+#dai3 {
+	background: linear-gradient(transparent 50%, #bde4f7 50%);
+    padding: 0 0.1em;
+    width: 40px;
+	color:#DB9501;
+	font-size: 20px;
+}
+
+#dai4 {
+	background: linear-gradient(transparent 50%, #bde4f7 50%);
+    padding: 0 0.1em;
+    width: 60px;
+	color:#DB9501;
+	font-size: 20px;
+}
+
+#dai5 {
+	background: linear-gradient(transparent 50%, #bde4f7 50%);
+    padding: 0 0.1em;
+    width: 80px;
+	color:#DB9501;
+	font-size: 20px;
+}
+
+#dai6 {
+	background: linear-gradient(transparent 50%, #bde4f7 50%);
+    padding: 0 0.1em;
+    width: 40px;
+	color:#DB9501;
+	font-size: 20px;
 }

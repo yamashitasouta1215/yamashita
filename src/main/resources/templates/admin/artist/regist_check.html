@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{common/layout_4block :: layout(~{::title},~{::body/content()})}">
+
+<head>
+	<title th:text="#{artist}+#{title.input.check}+' | '+ #{shop.title}"> </title>
+	<meta charset="UTF-8" />
+</head>
+
+<body class="admin artist_regist_check">
+	<h2 th:class="title" th:text="#{artist}+#{title.input.check}"></h2>
+	<p th:class="check_message" th:text="#{msg.regist.check}"></p>
+
+	<div class="user_info_form_area" th:object=${artistForm}>
+		<ul class="input_list">
+			<li>
+				<span class="input_title">[[#{artistForm.name}]]</span>
+				<span class="input_value" th:text="*{name}"></span>
+			</li>
+			
+		</ul>
+
+		<form th:action="@{/admin/artist/regist/complete}" method="post" class="user_info_form">
+			<input type="submit" value="登録" class="send_button" />
+		</form>
+
+		<form th:action="@{/admin/artist/regist/input}" method="post">
+			<input type="submit" value="戻る" class="back_button" />
+		</form>
+	</div>
+</body>
+
+</html>

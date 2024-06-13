@@ -1,5 +1,7 @@
 package jp.co.sss.shop.repository;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -61,8 +63,16 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 	Page<Item> findByCategoryOrderByReleaseDateDesc(Category category,Pageable pageable);
 
 
+
 	Page<Item> findByNameContaining(String name,Pageable pageable);
 	
 	
+
+	List<Item> findByNameContaining(String name);
+
+
+	List<Item> findByArtistId(Integer id);
+
+
 	
 }

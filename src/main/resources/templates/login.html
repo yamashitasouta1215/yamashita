@@ -15,6 +15,7 @@
 	<p th:class="description" th:text="#{msg.login.input}"></p>
 	<div class="login_form_area">
 		<form th:action="@{/login}" method="post" class="login_form" th:object="${loginForm}">
+	
 			<th:block th:if="${#fields.hasErrors()}">
 			<div class="error_list">
 				<ul>
@@ -43,7 +44,8 @@
 	</div>
 	</div>
 </div>
-	<p class="complete_link">
+	
+		<p class="complete_link">
 		<a th:href="@{/}" th:text="#{msg.back.to.top}"></a>
 	</p>
 

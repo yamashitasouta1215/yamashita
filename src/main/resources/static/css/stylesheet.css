@@ -1,14 +1,16 @@
 ﻿@charset "UTF-8";
 
 body {
-	color: #12526d;
+	color: #000000;
 	font-size: 14px;
+		font-family: "BIZ UDPゴシック";
 }
 
 /* ---- テキスト系 ---- */
 .container .text {
 	font-weight: bold;
 	clear: both;
+	font-family: "BIZ UDPゴシック";
 }
 
 p {
@@ -148,7 +150,7 @@ p {
 
 .item .item_name {
 	padding: 5px 10px;
-	color: #3d98bf;
+	color: #000000;
 	font-weight: bold;
 	position: absolute;
 	top: 5px;
@@ -377,8 +379,10 @@ li.error_msg  {
 	height: auto;
 	max-height: 300px;
 }
+/*aa*/
 .item_detail_list {
 	width: 50%;
+	font-size:15px;
 }
 
 .item_detail_area + .user_info_form {
@@ -482,7 +486,7 @@ select {
 /* ---- 共通 ---- */
 .list_table,
 .detail_table {
-	border-bottom: 1px solid #f0f8fb;
+	border-bottom: 1px solid #fff1cf;
 	background-color: #fff;
 	border-collapse: collapse;
 	margin: 50px auto 20px;
@@ -491,7 +495,7 @@ select {
 .detail_table th {
 	white-space: nowrap;
 	padding: 5px;
-    background: #add8e6;
+    background: #fdcd01;
     font-weight: normal;
     position: relative;
 }
@@ -507,7 +511,7 @@ select {
 	text-align: center;
 }
 .list_table tr:nth-of-type(odd) {
-    background: #f0f8fb;
+    background: 	#ffffef;
 }
 .admin .list_table tr:nth-of-type(odd) {
     background: #fff0ec;
@@ -563,6 +567,10 @@ select {
 }
 .list_table.user {
 	clear: both;
+}
+
+.sign_up_artist {
+	width: auto;
 }
 
 /* ---- 商品一覧 ---- */

@@ -1,9 +1,5 @@
 package jp.co.sss.shop.controller.admin.item;
 
-import jakarta.servlet.ServletContext;
-import jakarta.servlet.http.HttpSession;
-import jakarta.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,9 +8,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
+import jp.co.sss.shop.entity.Artist;
 import jp.co.sss.shop.entity.Category;
 import jp.co.sss.shop.entity.Item;
 import jp.co.sss.shop.form.ItemForm;
+import jp.co.sss.shop.repository.ArtistRepository;
 import jp.co.sss.shop.repository.CategoryRepository;
 import jp.co.sss.shop.repository.ItemRepository;
 import jp.co.sss.shop.service.BeanTools;
@@ -64,7 +65,10 @@ public class AdminItemRegistController {
 	 */
 	@Autowired
 	BeanTools beanTools;
-
+	
+	@Autowired
+	ArtistRepository artistRepository;
+	
 	/**
 	 * 入力画面　表示処理(POST)
 	 * 
@@ -81,7 +85,7 @@ public class AdminItemRegistController {
 			session.setAttribute("itemForm", new ItemForm());
 
 		}
-
+		
 		//登録入力画面　表示処理
 		return "redirect:/admin/item/regist/input";
 
@@ -111,7 +115,7 @@ public class AdminItemRegistController {
 		}
 		// 入力フォーム情報をスコープに設定
 		model.addAttribute("itemForm", itemForm);
-
+		
 		// 入力画面　表示
 		return "admin/item/regist_input";
 
@@ -135,7 +139,14 @@ public class AdminItemRegistController {
 			Category category = categoryRepository.findById(form.getCategoryId()).orElse(null);
 			form.setCategoryName(category.getName());
 		}
-
+		
+		// 選択したアーティストの名前をFormクラスにセット
+		if (form.getArtistId() != null) {
+			//アーティストIDで検索し、結果が無ければnullを返す
+			Artist artist = artistRepository.findById(form.getArtistId()).orElse(null);
+			form.setArtistName(artist.getName());
+		}
+		
 		//直前のセッション情報を取得
 		ItemForm lastItemForm = (ItemForm) session.getAttribute("itemForm");
 		if (lastItemForm == null) {

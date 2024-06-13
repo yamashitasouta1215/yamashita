@@ -6,11 +6,13 @@ import java.util.List;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
+import jp.co.sss.shop.bean.ArtistBean;
 import jp.co.sss.shop.bean.BasketBean;
 import jp.co.sss.shop.bean.CategoryBean;
 import jp.co.sss.shop.bean.ItemBean;
 import jp.co.sss.shop.bean.OrderBean;
 import jp.co.sss.shop.bean.OrderItemBean;
+import jp.co.sss.shop.entity.Artist;
 import jp.co.sss.shop.entity.Category;
 import jp.co.sss.shop.entity.Item;
 import jp.co.sss.shop.entity.Order;
@@ -56,6 +58,7 @@ public class BeanTools {
 	 */
 	public Item copyItemFormToEntity(ItemForm form) {
 		Category category = new Category();
+		Artist artist = new Artist();
 		Item entity = new Item();
 
 		BeanUtils.copyProperties(form, entity);
@@ -73,7 +76,9 @@ public class BeanTools {
 		//		}
 
 		category.setId(form.getCategoryId());
+		artist.setId(form.getArtistId());
 		entity.setCategory(category);
+		entity.setArtist(artist);
 
 		return entity;
 	}
@@ -167,6 +172,18 @@ public class BeanTools {
 
 		for (Category entity : entityList) {
 			CategoryBean bean = new CategoryBean();
+			BeanUtils.copyProperties(entity, bean);
+			beanList.add(bean);
+		}
+
+		return beanList;
+	}
+	
+	public List<ArtistBean> copyEntityListToArtistBeanList(List<Artist> entityList) {
+		List<ArtistBean> beanList = new ArrayList<ArtistBean>();
+
+		for (Artist entity : entityList) {
+			ArtistBean bean = new ArtistBean();
 			BeanUtils.copyProperties(entity, bean);
 			beanList.add(bean);
 		}

@@ -3,18 +3,20 @@ package jp.co.sss.shop.filter;
 import java.io.IOException;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
+
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.FilterConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.context.support.SpringBeanAutowiringSupport;
-
+import jp.co.sss.shop.bean.ArtistBean;
 import jp.co.sss.shop.bean.CategoryBean;
+import jp.co.sss.shop.entity.Artist;
 import jp.co.sss.shop.entity.Category;
+import jp.co.sss.shop.repository.ArtistRepository;
 import jp.co.sss.shop.repository.CategoryRepository;
 import jp.co.sss.shop.service.BeanTools;
 import jp.co.sss.shop.util.Constant;
@@ -34,6 +36,8 @@ public class CategoryListMakeFilter extends HttpFilter {
 	@Autowired
 	CategoryRepository categoryRepository;
 
+	@Autowired
+	ArtistRepository artistRepository;
 	/**
 	 * Entity、Form、Bean間のデータコピーサービス
 	 */
@@ -67,6 +71,16 @@ public class CategoryListMakeFilter extends HttpFilter {
 
 			//リクエストスコープに検索結果を保存
 			request.setAttribute("categories", categoryBeanList);
+			
+			// アーティスト情報を全件検索
+			List<Artist> artistList = artistRepository
+					.findByDeleteFlagOrderByInsertDateDescIdDesc(Constant.NOT_DELETED);
+
+			// エンティティ内の検索結果をJavaBeansにコピー
+			List<ArtistBean> artistBeanList = beanTools.copyEntityListToArtistBeanList(artistList);
+
+			//リクエストスコープに検索結果を保存
+			request.setAttribute("artist", artistBeanList);
 		}
 		chain.doFilter(request, response);
 	}
