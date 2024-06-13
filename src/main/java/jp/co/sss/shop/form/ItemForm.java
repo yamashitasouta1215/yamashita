@@ -1,11 +1,7 @@
 package jp.co.sss.shop.form;
 
 import java.io.Serializable;
-<<<<<<< HEAD
 import java.sql.Date;
-=======
-import java.util.Date;
->>>>>>> branch 'master' of https://yamashitasouta1215@github.com/yamashitasouta1215/yamashita.git
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -86,8 +82,6 @@ public class ItemForm implements Serializable {
 	 * カテゴリ名
 	 */
 	private String categoryName;
-
-	private Date releaseDate1;
 
 	/**
 	 * 商品ID取得
