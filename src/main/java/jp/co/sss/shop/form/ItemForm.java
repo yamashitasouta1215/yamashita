@@ -1,7 +1,7 @@
 package jp.co.sss.shop.form;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -69,8 +69,14 @@ public class ItemForm implements Serializable {
 	 */
 	private String image;
 
+	/**
+	 * アーティストID
+	 */
 	private Integer artistId;
 	
+	/**
+	 * アーティスト名
+	 */
 	private String artistName;
 	
 	/**
