@@ -46,15 +46,38 @@
 						<input type="submit" th:value="#{select}" />
 					</form>
 				</div>
-<!--				<h2 th:class="title" th:text="リリース年検索"></h2>-->
-<!--				<div class="form">-->
-<!--					<form method="post" th:action="@{/searchMonth}">-->
-<!--						<select name="a">-->
-<!--							<option th:value="id" th:text=""></option>-->
-<!--							</select>-->
-<!--						<input type="submit" th:value="#{select}" />-->
-<!--					</form>-->
-<!--				</div>-->
+				<!--				<h2 th:class="title" th:text="リリース年検索"></h2>-->
+				<!--				<div class="form">-->
+				<!--					<form method="post" th:action="@{/searchMonth}">-->
+				<!--						<select name="releaseDate">-->
+				<!--							<option th:value="2024">2024</option>-->
+				<!--							<option th:value="2023">2023</option>-->
+				<!--							<option th:value="2022">2022</option>-->
+				<!--							<option th:value="2021">2021</option>-->
+				<!--							<option th:value="2020">2020</option>-->
+
+				<!--							</select>-->
+				<!--						<input type="submit" th:value="#{select}" />-->
+				<!--					</form>-->
+				<!--				</div>-->
+
+				<h2 th:class="title" th:text="値段検索"></h2>
+				<div class="form">
+					<form method="post" th:action="@{/searchPrice}">
+						<select name="price">
+							<option th:value="#{constants.category.select.none.no}"
+							th:text="#{constants.category.select.none}"></option>
+							<option th:value="1">1～1000円</option>
+							<option th:value="2">1001～2000円</option>
+							<option th:value="3">2001円～3000円</option>
+							<option th:value="4">3001円～4000円</option>
+							<option th:value="5">4001円～5000円</option>
+							<option th:value="6">5000円以上</option>
+
+						</select>
+						<input type="submit" th:value="#{select}" />
+					</form>
+				</div>
 			</div>
 		</div>
 		<!--/* メニュー(運用管理者、及びシステム管理者用) */-->

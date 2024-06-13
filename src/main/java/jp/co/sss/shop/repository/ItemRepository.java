@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import jp.co.sss.shop.entity.Artist;
 import jp.co.sss.shop.entity.Category;
 import jp.co.sss.shop.entity.Item;
 
@@ -66,7 +67,18 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 	List<Item> findByNameContaining(String name);
 
 
-	List<Item> findByArtistId(Integer id);
+	List<Item> findByArtistId(Integer integer);
+
+	List<Item> findByReleaseDateContaining(Integer releaseDate);
+
+	List<Item> findByArtistName(Artist artist);
+
+
+	List<Item> findByPriceLessThanOrderByPrice(Integer price);
+
+	List<Item> findByPriceBetweenOrderByPrice(int i, int j);
+
+	List<Item> findByPriceGreaterThanOrderByPrice(int i);
 
 
 	

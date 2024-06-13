@@ -36,9 +36,40 @@ public class ItemShowCustomerController {
 		return "client/item/list";
 	}
 	
-	@PostMapping("/searchMonth")
-	public String month(Model model,Integer id) {
+//	@PostMapping("/searchMonth")
+//	public String month(Model model,Integer releaseDate) {
+//		
+//		List<Item>item=repository.findByReleaseDateContaining(releaseDate);
+//		model.addAttribute("item",item);
+//		
+//		return "client/item/list";
+//	}
+	
+	@PostMapping("/searchPrice")
+	public String month(Model model,Integer price) {
 		
+		if(price==1) {
+		List<Item>item=repository.findByPriceLessThanOrderByPrice(1000);
+		model.addAttribute("items",item);
+		}else if(price==2) {
+			List<Item>item=repository.findByPriceBetweenOrderByPrice(1001,2000);
+			model.addAttribute("items",item);
+		}else if(price==3) {
+			List<Item>item=repository.findByPriceBetweenOrderByPrice(2001,3000);
+			model.addAttribute("items",item);
+		}else if(price==4) {
+			List<Item>item=repository.findByPriceBetweenOrderByPrice(3001,4000);
+			model.addAttribute("items",item);
+		}else if(price==5) {
+			List<Item>item=repository.findByPriceBetweenOrderByPrice(4001,5000);
+			model.addAttribute("items",item);
+		}else if(price==6) {
+		List<Item>item=repository.findByPriceGreaterThanOrderByPrice(5001);
+		model.addAttribute("items",item);
+		}
+		
+		
+			
 		return "client/item/list";
 	}
 	
