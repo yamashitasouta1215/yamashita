@@ -31,6 +31,7 @@
 	<table class="list_table item_detail">
 		<tr>
 			<th>[[#{data.item.name}]]</th>
+			<th th:text=#{date.artist.name}></th>
 			<th>[[#{data.item.image}]]</th>
 			<th>[[#{data.unit.price}]]</th>
 			<th>[[#{data.order.num}]]</th>
@@ -38,6 +39,7 @@
 		</tr>
 		<tr th:each="orderItem: ${orderItemBeans}">
 			<td th:text="${orderItem.name}"></td>
+			<td th:text="${orderItem.artistName}"></td>
 			<td>
 				<img th:src="@{/static/images/{image}(image=${orderItem.image})}" th:if="${orderItem.image != null}" />
 				<img th:src="@{/static/images/common/no_image.jpg}" th:if="${orderItem.image == null}" />
@@ -46,6 +48,7 @@
 			<td th:text="${orderItem.orderNum}"></td>
 			<td th:text="${orderItem.subtotal}"></td>
 		</tr>
+	
 		<tr>
 			<td colspan="3"></td>
 			<td class="total">[[#{data.total}]]</td>
