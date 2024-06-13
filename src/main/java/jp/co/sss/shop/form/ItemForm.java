@@ -1,7 +1,11 @@
 package jp.co.sss.shop.form;
 
 import java.io.Serializable;
+<<<<<<< HEAD
 import java.sql.Date;
+=======
+import java.util.Date;
+>>>>>>> branch 'master' of https://yamashitasouta1215@github.com/yamashitasouta1215/yamashita.git
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -44,7 +48,8 @@ public class ItemForm implements Serializable {
 	/**
 	 * 発売日
 	 */
-	private 
+	private Date releaseDate;
+	
 	/**
 	 * 在庫数
 	 */
@@ -82,14 +87,8 @@ public class ItemForm implements Serializable {
 	 */
 	private String categoryName;
 
-	private Date releaseDate;
-	public Date getReleaseDate() {
-		return releaseDate;
-	}
+	private Date releaseDate1;
 
-	public void setReleaseDate(Date releaseDate) {
-		this.releaseDate = releaseDate;
-	}
 
 	/**
 	 * 商品ID取得
@@ -249,6 +248,14 @@ public class ItemForm implements Serializable {
 
 	public void setArtistName(String artistName) {
 		this.artistName = artistName;
+	}
+
+	public Date getReleaseDate() {
+		return releaseDate;
+	}
+
+	public void setReleaseDate(Date releaseDate) {
+		this.releaseDate = releaseDate;
 	}
 
 
