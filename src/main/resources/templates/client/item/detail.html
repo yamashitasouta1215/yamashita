@@ -8,19 +8,26 @@
 <body class="user">
 	<h2 th:class="title" th:text="#{item}+#{title.detail}"></h2>
 	
-<!--			<p>aaa</p>	-->
-	
+		<div class="info_stock">
+			<p th:if="${items.stock>5}" th:text="まだ在庫があります"></p>
+			<p class="low_in_stock" th:if="${items.stock >= 1 and 5 >= items.stock }" >
+			<a  th:text='残り'></a> <a th:text="${items.stock}"></a><a th:text="点です！"></a>
+			</p>
+			<p th:if="${items.stock == 0}" th:text="在庫がありません"></p>	
+		</div>
+		
 	<div class="info_form_area" th:object="${item}">
 		<div class="item_detail_area">
+			
 			<div class="item_image_area">
 				
 				<img th:src="@{/static/images/{image}(image=${items.image})}" th:if="${items.image != null}"></img>
 				<img th:src="@{/static/images/common/no_image.jpg}" th:if="${items.image == null}"></img>
 			</div>
 			<dl class="item_detail_list">
-				<dt th:text=#{data.item.name}></dt>
+				<dt th:text=#{data.item.name} id="dai"></dt>
 	
-				<dd th:text="${items.name}"></dd>
+				<dd th:text="${items.name}" ></dd>
 				<dt th:text=#{date.artist.name}></dt>
 	
 				<dd th:text="${items.artist.name}"></dd>
