@@ -1,7 +1,5 @@
 package jp.co.sss.shop.repository;
 
-import java.util.List;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -49,21 +47,21 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 	
 	//トップページ
 	@Query("SELECT i FROM OrderItem o INNER JOIN Item i on o.item.id=i.id GROUP BY i  ORDER BY COUNT(i) DESC,i.id ASC")
-	public List<Item>findAllByQuery();
+	public Page<Item>findAllByQuery(Pageable pageable);
 
 	//新着順表示
-	List<Item> findByOrderByReleaseDateDesc();
+	Page<Item> findByOrderByReleaseDateDesc(Pageable pageable);
 
 	//売れ筋順表示かつカテゴリ別表示
 	@Query("SELECT i FROM OrderItem o INNER JOIN Item i on o.item.id=i.id WHERE i.category.id =:categoryId GROUP BY i  ORDER BY COUNT(i) DESC,i.id ASC")
-	public List<Item> findCategoryByQuery(@Param("categoryId") Integer categoryId);
+	public Page<Item> findCategoryByQuery(@Param("categoryId") Integer categoryId,Pageable pageable);
 
 
 	//新着順表示かつカテゴリ別表示
-	List<Item> findByCategoryOrderByReleaseDateDesc(Category category);
+	Page<Item> findByCategoryOrderByReleaseDateDesc(Category category,Pageable pageable);
 
 
-	List<Item> findByNameContaining(String name);
+	Page<Item> findByNameContaining(String name,Pageable pageable);
 	
 	
 	
