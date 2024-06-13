@@ -5,7 +5,7 @@
 </head>
 <body>
 <div th:fragment="layout-header" class="container">
-<img th:src="@{/static/images/IMG_0546.jpg}" widch="100px"  height="60px" >
+<img th:src="@{/static/images/IMG_0546.jpg}" widch="150px"  height="80px" >
 
 	<div th:if="${session.user != null and session.user.authority == 2}" class="user_info">
 		<a th:href="@{/client/user/detail/{id}(id=${session.user.id})}" th:text="${session.user.name}"></a>さん | <a th:href="@{/logout}" th:text="#{logout}"></a>

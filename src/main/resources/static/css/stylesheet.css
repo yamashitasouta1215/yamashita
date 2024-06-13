@@ -3,12 +3,14 @@
 body {
 	color: #000000;
 	font-size: 14px;
+		font-family: "BIZ UDPゴシック";
 }
 
 /* ---- テキスト系 ---- */
 .container .text {
 	font-weight: bold;
 	clear: both;
+	font-family: "BIZ UDPゴシック";
 }
 
 p {
@@ -148,7 +150,7 @@ p {
 
 .item .item_name {
 	padding: 5px 10px;
-	color: #d70d19;
+	color: #000000;
 	font-weight: bold;
 	position: absolute;
 	top: 5px;

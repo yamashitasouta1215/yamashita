@@ -82,7 +82,7 @@ header {
 	padding: 10px 0;
 }
 .admin header {
-	background: #ff8669;
+	background: #fdcd01;
 }
 
 /* スキルアップテクニック3
@@ -134,12 +134,14 @@ header {
 	padding: 5px 8px;
 	color: #000000;
 	text-shadow: 1px 1px 1px #ffffff;
+	font-family: "BIZ UDPゴシック";
+	    font-weight: bold;
 }
 
 
 /* ---- ナビゲーションバー ---- */
 .navi_area {
-	background: #f8f4e6;
+	background: #ffffff;
 }
 .navi_menu {
 	width: 960px;
@@ -155,17 +157,20 @@ header {
 	width: 100%;
 	font-size: 1.5em;
 	line-height: 2.5em;
-	border: 1px solid #d70d19;
+/*	border: 1px solid #000000;*/
+color:#ffffff;
+font-family: "BIZ UDPゴシック";
+/*	    font-weight: bold;*/
 	text-align: center;
 	text-decoration: none;
-	background: #ffffff;
+	background: #000000;
 	transition: 0.18s;
 }
 .navi_menu a:hover {
-	background: #d70d19;
+	background: #D70010;
 	color: #fff;
 	text-shadow: 1px 1px 1px #12526d;
-	border-color : #3d98bf;
+	border-color : #000000;
 }
 .navi_menu li:first-of-type a{
 	border-radius: 6px 0px 0px 6px;
