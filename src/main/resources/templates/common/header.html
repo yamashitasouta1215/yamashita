@@ -6,7 +6,7 @@
 <body>
 <div th:fragment="layout-header" class="container">
 
-<img th:src="@{/static/images/IMG_0546.jpg}" widch="150px"  height="80px" >
+	<a th:href="@{/}"><img th:src="@{/static/images/IMG_0546.jpg}" widch="150px"  height="80px" ></a>
 
 
 	<div th:if="${session.user != null and session.user.authority == 2}" class="user_info">
