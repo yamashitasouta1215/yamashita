@@ -24,6 +24,7 @@ import jp.co.sss.shop.entity.Order;
 import jp.co.sss.shop.entity.OrderItem;
 import jp.co.sss.shop.entity.User;
 import jp.co.sss.shop.form.OrderForm;
+import jp.co.sss.shop.repository.ArtistRepository;
 import jp.co.sss.shop.repository.ItemRepository;
 import jp.co.sss.shop.repository.OrderItemRepository;
 import jp.co.sss.shop.repository.OrderRepository;
@@ -49,6 +50,8 @@ public class ClientOrderRegistController {
 	@Autowired
 	UserRepository userRepository;
 	
+	@Autowired
+	ArtistRepository artistRepository;
 	
 	/*
 	 * 住所入力処理→買い物かごへ
@@ -261,9 +264,10 @@ public class ClientOrderRegistController {
 				
 				orderitemBean.setSubtotal(Allprice);
 				orderitemBean.setOrderNum(orderNum);
+				orderitemBean.setArtistName(items.getArtist().getName());
+
 				
 				BeanUtils.copyProperties(items, orderitemBean);
-				
 				orderitemBeanList.add(orderitemBean);
 				
 				/*
@@ -279,19 +283,21 @@ public class ClientOrderRegistController {
 		 * 注文確認画面表示用注文内容リクエストスコープ
 		 */
 		model.addAttribute("orderItemBeans",orderitemBeanList);
-			
+		
 		/*
 		 * 注文確認画面表示用ユーザー登録リクエストスコープ
 		 */
 		model.addAttribute("orderForm",session.getAttribute("orderForm"));
 				
-		
-		
+		/*
+		 * アーティスト画像表示用リクエストスコープ
+		 */
+				
 		/*
 		 * 在庫数反映後買い物かご情報
 		 */
 		session.setAttribute("orderItemBeans",newBaskets);
-		
+	
 		
 		return "client/order/check";
 			
