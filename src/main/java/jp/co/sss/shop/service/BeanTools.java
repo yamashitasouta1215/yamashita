@@ -58,6 +58,7 @@ public class BeanTools {
 	 */
 	public Item copyItemFormToEntity(ItemForm form) {
 		Category category = new Category();
+		Artist artist = new Artist();
 		Item entity = new Item();
 
 		BeanUtils.copyProperties(form, entity);
@@ -75,7 +76,9 @@ public class BeanTools {
 		//		}
 
 		category.setId(form.getCategoryId());
+		artist.setId(form.getArtistId());
 		entity.setCategory(category);
+		entity.setArtist(artist);
 
 		return entity;
 	}
