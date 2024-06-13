@@ -2,6 +2,7 @@ package jp.co.sss.shop.controller.login;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -60,7 +61,7 @@ public class LoginController {
 			運用管理者、システム管理者の場合 "redirect:/adminmenu"管理者メニュー表示処理
 	 */
 	@RequestMapping(path = "/login", method = RequestMethod.POST)
-	public String doLogin(@Valid @ModelAttribute LoginForm form, BindingResult result,UserForm userform) {
+	public String doLogin(@Valid @ModelAttribute LoginForm form, BindingResult result,UserForm userform, Model model,String email) {
 
 		String returnStr = "login";
 		if (result.hasErrors()) {
@@ -68,8 +69,9 @@ public class LoginController {
 			// セッション情報を無効にして、ログイン画面再表示
 			session.invalidate();
 			returnStr = "login";
-
-		} else {
+		}
+		
+		else {
 			//セッションスコープから権限を取り出す
 			Integer authority = ((UserBean) session.getAttribute("user")).getAuthority();
 			if (authority.intValue() == Constant.AUTH_CLIENT) {
