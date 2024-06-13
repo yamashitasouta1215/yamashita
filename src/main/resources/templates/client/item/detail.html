@@ -8,6 +8,7 @@
 <body class="user">
 	<h2 th:class="title" th:text="#{item}+#{title.detail}"></h2>
 
+
 		<div class="info_stock">
 			<p th:if="${items.stock>5}" th:text="まだ在庫があります"></p>
 			<p class="low_in_stock" th:if="${items.stock >= 1 and 5 >= items.stock }" >
