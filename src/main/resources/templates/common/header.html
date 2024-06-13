@@ -7,7 +7,7 @@
 <div th:fragment="layout-header" class="container">
 <!--	<h1 th:class="site_title" th:text="#{shop.title}"></h1>-->
 
-<img class="image" th:src="@{static/images/IMG_0546.jpg}" widch="100px"  height="60px" >
+<div id="image" th:src="@{static/images/IMG_0546.jpg}" widch="100px"  height="60px" ></div>
 
 
 	<div th:if="${session.user != null and session.user.authority == 2}" class="user_info">
