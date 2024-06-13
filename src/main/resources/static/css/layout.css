@@ -413,7 +413,7 @@ div.info_stock{
 #dai3 {
 	background: linear-gradient(transparent 50%, #bde4f7 50%);
     padding: 0 0.1em;
-    width: 40px;
+    width: 60px;
 	color:#DB9501;
 	font-size: 20px;
 }
@@ -421,7 +421,7 @@ div.info_stock{
 #dai4 {
 	background: linear-gradient(transparent 50%, #bde4f7 50%);
     padding: 0 0.1em;
-    width: 60px;
+    width: 40px;
 	color:#DB9501;
 	font-size: 20px;
 }
@@ -429,12 +429,20 @@ div.info_stock{
 #dai5 {
 	background: linear-gradient(transparent 50%, #bde4f7 50%);
     padding: 0 0.1em;
-    width: 80px;
+    width: 60px;
 	color:#DB9501;
 	font-size: 20px;
 }
 
 #dai6 {
+	background: linear-gradient(transparent 50%, #bde4f7 50%);
+    padding: 0 0.1em;
+    width: 80px;
+	color:#DB9501;
+	font-size: 20px;
+}
+
+#dai7 {
 	background: linear-gradient(transparent 50%, #bde4f7 50%);
     padding: 0 0.1em;
     width: 40px;
