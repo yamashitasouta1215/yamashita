@@ -25,352 +25,97 @@
 
 
 	<th:block th:if="!${#lists.isEmpty(items)}">
-		<table class="list_table item_detail">
-			<tr>
-				<th th:text="#{data.item.image}"></th>
-				<th th:text="#{data.item.name}"></th>
-			<th th:text=#{date.artist.name}></th>
-				<th th:text="#{data.item.price}"></th>
-				<th th:text="#{category}"></th>
+	
+				<table class="list_table item_detail">
+				<tr>
+					<th th:text="#{data.item.image}"></th>
+					<th th:text="#{data.item.name}"></th>
+				<th th:text=#{date.artist.name}></th>
+					<th th:text="#{data.item.price}"></th>
+					<th th:text="#{category}"></th>
 			
-			</tr>
-			
-			<tr th:each="item:${items}">
-				<td class="image">
-					<img th:src="@{/static/images/{image}(image=${item.image})}" th:if="${item.image != null}" />
-					<img th:src="@{/static/images/common/no_image.jpg}" th:if="${item.image == null}" />
+				</tr>
+				
+				<tr th:each="item:${items}">
+					
+					<td class="image">
+						<img th:src="@{/static/images/{image}(image=${item.image})}" th:if="${item.image != null}" />
+						<img th:src="@{/static/images/common/no_image.jpg}" th:if="${item.image == null}" />
 
-				</td>
-				<td><a th:href="@{/client/item/detail/{id}(id=${item.id})}" th:text="${item.name}"></a></td>
-				<td th:text="${item.artist.name}"></td>
-				<td th:text="${item.price}"></td>
-				<td th:text="${item.category.name}"></td>
-			</tr>
-		</table>
+					</td>
+					<td><a th:href="@{/client/item/detail/{id}(id=${item.id})}" th:text="${item.name}"></a></td>
+					<td th:text="${item.artist.name}"></td>
+					<td th:text="${item.price}"></td>
+					<td th:text="${item.category.name}"></td>
+				</tr>
+	
+			</table>
 	</th:block>
 	
 	<div th:if="${pageNum}==1">
-			<ul class="paging">
-				<li>
-					<span th:if="${pages.first}">&lt;&lt;</span>
-					<a th:if="${not pages.first}"th:href="@{/client/item/list/1(page=0)}">&lt;&lt;</a>
-				</li>
-				
-				<li th:each="i:${#numbers.sequence(0,pages.totalPages-1)}">
-					<span th:if="${i}==${pages.number}"th:text="${i+1}"></span>
-					<a th:if="${i}!=${pages.number}"th:href="@{/client/item/list/1(page=${i})}">
-						<span th:text="${i+1}"></span>
-					</a>
-				</li>
-				
-				<li>
-					<span th:if="${pages.last}">&gt;&gt;</span>
-					<a th:if="${not pages.last}"th:href="@{/client/item/list/1(page=(${pages.totalPages}-1))}">&gt;&gt;</a>
-				</li>
-			</ul>
+			<!--/* ページング */-->
+	<ul class="paging" th:if="!${#lists.isEmpty(categories)}">
+		<!-- 先頭のページリンク表示処理 --> 
+		<!--1ページ目の場合はクラスの名前をdisabledに設定-->
+		<li th:class="${pages.first} ? 'disabled':''">
+			<!--1ページ目の場合は<<を表示-->
+			<span th:if="${pages.first}">&lt;&lt;</span>
+			<!-- 1ページ目ではない場合、１ページ目のリンクを表示-->
+			<a th:if="${not pages.first}" th:href="@{${url}(page=0)}">&lt;&lt;</a>
+		</li>
+		<!--ページ番号指定のリンク表示処理--> 
+		<!-- #numbersのsequence()メソッドを使用して配列を作成し、被繰り返し変数として利用 -->
+		<li th:each='i : ${#numbers.sequence(0, pages.totalPages-1)}' th:class="(${i}==${pages.number})? 'active' : ''">
+			<span th:if='${i}==${pages.number}' th:text='${i+1}'>1</span>
+			<a th:if='${i}!=${pages.number}' th:href="@{${url}(page=${i})}">
+				<span th:text='${i+1}'>1</span>
+			</a>
+		</li>
+		<!-- 末尾ページのリンク --> 
+		<!--1ページ目の場合はクラスの名前をdisabledに設定--> 
+		<li th:class="${pages.last} ? 'disabled':''">
+			<!--末尾のページの場合は>>を表示-->
+			<span th:if="${pages.last}">&gt;&gt;</span>
+			<!-- 末尾ページではない場合、末尾ページへのリンクを表示-->
+			<a th:if="${not pages.last}" th:href="@{${url}(page=(${pages.totalPages}-1))}">&gt;&gt;</a>
+		</li>
+	</ul>
 		</div>
+	
+	<div th:if="${pageNum}==2">
+					<!--/* ページング */-->
+	<ul class="paging" th:if="!${#lists.isEmpty(categories)}">
+		<!-- 先頭のページリンク表示処理 --> 
+		<!--1ページ目の場合はクラスの名前をdisabledに設定-->
+		<li th:class="${pages.first} ? 'disabled':''">
+			<!--1ページ目の場合は<<を表示-->
+			<span th:if="${pages.first}">&lt;&lt;</span>
+			<!-- 1ページ目ではない場合、１ページ目のリンクを表示-->
+			<a th:if="${not pages.first}" th:href="@{${url}(page=0)}">&lt;&lt;</a>
+		</li>
+		<!--ページ番号指定のリンク表示処理--> 
+		<!-- #numbersのsequence()メソッドを使用して配列を作成し、被繰り返し変数として利用 -->
+		<li th:each='i : ${#numbers.sequence(0, pages.totalPages-1)}' th:class="(${i}==${pages.number})? 'active' : ''">
+			<span th:if='${i}==${pages.number}' th:text='${i+1}'>1</span>
+			<a th:if='${i}!=${pages.number}' th:href="@{${url}(page=${i})}">
+				<span th:text='${i+1}'>1</span>
+			</a>
+		</li>
+		<!-- 末尾ページのリンク --> 
+		<!--1ページ目の場合はクラスの名前をdisabledに設定--> 
+		<li th:class="${pages.last} ? 'disabled':''">
+			<!--末尾のページの場合は>>を表示-->
+			<span th:if="${pages.last}">&gt;&gt;</span>
+			<!-- 末尾ページではない場合、末尾ページへのリンクを表示-->
+			<a th:if="${not pages.last}" th:href="@{${url}(page=(${pages.totalPages}-1))}">&gt;&gt;</a>
+		</li>
+	</ul>
+		</div>
+	
+	
+
 	
 	<div th:if="${pageNum}==3">
-			<ul class="paging">
-				<li>
-					<span th:if="${pages.first}">&lt;&lt;</span>
-					<a th:if="${not pages.first}"th:href="@{/client/item/list/2(page=0)}">&lt;&lt;</a>
-				</li>
-				
-				<li th:each="i:${#numbers.sequence(0,pages.totalPages-1)}">
-					<span th:if="${i}==${pages.number}"th:text="${i+1}"></span>
-					<a th:if="${i}!=${pages.number}"th:href="@{/client/item/list/2(page=${i})}">
-						<span th:text="${i+1}"></span>
-					</a>
-				</li>
-				
-				<li>
-					<span th:if="${pages.last}">&gt;&gt;</span>
-					<a th:if="${not pages.last}"th:href="@{/client/item/list/2(page=(${pages.totalPages}-1))}">&gt;&gt;</a>
-				</li>
-			</ul>
-		</div>
-	
-	
-<!--	<div th:if="${pageNum}==11">-->
-<!--		<ul class="paging">-->
-<!--				<li>-->
-<!--					<span th:if="${pages.first}">&lt;&lt;</span>-->
-<!--					<a th:if="${not pages.first}"th:href="@{/client/item/list/1?categoryId=1(page=0)}">&lt;&lt;</a>-->
-<!--				</li>-->
-				
-<!--				<li th:each="i:${#numbers.sequence(0,pages.totalPages-1)}">-->
-<!--					<span th:if="${i}==${pages.number}"th:text="${i+1}"></span>-->
-<!--					<a th:if="${i}!=${pages.number}"th:href="@{/client/item/list/1?categoryId=1(page=${i})}">-->
-<!--						<span th:text="${i+1}"></span>-->
-<!--					</a>-->
-<!--				</li>-->
-				
-<!--				<li>-->
-<!--					<span th:if="${pages.last}">&gt;&gt;</span>-->
-<!--					<a th:if="${not pages.last}"th:href="@{/client/item/list/1?categoryId=1(page=(${pages.totalPages}-1))}">&gt;&gt;</a>-->
-<!--				</li>-->
-<!--			</ul>-->
-<!--		</div>-->
-		<div th:if="${pageNum}==120">
-		<ul class="paging">
-				<li>
-					<span th:if="${pages.first}">&lt;&lt;</span>
-					
-					<a th:if="${not pages.first}"th:href="@{/categorypaging/}+${items.id}(page=0)}">&lt;&lt;</a>
-				</li>
-				
-				<li th:each="i:${#numbers.sequence(0,pages.totalPages-1)}">
-					<span th:if="${i}==${pages.number}"th:text="${i+1}"></span>
-					<a th:if="${i}!=${pages.number}"th:href="@{/categorypaging/}+${items.category.id}(page=${i})}">
-						<span th:text="${i+1}"></span>
-					</a>
-				</li>
-				
-				<li>
-					<span th:if="${pages.last}">&gt;&gt;</span>
-					<a th:if="${not pages.last}"th:href="@{/categorypaging/}+${items.category.id}(page=(${pages.totalPages}-1))}">&gt;&gt;</a>
-				</li>
-			</ul>
-		</div>
-		
-		
-		
-		
-<!--		<div th:if="${pageNum}==12">-->
-<!--		<ul class="paging">-->
-<!--				<li>-->
-<!--					<span th:if="${pages.first}">&lt;&lt;</span>-->
-<!--					<a th:if="${not pages.first}"th:href="@{/client/item/list/1?categoryId=2(page=0)}">&lt;&lt;</a>-->
-<!--				</li>-->
-				
-<!--				<li th:each="i:${#numbers.sequence(0,pages.totalPages-1)}">-->
-<!--					<span th:if="${i}==${pages.number}"th:text="${i+1}"></span>-->
-<!--					<a th:if="${i}!=${pages.number}"th:href="@{/client/item/list/1?categoryId=2(page=${i})}">-->
-<!--						<span th:text="${i+1}"></span>-->
-<!--					</a>-->
-<!--				</li>-->
-				
-<!--				<li>-->
-<!--					<span th:if="${pages.last}">&gt;&gt;</span>-->
-<!--					<a th:if="${not pages.last}"th:href="@{/client/item/list/1?categoryId=2(page=(${pages.totalPages}-1))}">&gt;&gt;</a>-->
-<!--				</li>-->
-<!--			</ul>-->
-<!--		</div>-->
-		
-<!--		<div th:if="${pageNum}==13">-->
-<!--		<ul class="paging">-->
-<!--				<li>-->
-<!--					<span th:if="${pages.first}">&lt;&lt;</span>-->
-<!--					<a th:if="${not pages.first}"th:href="@{/client/item/list/1?categoryId=3(page=0)}">&lt;&lt;</a>-->
-<!--				</li>-->
-				
-<!--				<li th:each="i:${#numbers.sequence(0,pages.totalPages-1)}">-->
-<!--					<span th:if="${i}==${pages.number}"th:text="${i+1}"></span>-->
-<!--					<a th:if="${i}!=${pages.number}"th:href="@{/client/item/list/1?categoryId=3(page=${i})}">-->
-<!--						<span th:text="${i+1}"></span>-->
-<!--					</a>-->
-<!--				</li>-->
-				
-<!--				<li>-->
-<!--					<span th:if="${pages.last}">&gt;&gt;</span>-->
-<!--					<a th:if="${not pages.last}"th:href="@{/client/item/list/1?categoryId=3(page=(${pages.totalPages}-1))}">&gt;&gt;</a>-->
-<!--				</li>-->
-<!--			</ul>-->
-<!--		</div>-->
-		
-<!--		<div th:if="${pageNum}==14">-->
-<!--		<ul class="paging">-->
-<!--				<li>-->
-<!--					<span th:if="${pages.first}">&lt;&lt;</span>-->
-<!--					<a th:if="${not pages.first}"th:href="@{/client/item/list/1?categoryId=4(page=0)}">&lt;&lt;</a>-->
-<!--				</li>-->
-				
-<!--				<li th:each="i:${#numbers.sequence(0,pages.totalPages-1)}">-->
-<!--					<span th:if="${i}==${pages.number}"th:text="${i+1}"></span>-->
-<!--					<a th:if="${i}!=${pages.number}"th:href="@{/client/item/list/1?categoryId=4(page=${i})}">-->
-<!--						<span th:text="${i+1}"></span>-->
-<!--					</a>-->
-<!--				</li>-->
-				
-<!--				<li>-->
-<!--					<span th:if="${pages.last}">&gt;&gt;</span>-->
-<!--					<a th:if="${not pages.last}"th:href="@{/client/item/list/1?categoryId=4(page=(${pages.totalPages}-1))}">&gt;&gt;</a>-->
-<!--				</li>-->
-<!--			</ul>-->
-<!--		</div>-->
-		
-<!--		<div th:if="${pageNum}==15">-->
-<!--		<ul class="paging">-->
-<!--				<li>-->
-<!--					<span th:if="${pages.first}">&lt;&lt;</span>-->
-<!--					<a th:if="${not pages.first}"th:href="@{/client/item/list/1?categoryId=5(page=0)}">&lt;&lt;</a>-->
-<!--				</li>-->
-				
-<!--				<li th:each="i:${#numbers.sequence(0,pages.totalPages-1)}">-->
-<!--					<span th:if="${i}==${pages.number}"th:text="${i+1}"></span>-->
-<!--					<a th:if="${i}!=${pages.number}"th:href="@{/client/item/list/1?categoryId=5(page=${i})}">-->
-<!--						<span th:text="${i+1}"></span>-->
-<!--					</a>-->
-<!--				</li>-->
-				
-<!--				<li>-->
-<!--					<span th:if="${pages.last}">&gt;&gt;</span>-->
-<!--					<a th:if="${not pages.last}"th:href="@{/client/item/list/1?categoryId=5(page=(${pages.totalPages}-1))}">&gt;&gt;</a>-->
-<!--				</li>-->
-<!--			</ul>-->
-<!--		</div>-->
-		
-<!--		<div th:if="${pageNum}==16">-->
-<!--		<ul class="paging">-->
-<!--				<li>-->
-<!--					<span th:if="${pages.first}">&lt;&lt;</span>-->
-<!--					<a th:if="${not pages.first}"th:href="@{/client/item/list/1?categoryId=6(page=0)}">&lt;&lt;</a>-->
-<!--				</li>-->
-				
-<!--				<li th:each="i:${#numbers.sequence(0,pages.totalPages-1)}">-->
-<!--					<span th:if="${i}==${pages.number}"th:text="${i+1}"></span>-->
-<!--					<a th:if="${i}!=${pages.number}"th:href="@{/client/item/list/1?categoryId=6(page=${i})}">-->
-<!--						<span th:text="${i+1}"></span>-->
-<!--					</a>-->
-<!--				</li>-->
-				
-<!--				<li>-->
-<!--					<span th:if="${pages.last}">&gt;&gt;</span>-->
-<!--					<a th:if="${not pages.last}"th:href="@{/client/item/list/1?categoryId=6(page=(${pages.totalPages}-1))}">&gt;&gt;</a>-->
-<!--				</li>-->
-<!--			</ul>-->
-<!--		</div>-->
-		
-		<div th:if="${pageNum}==21">
-		<ul class="paging">
-				<li>
-					<span th:if="${pages.first}">&lt;&lt;</span>
-					<a th:if="${not pages.first}"th:href="@{/client/item/list/2?categoryId=1(page=0)}">&lt;&lt;</a>
-				</li>
-				
-				<li th:each="i:${#numbers.sequence(0,pages.totalPages-1)}">
-					<span th:if="${i}==${pages.number}"th:text="${i+1}"></span>
-					<a th:if="${i}!=${pages.number}"th:href="@{/client/item/list/2?categoryId=1(page=${i})}">
-						<span th:text="${i+1}"></span>
-					</a>
-				</li>
-				
-				<li>
-					<span th:if="${pages.last}">&gt;&gt;</span>
-					<a th:if="${not pages.last}"th:href="@{/client/item/list/2?categoryId=1(page=(${pages.totalPages}-1))}">&gt;&gt;</a>
-				</li>
-			</ul>
-		</div>
-		
-		<div th:if="${pageNum}==22">
-		<ul class="paging">
-				<li>
-					<span th:if="${pages.first}">&lt;&lt;</span>
-					<a th:if="${not pages.first}"th:href="@{/client/item/list/2?categoryId=2(page=0)}">&lt;&lt;</a>
-				</li>
-				
-				<li th:each="i:${#numbers.sequence(0,pages.totalPages-1)}">
-					<span th:if="${i}==${pages.number}"th:text="${i+1}"></span>
-					<a th:if="${i}!=${pages.number}"th:href="@{/client/item/list/2?categoryId=2(page=${i})}">
-						<span th:text="${i+1}"></span>
-					</a>
-				</li>
-				
-				<li>
-					<span th:if="${pages.last}">&gt;&gt;</span>
-					<a th:if="${not pages.last}"th:href="@{/client/item/list/2?categoryId=2(page=(${pages.totalPages}-1))}">&gt;&gt;</a>
-				</li>
-			</ul>
-		</div>
-		
-		<div th:if="${pageNum}==23">
-		<ul class="paging">
-				<li>
-					<span th:if="${pages.first}">&lt;&lt;</span>
-					<a th:if="${not pages.first}"th:href="@{/client/item/list/2?categoryId=3(page=0)}">&lt;&lt;</a>
-				</li>
-				
-				<li th:each="i:${#numbers.sequence(0,pages.totalPages-1)}">
-					<span th:if="${i}==${pages.number}"th:text="${i+1}"></span>
-					<a th:if="${i}!=${pages.number}"th:href="@{/client/item/list/2?categoryId=3(page=${i})}">
-						<span th:text="${i+1}"></span>
-					</a>
-				</li>
-				
-				<li>
-					<span th:if="${pages.last}">&gt;&gt;</span>
-					<a th:if="${not pages.last}"th:href="@{/client/item/list/2?categoryId=3(page=(${pages.totalPages}-1))}">&gt;&gt;</a>
-				</li>
-			</ul>
-		</div>
-		
-		<div th:if="${pageNum}==24">
-		<ul class="paging">
-				<li>
-					<span th:if="${pages.first}">&lt;&lt;</span>
-					<a th:if="${not pages.first}"th:href="@{/client/item/list/2?categoryId=4(page=0)}">&lt;&lt;</a>
-				</li>
-				
-				<li th:each="i:${#numbers.sequence(0,pages.totalPages-1)}">
-					<span th:if="${i}==${pages.number}"th:text="${i+1}"></span>
-					<a th:if="${i}!=${pages.number}"th:href="@{/client/item/list/2?categoryId=4(page=${i})}">
-						<span th:text="${i+1}"></span>
-					</a>
-				</li>
-				
-				<li>
-					<span th:if="${pages.last}">&gt;&gt;</span>
-					<a th:if="${not pages.last}"th:href="@{/client/item/list/2?categoryId=4(page=(${pages.totalPages}-1))}">&gt;&gt;</a>
-				</li>
-			</ul>
-		</div>
-		
-		<div th:if="${pageNum}==25">
-		<ul class="paging">
-				<li>
-					<span th:if="${pages.first}">&lt;&lt;</span>
-					<a th:if="${not pages.first}"th:href="@{/client/item/list/2?categoryId=5(page=0)}">&lt;&lt;</a>
-				</li>
-				
-				<li th:each="i:${#numbers.sequence(0,pages.totalPages-1)}">
-					<span th:if="${i}==${pages.number}"th:text="${i+1}"></span>
-					<a th:if="${i}!=${pages.number}"th:href="@{/client/item/list/2?categoryId=5(page=${i})}">
-						<span th:text="${i+1}"></span>
-					</a>
-				</li>
-				
-				<li>
-					<span th:if="${pages.last}">&gt;&gt;</span>
-					<a th:if="${not pages.last}"th:href="@{/client/item/list/2?categoryId=5(page=(${pages.totalPages}-1))}">&gt;&gt;</a>
-				</li>
-			</ul>
-		</div>
-		
-		<div th:if="${pageNum}==26">
-		<ul class="paging">
-				<li>
-					<span th:if="${pages.first}">&lt;&lt;</span>
-					<a th:if="${not pages.first}"th:href="@{/client/item/list/2?categoryId=6(page=0)}">&lt;&lt;</a>
-				</li>
-				
-				<li th:each="i:${#numbers.sequence(0,pages.totalPages-1)}">
-					<span th:if="${i}==${pages.number}"th:text="${i+1}"></span>
-					<a th:if="${i}!=${pages.number}"th:href="@{/client/item/list/2?categoryId=6(page=${i})}">
-						<span th:text="${i+1}"></span>
-					</a>
-				</li>
-				
-				<li>
-					<span th:if="${pages.last}">&gt;&gt;</span>
-					<a th:if="${not pages.last}"th:href="@{/client/item/list/2?categoryId=6(page=(${pages.totalPages}-1))}">&gt;&gt;</a>
-				</li>
-			</ul>
-		</div>
-	
-	
-	
-	<div th:if="${pageNum}==6">
 			<ul class="paging">
 				<li>
 					<span th:if="${pages.first}">&lt;&lt;</span>

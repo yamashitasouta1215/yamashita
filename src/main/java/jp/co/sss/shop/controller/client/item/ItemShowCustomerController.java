@@ -43,7 +43,7 @@ public class ItemShowCustomerController {
 		List<Item>itemList = pageList.getContent();
 		model.addAttribute("pages",pageList);
 		model.addAttribute("items",itemList);
-		model.addAttribute("pageNum",6);
+		model.addAttribute("pageNum",3);
 		
 		return "client/item/list";
 	}
