@@ -89,7 +89,6 @@ public class ItemForm implements Serializable {
 
 	private Date releaseDate1;
 
-
 	/**
 	 * 商品ID取得
 	 * @return 商品ID
