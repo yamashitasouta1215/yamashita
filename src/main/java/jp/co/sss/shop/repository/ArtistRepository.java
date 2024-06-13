@@ -1,6 +1,8 @@
 package jp.co.sss.shop.repository;
 
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -19,4 +21,6 @@ public interface ArtistRepository extends JpaRepository<Artist, Integer>{
 			@Param(value = "deleteFlag") int deleteFlag, Pageable pageable);
 	
 	Artist findByIdAndDeleteFlag(Integer id, int deleteFlag);
+	
+	List<Artist> findByDeleteFlagOrderByInsertDateDescIdDesc(int deleteFlag);
 }
