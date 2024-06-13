@@ -7,7 +7,7 @@
 </head>
 <body class="user">
 	<h2 th:class="title" th:text="#{item}+#{title.detail}"></h2>
-<!--	aa-->
+
 		<div class="info_stock">
 			<p th:if="${items.stock>5}" th:text="まだ在庫があります"></p>
 			<p class="low_in_stock" th:if="${items.stock >= 1 and 5 >= items.stock }" >
@@ -25,28 +25,37 @@
 				<img th:src="@{/static/images/common/no_image.jpg}" th:if="${items.image == null}"></img>
 			</div>
 			<dl class="item_detail_list">
-				<dt th:text=#{data.item.name} id="dai"></dt>
-	
+				
+				<dt th:text=#{data.item.name} id="dai1"></dt>
+				<br>
 				<dd th:text="${items.name}" ></dd>
-				<dt th:text=#{date.artist.name}></dt>
-	
+				<br>
+				
+				<dt th:text=#{date.artist.name} id="dai2"></dt>
+				<br>
 				<dd th:text="${items.artist.name}"></dd>
-				<dt th:text=#{data.item.price}></dt>
-	
-				<dd th:text="${items.price}"></dd>
-	
-				<dt th:text=#{data.item.stock}></dt>
-	
+				<br>
+				
+				<dt th:text=#{data.item.price} id="dai3"></dt>
+				<br>
+				<dd th:text="${items.price} + '円'"></dd>
+				<br>
+				
+				<dt th:text=#{data.item.stock} id="dai4"></dt>
+				<br> 
 				<dd th:if="${items.stock>5}" th:text="#{data.in.stock}"></dd>
 				<dd th:if="${items.stock >= 1 and 5 >= items.stock }" th:text="${items.stock}"></dd>
 				<dd th:if="${items.stock == 0}" th:text="#{data.out.of.stock}"></dd>
-	
-				<dt th:text=#{data.category}></dt>
-	
+				<br>
+				
+				
+				<dt th:text=#{data.category} id="dai5"></dt>
+				<br>
 				<dd th:text="${items.category.name}"></dd>
-	
-				<dt th:text=#{data.description}></dt>
-	
+				<br>
+				
+				<dt th:text=#{data.description} id="dai6"></dt>
+				<br>
 				<dd th:text="${items.description}"></dd>
 			</dl>
 		</div>
