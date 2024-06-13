@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
+import jp.co.sss.shop.entity.Artist;
 import jp.co.sss.shop.entity.Category;
 import jp.co.sss.shop.entity.Item;
 import jp.co.sss.shop.form.ItemForm;
@@ -66,7 +67,7 @@ public class AdminItemRegistController {
 	BeanTools beanTools;
 	
 	@Autowired
-	ArtistRepository ar;
+	ArtistRepository artistRepository;
 	
 	/**
 	 * 入力画面　表示処理(POST)
@@ -114,9 +115,6 @@ public class AdminItemRegistController {
 		}
 		// 入力フォーム情報をスコープに設定
 		model.addAttribute("itemForm", itemForm);
-
-//		List<Artist> artist = ar.findAll();
-//		model.addAttribute("artist",artist);
 		
 		// 入力画面　表示
 		return "admin/item/regist_input";
@@ -141,7 +139,14 @@ public class AdminItemRegistController {
 			Category category = categoryRepository.findById(form.getCategoryId()).orElse(null);
 			form.setCategoryName(category.getName());
 		}
-
+		
+		// 選択したアーティストの名前をFormクラスにセット
+		if (form.getArtistId() != null) {
+			//アーティストIDで検索し、結果が無ければnullを返す
+			Artist artist = artistRepository.findById(form.getArtistId()).orElse(null);
+			form.setArtistName(artist.getName());
+		}
+		
 		//直前のセッション情報を取得
 		ItemForm lastItemForm = (ItemForm) session.getAttribute("itemForm");
 		if (lastItemForm == null) {

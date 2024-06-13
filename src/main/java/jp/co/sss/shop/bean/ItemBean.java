@@ -1,5 +1,7 @@
 package jp.co.sss.shop.bean;
 
+import java.sql.Date;
+
 import jp.co.sss.shop.entity.Artist;
 
 /**
@@ -48,7 +50,16 @@ public class ItemBean {
 	 * カテゴリ名
 	 */
 	private String categoryName;
+	private Date releaseDate;
 	
+	public Date getReleaseDate() {
+		return releaseDate;
+	}
+
+	public void setReleaseDate(Date releaseDate) {
+		this.releaseDate = releaseDate;
+	}
+
 	public Artist getArtist() {
 		return artist;
 	}

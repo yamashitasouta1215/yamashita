@@ -1,6 +1,7 @@
 package jp.co.sss.shop.form;
 
 import java.io.Serializable;
+import java.sql.Date;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -39,7 +40,12 @@ public class ItemForm implements Serializable {
 	@NotNull
 	@Max(9999999)
 	private Integer price;
-
+	
+	/**
+	 * 発売日
+	 */
+	private Date releaseDate;
+	
 	/**
 	 * 在庫数
 	 */
@@ -63,6 +69,9 @@ public class ItemForm implements Serializable {
 	 */
 	private String image;
 
+	private Integer artistId;
+	
+	private String artistName;
 	
 	/**
 	 * カテゴリID
@@ -216,6 +225,30 @@ public class ItemForm implements Serializable {
 	 */
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
+	}
+
+	public Integer getArtistId() {
+		return artistId;
+	}
+
+	public void setArtistId(Integer artistId) {
+		this.artistId = artistId;
+	}
+
+	public String getArtistName() {
+		return artistName;
+	}
+
+	public void setArtistName(String artistName) {
+		this.artistName = artistName;
+	}
+
+	public Date getReleaseDate() {
+		return releaseDate;
+	}
+
+	public void setReleaseDate(Date releaseDate) {
+		this.releaseDate = releaseDate;
 	}
 
 
