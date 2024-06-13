@@ -35,6 +35,7 @@
 					<label><span class="input_title">[[#{itemForm.stock}]]</span></label>
 					<input type="text" th:field="*{stock}" />
 				</li>
+				
 				<li>
 					<label><span class="input_title">[[#{data.category}]]</span></label>
 					<select name="categoryId">
@@ -42,6 +43,7 @@
 							th:text="${category.name}" th:selected="${category.id} == *{categoryId}">
 						</option>
 					</select>
+					<br>
 				</li>
 				<li>
 					<label><span class="input_title">[[#{itemForm.description}]]</span></label>

@@ -63,6 +63,11 @@
 					<a th:href="@{/admin/category/list}" th:class="display_list"
 						th:text="#{admin.menu.category.list}"></a>
 				</li>
+				
+				<li th:if="${session.user.authority == 1}">
+					<a th:href="@{/admin/category/list}" th:class="display_list"
+						th:text="#{admin.menu.artist.list}"></a>
+				</li>
 			</ul>
 		</div>
 	</aside>
