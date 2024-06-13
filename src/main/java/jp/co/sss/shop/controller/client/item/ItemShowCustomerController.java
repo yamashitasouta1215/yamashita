@@ -66,9 +66,11 @@ public class ItemShowCustomerController {
 		}else if(price==6) {
 		List<Item>item=repository.findByPriceGreaterThanOrderByPrice(5001);
 		model.addAttribute("items",item);
+		}else {
+			List<Item>item=repository.findAll();
+			model.addAttribute("items",item);
+			
 		}
-		
-		
 			
 		return "client/item/list";
 	}
