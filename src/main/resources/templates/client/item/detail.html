@@ -26,7 +26,7 @@
 			</div>
 			<dl class="item_detail_list">
 				<dt th:text=#{data.item.name} id="dai"></dt>
-	
+		
 				<dd th:text="${items.name}" ></dd>
 				<dt th:text=#{date.artist.name}></dt>
 	
@@ -34,7 +34,9 @@
 				<dt th:text=#{data.item.price}></dt>
 	
 				<dd th:text="${items.price}"></dd>
-	
+<!--		<dt th:text="#{date.releaseDate}"><dt>-->
+	<dt>発売日</dt>
+<!--			<dd th:text="${items.releaseDate}">-->
 				<dt th:text=#{data.item.stock}></dt>
 	
 				<dd th:if="${items.stock>5}" th:text="#{data.in.stock}"></dd>

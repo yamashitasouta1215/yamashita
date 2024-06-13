@@ -36,6 +36,12 @@ public class ItemShowCustomerController {
 		return "client/item/list";
 	}
 	
+	@PostMapping("/searchMonth")
+	public String month(Model model,Integer id) {
+		
+		return "client/item/list";
+	}
+	
 	
 	@PostMapping("/searchArtist")
 	public String artist(Model model,String name) {
@@ -56,8 +62,9 @@ public class ItemShowCustomerController {
 		
 		
 		if(name!=null) {
-		Artist artist =new Artist();
+			Artist artist=new Artist();
 		artist=repositorya.findByNameContaining(name);
+		
 //		int artistId=artist.getId();	
 //		System.out.print(artistId);
 		List<Item> items=repository.findByArtistId(artist.getId());
@@ -65,4 +72,5 @@ public class ItemShowCustomerController {
 		}
 		return "client/item/list";
 	}
+	
 }

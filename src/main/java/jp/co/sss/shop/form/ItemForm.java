@@ -1,6 +1,7 @@
 package jp.co.sss.shop.form;
 
 import java.io.Serializable;
+import java.sql.Date;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -73,6 +74,15 @@ public class ItemForm implements Serializable {
 	 * カテゴリ名
 	 */
 	private String categoryName;
+
+	private Date releaseDate;
+	public Date getReleaseDate() {
+		return releaseDate;
+	}
+
+	public void setReleaseDate(Date releaseDate) {
+		this.releaseDate = releaseDate;
+	}
 
 	/**
 	 * 商品ID取得

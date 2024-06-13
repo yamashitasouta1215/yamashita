@@ -65,7 +65,8 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 
 	List<Item> findByNameContaining(String name);
 
-	List<Item> findByArtistId(Integer artistId);
+
+	List<Item> findByArtistId(Integer id);
 
 
 	
