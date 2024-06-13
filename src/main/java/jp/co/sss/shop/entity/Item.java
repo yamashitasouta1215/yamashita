@@ -1,6 +1,7 @@
 package jp.co.sss.shop.entity;
 
-import java.sql.Date;
+
+import java.util.Date;
 import java.util.List;
 
 import jakarta.persistence.Column;
@@ -66,6 +67,9 @@ public class Item {
 	@Column(insertable = false)
 	private Integer deleteFlag;
 	
+	/**
+	 * 発売日
+	 */
 	@Column
 	private Date releaseDate;
 
@@ -307,7 +311,7 @@ public class Item {
 		return releaseDate;
 	}
 
-	public void setReleaseDate(Date releaseDate) {
-		this.releaseDate = releaseDate;
+	public void setReleaseDate(Date date) {
+		this.releaseDate = date;
 	}
 }

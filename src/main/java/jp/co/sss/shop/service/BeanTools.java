@@ -79,6 +79,7 @@ public class BeanTools {
 		artist.setId(form.getArtistId());
 		entity.setCategory(category);
 		entity.setArtist(artist);
+		entity.setReleaseDate(form.getReleaseDate());
 
 		return entity;
 	}
