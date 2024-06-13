@@ -2,7 +2,7 @@ package jp.co.sss.shop.controller.admin.item;
 
 
 
-import java.util.Date;
+import java.sql.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
+import jp.co.sss.shop.entity.Artist;
 import jp.co.sss.shop.entity.Category;
 import jp.co.sss.shop.entity.Item;
 import jp.co.sss.shop.form.ItemForm;
+import jp.co.sss.shop.repository.ArtistRepository;
 import jp.co.sss.shop.repository.CategoryRepository;
 import jp.co.sss.shop.repository.ItemRepository;
 import jp.co.sss.shop.service.BeanTools;
@@ -43,6 +45,9 @@ public class AdminItemUpdateController {
 	 */
 	@Autowired
 	CategoryRepository categoryRepository;
+	
+	@Autowired
+	ArtistRepository artistRepository;
 
 	/**
 	 * セッション
@@ -170,6 +175,16 @@ public class AdminItemUpdateController {
 		if (form.getCategoryId() != null) {
 			Category category = categoryRepository.findById(form.getCategoryId()).orElse(null);
 			form.setCategoryName(category.getName());
+		}
+		
+		// 選択したアーティストの名前をFormクラスにセット
+		if (form.getCategoryId() != null) {
+			Artist artist = artistRepository.findById(form.getArtistId()).orElse(null);
+			form.setArtistName(artist.getName());
+		}
+		
+		if (form.getReleaseDate() == null) {
+			form.setReleaseDate(lastItemForm.getReleaseDate());
 		}
 
 		// 変更入力確認画面　表示処理
