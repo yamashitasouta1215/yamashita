@@ -21,16 +21,32 @@
 				</span>
 			</div>
 			<dl class="item_detail_list">
-				<dt>[[#{itemForm.name}]]</dt>
+				<dt th:text=#{itemForm.name} id="dai1"></dt>
+				<br>
 				<dd th:text="*{name}"></dd>
-				
-				<dt>[[#{itemForm.price}]]</dt>
+				<br>
+				<dt th:text=#{date.artist.name} id="dai2"></dt>
+				<br>
+				<dd th:text="*{artist.name}"></dd>
+				<br>
+				<dt th:text="#{data.item.release_date}" id="dai3"><dt>
+				<br>
+				<dd th:text="*{releaseDate}"></dd>
+				<br>
+				<dt th:text=#{itemForm.price} id="dai4"></dt>
+				<br>
 				<dd th:text="*{price}"></dd>
-				<dt>[[#{itemForm.stock}]]</dt>
+				<br>
+				<dt th:text=#{itemForm.stock} id="dai5"></dt>
+				<br>
 				<dd th:text="*{stock}"></dd>
-				<dt>[[#{data.category}]]</dt>
+				<br>
+				<dt th:text=#{data.category} id="dai6"></dt>
+				<br>
 				<dd th:text="*{categoryName}"></dd>
-				<dt>[[#{itemForm.description}]]</dt>
+				<br>
+				<dt th:text=#{itemForm.description} id="dai7"></dt>
+				<br>
 				<dd th:text="*{description}"></dd>
 			</dl>
 		</div>

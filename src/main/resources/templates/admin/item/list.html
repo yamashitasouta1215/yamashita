@@ -34,16 +34,20 @@
 	<table class="list_table item_list" th:if="!${#lists.isEmpty(items)}">
 		<tbody>
 		<tr>
-			<th>[[#{data.id}]]</th>
-			<th>[[#{itemForm.name}]]</th>
-			<th>[[#{itemForm.price}]]</th>
-			<th>[[#{data.category}]]</th>
-			<th>[[#{data.operate}]]</th>
+			<th th:text=#{data.id}></th>
+			<th th:text=#{itemForm.name}></th>
+			<th th:text=#{date.artist.name} ></th>
+			<th th:text=#{itemForm.price}></th>
+			<th th:text=#{data.category}></th>
+			<th th:text=#{data.operate}></th>
 		</tr>
 		<!--/* 商品情報 */-->
 		<tr th:each="item: ${items}">
 			<td th:text="${item.id}"></td>
 			<td><a th:href="@{/admin/item/detail/{id}(id=${item.id})}" th:text="${item.name}"></a></td>
+			
+				<td th:text="*{item.artist.name}"></dd>
+				<br>
 			<td th:text="${item.price}"></td>
 			<td th:text="${item.category.name}"></td>
 			<td>

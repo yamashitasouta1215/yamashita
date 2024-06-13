@@ -398,7 +398,8 @@ div.info_stock{
 	background: linear-gradient(transparent 50%, #bde4f7 50%);
     padding: 0 0.1em;
     width: 60px;
-	color:#DB9501;
+	color:#fdcd01;
+	 font-weight: bold;
 	font-size: 20px;
 }
 
@@ -406,7 +407,8 @@ div.info_stock{
 	background: linear-gradient(transparent 50%, #bde4f7 50%);
     padding: 0 0.1em;
     width: 130px;
-	color:#DB9501;
+	color:#fdcd01;
+	 font-weight: bold;
 	font-size: 20px;
 }
 
@@ -414,7 +416,8 @@ div.info_stock{
 	background: linear-gradient(transparent 50%, #bde4f7 50%);
     padding: 0 0.1em;
     width: 60px;
-	color:#DB9501;
+     font-weight: bold;
+	color:#fdcd01;
 	font-size: 20px;
 }
 
@@ -422,15 +425,17 @@ div.info_stock{
 	background: linear-gradient(transparent 50%, #bde4f7 50%);
     padding: 0 0.1em;
     width: 40px;
-	color:#DB9501;
+	color:#fdcd01;
 	font-size: 20px;
+	 font-weight: bold;
 }
 
 #dai5 {
 	background: linear-gradient(transparent 50%, #bde4f7 50%);
     padding: 0 0.1em;
     width: 60px;
-	color:#DB9501;
+     font-weight: bold;
+	color:#fdcd01;
 	font-size: 20px;
 }
 
@@ -438,14 +443,16 @@ div.info_stock{
 	background: linear-gradient(transparent 50%, #bde4f7 50%);
     padding: 0 0.1em;
     width: 80px;
-	color:#DB9501;
+	color:#fdcd01;
+	 font-weight: bold;
 	font-size: 20px;
 }
 
 #dai7 {
 	background: linear-gradient(transparent 50%, #bde4f7 50%);
     padding: 0 0.1em;
+     font-weight: bold;
     width: 40px;
-	color:#DB9501;
+	color:#fdcd01;
 	font-size: 20px;
 }
