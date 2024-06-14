@@ -85,13 +85,14 @@ public class ClientBasketController {
 						//小計の計算
 						int price = itemAddToBasket.getPrice();
 						int priceSum = itemAddToBasket.getPriceSum();
-						itemAddToBasket.setPriceSum(priceSum + price);
+						
 						
 						//注文数が在庫を上回るとき
 						if (newOrderNum > itemStockNum) {
 							model.addAttribute("itemNameListLessThan", itemStock.getName());
 						} else {
 							itemAddToBasket.setOrderNum(newOrderNum);
+							itemAddToBasket.setPriceSum(priceSum + price);
 						}
 						existItemBasket = true;
 					}
