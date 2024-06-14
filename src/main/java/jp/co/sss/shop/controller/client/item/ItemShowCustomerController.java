@@ -2,16 +2,21 @@ package jp.co.sss.shop.controller.client.item;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import jakarta.servlet.http.HttpSession;
 import jp.co.sss.shop.entity.Artist;
 import jp.co.sss.shop.entity.Item;
 import jp.co.sss.shop.repository.ArtistRepository;
 import jp.co.sss.shop.repository.CategoryRepository;
 import jp.co.sss.shop.repository.ItemRepository;
 import jp.co.sss.shop.repository.OrderItemRepository;
+
 @Controller
 public class ItemShowCustomerController {
 	
@@ -25,13 +30,21 @@ public class ItemShowCustomerController {
 	
 	
 	//追加機能　CD検索
-	@PostMapping("/searchCD")
-	public String cd(String name,Model model) {
+	@GetMapping("/searchCD")
+	public String cd(String name,Model model,Pageable pageable,HttpSession session) {
 		
+		if(name==null) {
+			name=(String) session.getAttribute("cd");
+		}else {
+			session.setAttribute("cd",name);
+		}
 		Item item=new Item();
 		item.setName(name);
-		List<Item>items=repository.findByNameContaining(name);
-		model.addAttribute("items",items);
+		Page<Item>pageList = repository.findByNameContaining(name,pageable);
+		List<Item>itemList = pageList.getContent();
+		model.addAttribute("pages",pageList);
+		model.addAttribute("items",itemList);
+		model.addAttribute("pageNum",3);
 		
 		return "client/item/list";
 	}
@@ -45,30 +58,60 @@ public class ItemShowCustomerController {
 //		return "client/item/list";
 //	}
 	
-	@PostMapping("/searchPrice")
-	public String month(Model model,Integer price) {
+	@GetMapping("/searchPrice")
+	public String month(Model model,Integer price,HttpSession session,Pageable pageable) {
+		if(price==null) {
+			price=(int) session.getAttribute("pri");
+		}else {
+			session.setAttribute("pri",price);
+		}
+		Item item=new Item();
+		item.setPrice(price);
 		
 		if(price==1) {
-		List<Item>item=repository.findByPriceLessThanOrderByPrice(1000);
-		model.addAttribute("items",item);
+			Page<Item>pageList = repository.findByPriceLessThanOrderByPrice(1000,pageable);
+			List<Item>itemList = pageList.getContent();
+			model.addAttribute("pages",pageList);
+			model.addAttribute("items",itemList);
+			model.addAttribute("pageNum",4);
+			
 		}else if(price==2) {
-			List<Item>item=repository.findByPriceBetweenOrderByPrice(1001,2000);
-			model.addAttribute("items",item);
+			Page<Item>pageList = repository.findByPriceBetweenOrderByPrice(1001,2000,pageable);
+			List<Item>itemList = pageList.getContent();
+			model.addAttribute("pages",pageList);
+			model.addAttribute("items",itemList);
+			model.addAttribute("pageNum",5);
+			
 		}else if(price==3) {
-			List<Item>item=repository.findByPriceBetweenOrderByPrice(2001,3000);
-			model.addAttribute("items",item);
+			Page<Item>pageList = repository.findByPriceBetweenOrderByPrice(2001,3000,pageable);
+			List<Item>itemList = pageList.getContent();
+			model.addAttribute("pages",pageList);
+			model.addAttribute("items",itemList);
+			model.addAttribute("pageNum",6);
 		}else if(price==4) {
-			List<Item>item=repository.findByPriceBetweenOrderByPrice(3001,4000);
-			model.addAttribute("items",item);
+			Page<Item>pageList = repository.findByPriceBetweenOrderByPrice(3001,4000,pageable);
+			List<Item>itemList = pageList.getContent();
+			model.addAttribute("pages",pageList);
+			model.addAttribute("items",itemList);
+			model.addAttribute("pageNum",7);
 		}else if(price==5) {
-			List<Item>item=repository.findByPriceBetweenOrderByPrice(4001,5000);
-			model.addAttribute("items",item);
+			Page<Item>pageList = repository.findByPriceBetweenOrderByPrice(4001,5000,pageable);
+			List<Item>itemList = pageList.getContent();
+			model.addAttribute("pages",pageList);
+			model.addAttribute("items",itemList);
+			model.addAttribute("pageNum",8);
 		}else if(price==6) {
-		List<Item>item=repository.findByPriceGreaterThanOrderByPrice(5001);
-		model.addAttribute("items",item);
+			Page<Item>pageList = repository.findByPriceGreaterThanOrderByPrice(5001,pageable);
+			List<Item>itemList = pageList.getContent();
+			model.addAttribute("pages",pageList);
+			model.addAttribute("items",itemList);
+			model.addAttribute("pageNum",9);
 		}else {
-			List<Item>item=repository.findAll();
-			model.addAttribute("items",item);
+			Page<Item>pageList = repository.findAll(pageable);
+			List<Item>itemList = pageList.getContent();
+			model.addAttribute("pages",pageList);
+			model.addAttribute("items",itemList);
+			model.addAttribute("pageNum",10);
 			
 		}
 			

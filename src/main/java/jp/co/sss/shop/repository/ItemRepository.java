@@ -50,10 +50,10 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 	
 	//トップページ
 	@Query("SELECT i FROM OrderItem o INNER JOIN Item i on o.item.id=i.id GROUP BY i  ORDER BY COUNT(i) DESC,i.id ASC")
-	public List<Item>findAllByQuery();
+	public Page<Item>findAllByQuery(Pageable pageable);
 
 	//新着順表示
-	List<Item> findByOrderByReleaseDateDesc();
+	Page<Item> findByOrderByReleaseDateDesc(Pageable pageable);
 
 	//売れ筋順表示かつカテゴリ別表示
 	@Query("SELECT i FROM OrderItem o INNER JOIN Item i on o.item.id=i.id WHERE i.category.id =:categoryId GROUP BY i  ORDER BY COUNT(i) DESC,i.id ASC")
@@ -63,6 +63,11 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 	//新着順表示かつカテゴリ別表示
 	List<Item> findByCategoryOrderByReleaseDateDesc(Category category);
 
+
+
+	Page<Item> findByNameContaining(String name,Pageable pageable);
+	
+	
 
 	List<Item> findByNameContaining(String name);
 
@@ -74,11 +79,11 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 	List<Item> findByArtistName(Artist artist);
 
 
-	List<Item> findByPriceLessThanOrderByPrice(Integer price);
+	Page<Item> findByPriceLessThanOrderByPrice(Integer price,Pageable pageable);
 
-	List<Item> findByPriceBetweenOrderByPrice(int i, int j);
+	Page<Item> findByPriceBetweenOrderByPrice(int i, int j,Pageable pageable);
 
-	List<Item> findByPriceGreaterThanOrderByPrice(int i);
+	Page<Item> findByPriceGreaterThanOrderByPrice(int i,Pageable pageable);
 
 
 	
