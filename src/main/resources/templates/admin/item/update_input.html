@@ -64,7 +64,7 @@
 					<label><span class="input_title">[[#{data.item.image}]]</span></label>
 					<input type="file" id="upload_file" th:field="*{imageFile}" />
 					<span th:unless="*{#strings.isEmpty(image)}">
-						<img th:src="@{/static/images/{image}(image=*{image})}"></img>
+						<img th:src="@{/images/{image}(image=*{image})}"></img>
 					</span>
 					<span th:if="*{#strings.isEmpty(image)}">
 						<img th:src="@{/images/common/no_image.jpg}"></img>
