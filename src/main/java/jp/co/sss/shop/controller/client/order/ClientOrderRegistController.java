@@ -307,6 +307,7 @@ public class ClientOrderRegistController {
 		
 		/*
 		 * 注文確認画面表示用ユーザー登録リクエストスコープ
+		 * 
 		 */
 		model.addAttribute("orderForm",session.getAttribute("orderForm"));
 			
