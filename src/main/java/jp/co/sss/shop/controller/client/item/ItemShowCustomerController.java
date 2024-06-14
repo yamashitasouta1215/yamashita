@@ -27,9 +27,10 @@ public class ItemShowCustomerController {
 	
 	
 	
-	//追加機能　CD検索
+//	//追加機能　CD検索
 	@GetMapping("/searchCD")
 	public String cd(String name,Model model,Pageable pageable,HttpSession session) {
+		
 		
 		if(name==null) {
 			name=(String) session.getAttribute("cd");
@@ -47,17 +48,11 @@ public class ItemShowCustomerController {
 		return "client/item/list";
 	}
 	
-//	@PostMapping("/searchMonth")
-//	public String month(Model model,Integer releaseDate) {
-//		
-//		List<Item>item=repository.findByReleaseDateContaining(releaseDate);
-//		model.addAttribute("item",item);
-//		
-//		return "client/item/list";
-//	}
+
 	
 	@GetMapping("/searchPrice")
 	public String month(Model model,Integer price,HttpSession session,Pageable pageable) {
+	
 		if(price==null) {
 			price=(int) session.getAttribute("pri");
 		}else {
@@ -109,13 +104,13 @@ public class ItemShowCustomerController {
 			List<Item>itemList = pageList.getContent();
 			model.addAttribute("pages",pageList);
 			model.addAttribute("items",itemList);
-			model.addAttribute("pageNum",10);
-			
+			model.addAttribute("pageNum",10);	
 		}
 			
 		return "client/item/list";
-	}
 	
+	}
+}
 	
 //	@PostMapping("/searchArtist")
 //	public String artist(Model model,String name) {
@@ -144,8 +139,33 @@ public class ItemShowCustomerController {
 //		
 //		List<Item> items=repository.findByArtistId(artist.getId());
 //		model.addAttribute("items",items);
+
+////		}
+//		model.addAttribute("items",repository.findAll());
+		
+		
+//		if(name!=null) {
+//			Artist artist=new Artist();
+//		artist=repositorya.findByNameContaining(name);
+//		
+////		int artistId=artist.getId();	
+////		System.out.print(artistId);
+//		List<Item> items=repository.findByArtistId(artist.getId());
+//		model.addAttribute("items",items);
+//		}
+//		return "client/item/list";
+//	}
+	
+//	@PostMapping("/searchMonth")
+//	public String month(Model model,Integer releaseDate) {
+//		
+//		List<Item>item=repository.findByReleaseDateContaining(releaseDate);
+//		model.addAttribute("item",item);
+//		
+//		return "client/item/list";
+//	}
+	
 //		}
 //		return "client/item/list";
 //	}
 //	
-}
