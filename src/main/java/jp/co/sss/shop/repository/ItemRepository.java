@@ -71,8 +71,8 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 
 	List<Item> findByNameContaining(String name);
 
-
-	List<Item> findByArtistId(Integer integer);
+//
+//	List<Item> findByArtistId(List<Artist> artist);
 
 	List<Item> findByReleaseDateContaining(Integer releaseDate);
 
