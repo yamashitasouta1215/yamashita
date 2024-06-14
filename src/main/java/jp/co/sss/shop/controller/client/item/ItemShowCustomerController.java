@@ -32,6 +32,7 @@ public class ItemShowCustomerController {
 	public String cd(String name,Model model,Pageable pageable,HttpSession session) {
 		
 		
+
 		
 		
 		if(name==null) {
@@ -183,3 +184,4 @@ public class ItemShowCustomerController {
 //	}
 //	
 }
+
