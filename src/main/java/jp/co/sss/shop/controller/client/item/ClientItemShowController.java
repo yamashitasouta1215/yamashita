@@ -66,7 +66,7 @@ public class ClientItemShowController {
 				model.addAttribute("items",itemList);
 				model.addAttribute("pageNum",1);
 			}else {
-				model.addAttribute("items",itemRepository.findByCategoryOrderByReleaseDateDesc(category));
+				model.addAttribute("items",itemRepository.findByCategoryOrderByReleaseDateDesc(category,Constant.NOT_DELETED));
 			}
 		}else {
 			if(categoryId==0) {
