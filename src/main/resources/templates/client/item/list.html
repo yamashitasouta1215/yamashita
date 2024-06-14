@@ -2,9 +2,12 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	th:replace="~{common/layout_5block :: layout(~{::title},~{::body/content()})}">
 
+
+
 <head>
 	<title th:text="#{item}+#{title.list}+' | '+ #{shop.title}"> </title>
 	<meta charset="UTF-8" />
+	
 </head>
 
 <body th:object="${loginForm}" class="user item_list">
@@ -25,29 +28,263 @@
 
 
 	<th:block th:if="!${#lists.isEmpty(items)}">
-		<table class="list_table item_detail">
-			<tr>
-				<th th:text="#{data.item.image}"></th>
-				<th th:text="#{data.item.name}"></th>
-			<th th:text=#{date.artist.name}></th>
-				<th th:text="#{data.item.price}"></th>
-				<th th:text="#{category}"></th>
+			<table class="list_table item_detail">
+					
+				<tr>
+					<th th:text="#{data.item.image}"></th>
+					<th th:text="#{data.item.name}"></th>
+					<th th:text=#{date.artist.name}></th>
+					<th th:text="#{data.item.price}"></th>
+					<th th:text="#{category}"></th>
 			
-			</tr>
-			
-			<tr th:each="item:${items}">
-				<td class="image">
-					<img th:src="@{/static/images/{image}(image=${item.image})}" th:if="${item.image != null}" />
-					<img th:src="@{/static/images/common/no_image.jpg}" th:if="${item.image == null}" />
+				</tr>
+									
+				<tr th:each="item:${items}">
+					
+					<td class="image">
+						<img th:src="@{/images/{image}(image=${item.image})}" th:if="${item.image != null}" />
+						<img th:src="@{/images/common/no_image.jpg}" th:if="${item.image == null}" />
 
-				</td>
-				<td><a th:href="@{/client/item/detail/{id}(id=${item.id})}" th:text="${item.name}"></a></td>
-				<td th:text="${item.artist.name}"></td>
-				<td th:text="${item.price}"></td>
-				<td th:text="${item.category.name}"></td>
-			</tr>
-		</table>
+					</td>
+					<td><a th:href="@{/client/item/detail/{id}(id=${item.id})}" th:text="${item.name}"></a></td>
+					<td th:text="${item.artist.name}"></td>
+					<td th:text="${item.price}"></td>
+					<td th:text="${item.category.name}"></td>
+				</tr>
+					 
+			</table>
 	</th:block>
+	
+	<div th:if="${pageNum}==1" th:unless="${#lists.isEmpty(items)}">
+			<!--/* ページング */-->
+	<ul class="paging" th:if="!${#lists.isEmpty(categories)}">
+		<!-- 先頭のページリンク表示処理 --> 
+		<!--1ページ目の場合はクラスの名前をdisabledに設定-->
+		<li th:class="${pages.first} ? 'disabled':''">
+			<!--1ページ目の場合は<<を表示-->
+			<span th:if="${pages.first}">&lt;&lt;</span>
+			<!-- 1ページ目ではない場合、１ページ目のリンクを表示-->
+			<a th:if="${not pages.first}" th:href="@{${url}(page=0)}">&lt;&lt;</a>
+		</li>
+		<!--ページ番号指定のリンク表示処理--> 
+		<!-- #numbersのsequence()メソッドを使用して配列を作成し、被繰り返し変数として利用 -->
+		<li th:each='i : ${#numbers.sequence(0, pages.totalPages-1)}' th:class="(${i}==${pages.number})? 'active' : ''">
+			<span th:if='${i}==${pages.number}' th:text='${i+1}'>1</span>
+			<a th:if='${i}!=${pages.number}' th:href="@{${url}(page=${i})}">
+				<span th:text='${i+1}'>1</span>
+			</a>
+		</li>
+		<!-- 末尾ページのリンク --> 
+		<!--1ページ目の場合はクラスの名前をdisabledに設定--> 
+		<li th:class="${pages.last} ? 'disabled':''">
+			<!--末尾のページの場合は>>を表示-->
+			<span th:if="${pages.last}">&gt;&gt;</span>
+			<!-- 末尾ページではない場合、末尾ページへのリンクを表示-->
+			<a th:if="${not pages.last}" th:href="@{${url}(page=(${pages.totalPages}-1))}">&gt;&gt;</a>
+		</li>
+	</ul>
+		</div>
+	
+	<div th:if="${pageNum}==2" th:unless="${#lists.isEmpty(items)}">
+					<!--/* ページング */-->
+	<ul class="paging" th:if="!${#lists.isEmpty(categories)}">
+		<!-- 先頭のページリンク表示処理 --> 
+		<!--1ページ目の場合はクラスの名前をdisabledに設定-->
+		<li th:class="${pages.first} ? 'disabled':''">
+			<!--1ページ目の場合は<<を表示-->
+			<span th:if="${pages.first}">&lt;&lt;</span>
+			<!-- 1ページ目ではない場合、１ページ目のリンクを表示-->
+			<a th:if="${not pages.first}" th:href="@{${url}(page=0)}">&lt;&lt;</a>
+		</li>
+		<!--ページ番号指定のリンク表示処理--> 
+		<!-- #numbersのsequence()メソッドを使用して配列を作成し、被繰り返し変数として利用 -->
+		<li th:each='i : ${#numbers.sequence(0, pages.totalPages-1)}' th:class="(${i}==${pages.number})? 'active' : ''">
+			<span th:if='${i}==${pages.number}' th:text='${i+1}'>1</span>
+			<a th:if='${i}!=${pages.number}' th:href="@{${url}(page=${i})}">
+				<span th:text='${i+1}'>1</span>
+			</a>
+		</li>
+		<!-- 末尾ページのリンク --> 
+		<!--1ページ目の場合はクラスの名前をdisabledに設定--> 
+		<li th:class="${pages.last} ? 'disabled':''">
+			<!--末尾のページの場合は>>を表示-->
+			<span th:if="${pages.last}">&gt;&gt;</span>
+			<!-- 末尾ページではない場合、末尾ページへのリンクを表示-->
+			<a th:if="${not pages.last}" th:href="@{${url}(page=(${pages.totalPages}-1))}">&gt;&gt;</a>
+		</li>
+	</ul>
+		</div>
+	
+	
+
+	
+	<div th:if="${pageNum}==3" th:unless="${#lists.isEmpty(items)}">
+			<ul class="paging">
+				<li>
+					<span th:if="${pages.first}">&lt;&lt;</span>
+					<a th:if="${not pages.first}"th:href="@{/searchCD(page=0)}">&lt;&lt;</a>
+				</li>
+				
+				<li th:each="i:${#numbers.sequence(0,pages.totalPages-1)}">
+					<span th:if="${i}==${pages.number}"th:text="${i+1}"></span>
+					<a th:if="${i}!=${pages.number}"th:href="@{/searchCD(page=${i})}">
+						<span th:text="${i+1}"></span>
+					</a>
+				</li>
+				
+				<li>
+					<span th:if="${pages.last}">&gt;&gt;</span>
+					<a th:if="${not pages.last}"th:href="@{/searchCD(page=(${pages.totalPages}-1))}">&gt;&gt;</a>
+				</li>
+			</ul>
+		</div>
+		
+		<div th:if="${pageNum}==4" th:unless="${#lists.isEmpty(items)}">
+			<ul class="paging">
+				<li>
+					<span th:if="${pages.first}">&lt;&lt;</span>
+					<a th:if="${not pages.first}"th:href="@{/searchPrice(page=0)}">&lt;&lt;</a>
+				</li>
+				
+				<li th:each="i:${#numbers.sequence(0,pages.totalPages-1)}">
+					<span th:if="${i}==${pages.number}"th:text="${i+1}"></span>
+					<a th:if="${i}!=${pages.number}"th:href="@{/searchPrice(page=${i})}">
+						<span th:text="${i+1}"></span>
+					</a>
+				</li>
+				
+				<li>
+					<span th:if="${pages.last}">&gt;&gt;</span>
+					<a th:if="${not pages.last}"th:href="@{/searchPrice(page=(${pages.totalPages}-1))}">&gt;&gt;</a>
+				</li>
+			</ul>
+		</div>
+		
+		<div th:if="${pageNum}==5" th:unless="${#lists.isEmpty(items)}">
+			<ul class="paging">
+				<li>
+					<span th:if="${pages.first}">&lt;&lt;</span>
+					<a th:if="${not pages.first}"th:href="@{/searchPrice(page=0)}">&lt;&lt;</a>
+				</li>
+				
+				<li th:each="i:${#numbers.sequence(0,pages.totalPages-1)}">
+					<span th:if="${i}==${pages.number}"th:text="${i+1}"></span>
+					<a th:if="${i}!=${pages.number}"th:href="@{/searchPrice(page=${i})}">
+						<span th:text="${i+1}"></span>
+					</a>
+				</li>
+				
+				<li>
+					<span th:if="${pages.last}">&gt;&gt;</span>
+					<a th:if="${not pages.last}"th:href="@{/searchPrice(page=(${pages.totalPages}-1))}">&gt;&gt;</a>
+				</li>
+			</ul>
+		</div>
+		
+		<div th:if="${pageNum}==6" th:unless="${#lists.isEmpty(items)}">
+			<ul class="paging">
+				<li>
+					<span th:if="${pages.first}">&lt;&lt;</span>
+					<a th:if="${not pages.first}"th:href="@{/searchPrice(page=0)}">&lt;&lt;</a>
+				</li>
+				
+				<li th:each="i:${#numbers.sequence(0,pages.totalPages-1)}">
+					<span th:if="${i}==${pages.number}"th:text="${i+1}"></span>
+					<a th:if="${i}!=${pages.number}"th:href="@{/searchPrice(page=${i})}">
+						<span th:text="${i+1}"></span>
+					</a>
+				</li>
+				
+				<li>
+					<span th:if="${pages.last}">&gt;&gt;</span>
+					<a th:if="${not pages.last}"th:href="@{/searchPrice(page=(${pages.totalPages}-1))}">&gt;&gt;</a>
+				</li>
+			</ul>
+		</div>
+		
+		<div th:if="${pageNum}==7" th:unless="${#lists.isEmpty(items)}">
+			<ul class="paging">
+				<li>
+					<span th:if="${pages.first}">&lt;&lt;</span>
+					<a th:if="${not pages.first}"th:href="@{/searchPrice(page=0)}">&lt;&lt;</a>
+				</li>
+				
+				<li th:each="i:${#numbers.sequence(0,pages.totalPages-1)}">
+					<span th:if="${i}==${pages.number}"th:text="${i+1}"></span>
+					<a th:if="${i}!=${pages.number}"th:href="@{/searchPrice(page=${i})}">
+						<span th:text="${i+1}"></span>
+					</a>
+				</li>
+				
+				<li>
+					<span th:if="${pages.last}">&gt;&gt;</span>
+					<a th:if="${not pages.last}"th:href="@{/searchPrice(page=(${pages.totalPages}-1))}">&gt;&gt;</a>
+				</li>
+			</ul>
+		</div>
+		
+		<div th:if="${pageNum}==8" th:unless="${#lists.isEmpty(items)}">
+			<ul class="paging">
+				<li>
+					<span th:if="${pages.first}">&lt;&lt;</span>
+					<a th:if="${not pages.first}"th:href="@{/searchPrice(page=0)}">&lt;&lt;</a>
+				</li>
+				
+				<li th:each="i:${#numbers.sequence(0,pages.totalPages-1)}">
+					<span th:if="${i}==${pages.number}"th:text="${i+1}"></span>
+					<a th:if="${i}!=${pages.number}"th:href="@{/searchPrice(page=${i})}">
+						<span th:text="${i+1}"></span>
+					</a>
+				</li>
+				
+				<li>
+					<span th:if="${pages.last}">&gt;&gt;</span>
+					<a th:if="${not pages.last}"th:href="@{/searchPrice(page=(${pages.totalPages}-1))}">&gt;&gt;</a>
+				</li>
+			</ul>
+		</div>
+		
+		<div th:if="${pageNum}==9" th:unless="${#lists.isEmpty(items)}">
+			<ul class="paging">
+				<li>
+					<span th:if="${pages.first}">&lt;&lt;</span>
+					<a th:if="${not pages.first}"th:href="@{/searchPrice(page=0)}">&lt;&lt;</a>
+				</li>
+				
+				<li th:each="i:${#numbers.sequence(0,pages.totalPages-1)}">
+					<span th:if="${i}==${pages.number}"th:text="${i+1}"></span>
+					<a th:if="${i}!=${pages.number}"th:href="@{/searchPrice(page=${i})}">
+						<span th:text="${i+1}"></span>
+					</a>
+				</li>
+				
+				<li>
+					<span th:if="${pages.last}">&gt;&gt;</span>
+					<a th:if="${not pages.last}"th:href="@{/searchPrice(page=(${pages.totalPages}-1))}">&gt;&gt;</a>
+				</li>
+			</ul>
+		</div>
+		
+		<div th:if="${pageNum}==10" th:unless="${#lists.isEmpty(items)}">
+			<ul class="paging">
+				<li>
+					<span th:if="${pages.first}">&lt;&lt;</span>
+					<a th:if="${not pages.first}"th:href="@{/searchPrice(page=0)}">&lt;&lt;</a>
+				</li>
+				
+				<li th:each="i:${#numbers.sequence(0,pages.totalPages-1)}">
+					<span th:if="${i}==${pages.number}"th:text="${i+1}"></span>
+					<a th:if="${i}!=${pages.number}"th:href="@{/searchPrice(page=${i})}">
+						<span th:text="${i+1}"></span>
+					</a>
+				</li>
+				
+				<li>
+					<span th:if="${pages.last}">&gt;&gt;</span>
+					<a th:if="${not pages.last}"th:href="@{/searchPrice(page=(${pages.totalPages}-1))}">&gt;&gt;</a>
+				</li>
+			</ul>
+		</div>
 
 </body>
 

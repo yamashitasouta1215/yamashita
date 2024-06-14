@@ -3,13 +3,13 @@
 	th:replace="~{common/layout_5block :: layout(~{::title},~{::body/content()})}">
 	
 <head>
-	<title th:text="#{user}+#{title.input}+' | '+ #{shop.title}"> </title>
+	<title th:text="#{user}+#{title.input.new}+' | '+ #{shop.title}"> </title>
 	<meta charset="UTF-8" />
 </head>
 
-<body class="admin user_regist_input_client">
+<body class="client user_regist_input_client">
 	
-	<h2 th:class="title" th:text="#{user}+#{title.input}"></h2>
+	<h2 th:class="title" th:text="#{user}+#{title.input.new}"></h2>
 	
 	<p th:class="input_message" th:text="#{msg.regist.input}"></p>
 	
@@ -23,7 +23,8 @@
 				</ul>
 				<br />
 			</th:block>
-	
+			
+			
 			<ul class="input_list">
 				<li>
 					<label><span class="input_title">[[#{userForm.email}]]</span></label>
@@ -61,10 +62,10 @@
 		
 		</form>
 		
-		<form th:action="@{/admin/user/list}" method="post">
+		<form th:action="@{/}" method="post">
 			<input type="submit" value="戻る" class="back_button" />
 		</form>
-<!--	aa-->
+
 	</div>
 </body>
 </html>

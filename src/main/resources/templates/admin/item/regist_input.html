@@ -31,9 +31,25 @@
 					<label><span class="input_title">[[#{itemForm.price}]]</span></label>
 					<input type="text" th:field="*{price}" />
 				</li>
+				
+				<li>
+					<label><span class="input_title">[[#{itemForm.release_date}]]</span></label>
+					<input type="date" th:field="*{releaseDate}" />
+				</li>
+				
 				<li>
 					<label><span class="input_title">[[#{itemForm.stock}]]</span></label>
 					<input type="text" th:field="*{stock}" />
+				</li>
+				
+				<li>
+					<label><span class="input_title">[[#{data.artist}]]</span></label>
+					<select name="artistId">
+						<option th:each="artist: ${artist}" th:value="${artist.id}"
+							th:text="${artist.name}" th:selected="${artist.id} == *{artistId}">
+						</option>
+					</select>
+					<br>
 				</li>
 				
 				<li>

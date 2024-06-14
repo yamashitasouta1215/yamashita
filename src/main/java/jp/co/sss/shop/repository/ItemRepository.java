@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import jp.co.sss.shop.entity.Artist;
 import jp.co.sss.shop.entity.Category;
 import jp.co.sss.shop.entity.Item;
 
@@ -48,11 +49,11 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 	public Item findByNameAndDeleteFlag(String name, int notDeleted);
 	
 	//トップページ
-	@Query("SELECT i FROM OrderItem o INNER JOIN Item i on o.item.id=i.id GROUP BY i  ORDER BY COUNT(i) DESC,i.id ASC")
-	public List<Item>findAllByQuery();
+	@Query("SELECT i FROM OrderItem o INNER JOIN Item i on o.item.id=i.id WHERE i.deleteFlag =:deleteFlagGROUP BY i  ORDER BY COUNT(i) DESC,i.id ASC")
+	public Page<Item>findAllByQueryAndDeleteFlag(@Param(value = "deleteFlag")int deleteFlag,Pageable pageable);
 
 	//新着順表示
-	List<Item> findByOrderByReleaseDateDesc();
+	Page<Item> findByOrderByReleaseDateDesc(Pageable pageable);
 
 	//売れ筋順表示かつカテゴリ別表示
 	@Query("SELECT i FROM OrderItem o INNER JOIN Item i on o.item.id=i.id WHERE i.category.id =:categoryId GROUP BY i  ORDER BY COUNT(i) DESC,i.id ASC")
@@ -63,9 +64,26 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 	List<Item> findByCategoryOrderByReleaseDateDesc(Category category);
 
 
+
+	Page<Item> findByNameContaining(String name,Pageable pageable);
+	
+	
+
 	List<Item> findByNameContaining(String name);
 
-	List<Item> findByArtistId(Integer artistId);
+
+	List<Item> findByArtistId(Integer integer);
+
+	List<Item> findByReleaseDateContaining(Integer releaseDate);
+
+	List<Item> findByArtistName(Artist artist);
+
+
+	Page<Item> findByPriceLessThanOrderByPrice(Integer price,Pageable pageable);
+
+	Page<Item> findByPriceBetweenOrderByPrice(int i, int j,Pageable pageable);
+
+	Page<Item> findByPriceGreaterThanOrderByPrice(int i,Pageable pageable);
 
 
 	

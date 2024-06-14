@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.servlet.http.HttpSession;
 import jp.co.sss.shop.bean.BasketBean;
@@ -27,6 +28,30 @@ public class ClientBasketController {
 	//かご内の一覧表示
 	@RequestMapping(path ="/client/basket/list", method = RequestMethod.GET)
 	public String ShowBasket() {
+		
+//		int i =  (int) session.getAttribute("i");
+//		
+//		if (i == 0) {
+//			@SuppressWarnings("unchecked")
+//			List<BasketBean> basketItemList = (List<BasketBean>) session.getAttribute("basketBeans");
+//			int id = (int) session.getAttribute("id");
+//			//ストックがいくつあるのか確認
+//			Item itemStock =itemRepository.getReferenceById(id);
+//			int itemStockNum = itemStock.getStock();
+//			
+//			for (BasketBean itemInBasket : basketItemList) {
+//				if (itemInBasket.getId() == id) {
+//				int newOrderNum = itemInBasket.getOrderNum();
+//				
+//					//注文数が在庫を上回るとき
+//					if (newOrderNum > itemStockNum) {
+//						session.setAttribute("itemNameListLessThan", itemStock.getName());
+//					} 
+//				}
+//			}
+//			
+//			session.removeAttribute("id");
+//		}
 		
 //		@SuppressWarnings("unchecked")
 //		List<BasketBean> basketItemList = (List<BasketBean>) session.getAttribute("basketBeans");
@@ -50,13 +75,15 @@ public class ClientBasketController {
 	
 	//商品のかごへの追加
 	@RequestMapping(path ="/client/basket/add", method = RequestMethod.POST)
-	public String addBasket(Integer id, Model model) {
+	public String addBasket(Integer id, Model model, RedirectAttributes re) {
 		//セッションスコープ内にリスト要素がない場合、リストを作る
 		@SuppressWarnings("unchecked")
 		List<BasketBean> basketItemList = (List<BasketBean>) session.getAttribute("basketBeans");
 		if (basketItemList == null) {
 			basketItemList = new ArrayList<>();
 		}
+		
+		
 		
 //		int id = (int) session.getAttribute("id");
 		
@@ -82,11 +109,19 @@ public class ClientBasketController {
 						itemAddToBasket = itemInBasket;
 						int newOrderNum = itemAddToBasket.getOrderNum() + 1;
 						
+						//小計の計算
+						int price = itemAddToBasket.getPrice();
+						int priceSum = itemAddToBasket.getPriceSum();
+						
+						
 						//注文数が在庫を上回るとき
 						if (newOrderNum > itemStockNum) {
-							model.addAttribute("itemNameListLessThan", itemStock.getName());
+//							session.setAttribute("id", id);
+//							session.setAttribute("i", 0);
+							re.addFlashAttribute("itemNameListLessThan", itemAddToBasket.getName());
 						} else {
 							itemAddToBasket.setOrderNum(newOrderNum);
+							itemAddToBasket.setPriceSum(priceSum + price);
 						}
 						existItemBasket = true;
 					}
@@ -97,7 +132,7 @@ public class ClientBasketController {
 			if (!existItemBasket) {
 				
 				Item item = itemRepository.getReferenceById(id);
-				itemAddToBasket = new BasketBean(item.getId(), item.getName(), item.getStock(),1);
+				itemAddToBasket = new BasketBean(item.getId(), item.getName(), item.getStock(),1, item.getPrice());
 				//買い物かごリストに追加
 				basketItemList.add(itemAddToBasket);
 			}
@@ -108,22 +143,30 @@ public class ClientBasketController {
 			//セッションスコープにリスト情報を追加
 			session.setAttribute("basketBeans", basketItemList);
 			
-			
+			//合計金額を出す
+			int priceSum = 0;
+			for (BasketBean itemInBasket : basketItemList) {
+				int orderNum = itemInBasket.getOrderNum();
+				int price = itemInBasket.getPrice();
+				priceSum = priceSum + (orderNum * price);
+			}
+			session.setAttribute("priceSum", priceSum);
 //		} else {
 			//在庫がない場合
 //			model.addAttribute("itemNameListZero", itemStock.getName());
 //		}
 		
-		session.removeAttribute("id");
+//		session.removeAttribute("id");
 			
-		return "client/basket/list";
+		return "redirect:/client/basket/list";
 	}
 	
 	//かご内の全件削除
 	@RequestMapping(path ="/client/basket/allDelete", method = RequestMethod.POST)
 	public String allDelete() {
 		session.removeAttribute("basketBeans");
-		return "client/basket/list";
+		session.removeAttribute("priceSum");
+		return "redirect:/client/basket/list";
 	}
 	
 	//選択したアイテムの削除
@@ -139,6 +182,7 @@ public class ClientBasketController {
 		BasketBean itemAddToBasket = null;
 		
 		int i = 0;
+		int priceSum = (int) session.getAttribute("priceSum");
 		
 		for (BasketBean itemInBasket : basketItemList) {
 		
@@ -146,6 +190,15 @@ public class ClientBasketController {
 				itemAddToBasket = itemInBasket;
 				int newOrderNum = itemAddToBasket.getOrderNum() - 1;
 				itemAddToBasket.setOrderNum(newOrderNum);
+				
+				//小計計算
+				int price = itemAddToBasket.getPrice();
+				int priceS = itemAddToBasket.getPriceSum();
+				itemAddToBasket.setPriceSum(priceS - price);
+				
+				//合計金額から減らした金額を引く
+				priceSum = priceSum - itemAddToBasket.getPrice();
+				session.setAttribute("priceSum", priceSum);
 				
 				//注文数が0になった場合
 				if (itemAddToBasket.getOrderNum() == 0) {
@@ -161,6 +214,7 @@ public class ClientBasketController {
 		boolean boo =  basketItemList.isEmpty();
 		
 		if (boo == true) {
+			session.removeAttribute("priceSum");
 			session.removeAttribute("basketBeans");
 		} else {
 			//要素を反転する
@@ -171,7 +225,7 @@ public class ClientBasketController {
 		}
 		
 		
-		return "client/basket/list";
+		return "redirect:/client/basket/list";
 	}
 	
 	//削除ボタンが選択された場合　商品の削除
@@ -184,10 +238,20 @@ public class ClientBasketController {
 		Collections.reverse(basketItemList);
 		
 		int i = 0;
+		int priceSum = (int) session.getAttribute("priceSum");
 		
 		for (BasketBean itemInBasket : basketItemList) {
 		
 			if (itemInBasket.getId() == id) {
+				
+				//削除したリストの小計を計算する
+				BasketBean bean = basketItemList.get(i);
+				int price = bean.getPrice();
+				int order = bean.getOrderNum();
+				priceSum = priceSum - (price * order);
+				
+				session.setAttribute("priceSum", priceSum);
+				
 				basketItemList.remove(i);
 				break;
 			}
@@ -199,6 +263,7 @@ public class ClientBasketController {
 		boolean boo =  basketItemList.isEmpty();
 		
 		if (boo == true) {
+			session.removeAttribute("priceSum");
 			session.removeAttribute("basketBeans");
 		} else {
 			//要素を反転する
@@ -207,7 +272,7 @@ public class ClientBasketController {
 			//セッションスコープにリスト情報を追加
 			session.setAttribute("basketBeans", basketItemList);
 		}
-		return "client/basket/list";
+		return "redirect:/client/basket/list";
 	}
 	
 

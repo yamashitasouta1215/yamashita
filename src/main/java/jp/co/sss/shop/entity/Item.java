@@ -1,5 +1,6 @@
 package jp.co.sss.shop.entity;
 
+
 import java.sql.Date;
 import java.util.List;
 
@@ -66,6 +67,9 @@ public class Item {
 	@Column(insertable = false)
 	private Integer deleteFlag;
 	
+	/**
+	 * 発売日
+	 */
 	@Column
 	private Date releaseDate;
 
@@ -303,11 +307,11 @@ public class Item {
 		this.artist = artist;
 	}
 	
-	public Date getreleaseDate() {
+	public Date getReleaseDate() {
 		return releaseDate;
 	}
 
-	public void setreleaseDate(Date releaseDate) {
-		this.releaseDate = releaseDate;
+	public void setReleaseDate(Date date) {
+		this.releaseDate = date;
 	}
 }

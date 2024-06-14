@@ -21,6 +21,17 @@
 				<span class="input_title">[[#{itemForm.price}]]</span>
 				<span class="input_value" th:text="*{price}"></span>
 			</li>
+			
+			<li>
+				<span class="input_title">[[#{itemForm.release_date}]]</span>
+				<span class="input_value" th:text="*{#dates.format(releaseDate, 'yyyy/MM/dd')}"></span>
+			</li>
+			
+			<li>
+				<span class="input_title">[[#{data.artist}]]</span>
+				<span class="input_value" th:text="*{artistName}"></span>
+			</li>
+			
 			<li>
 				<span class="input_title">[[#{data.category}]]</span>
 				<span class="input_value" th:text="*{categoryName}"></span>
@@ -36,7 +47,7 @@
 			<li>
 				<span class="input_title">[[#{data.item.image}]]</span>
 				<span class="input_value">
-					<img th:if="*{image != null}" th:src="@{/images/{itemFileName}(itemFileName=*{image})}"></img>
+					<img th:if="*{image != null}" th:src="@{/static/images/{itemFileName}(itemFileName=*{image})}"></img>
 					<img th:if="*{image == null}"th:src="@{/images/common/no_image.jpg}"></img>
 				</span>
 			</li>
