@@ -29,9 +29,10 @@ public class ItemShowCustomerController {
 	
 	
 	
-	//追加機能　CD検索
+//	//追加機能　CD検索
 	@GetMapping("/searchCD")
 	public String cd(String name,Model model,Pageable pageable,HttpSession session) {
+		
 		
 		if(name==null) {
 			name=(String) session.getAttribute("cd");
@@ -49,17 +50,11 @@ public class ItemShowCustomerController {
 		return "client/item/list";
 	}
 	
-//	@PostMapping("/searchMonth")
-//	public String month(Model model,Integer releaseDate) {
-//		
-//		List<Item>item=repository.findByReleaseDateContaining(releaseDate);
-//		model.addAttribute("item",item);
-//		
-//		return "client/item/list";
-//	}
+
 	
 	@GetMapping("/searchPrice")
 	public String month(Model model,Integer price,HttpSession session,Pageable pageable) {
+	
 		if(price==null) {
 			price=(int) session.getAttribute("pri");
 		}else {
@@ -148,5 +143,14 @@ public class ItemShowCustomerController {
 		}
 		return "client/item/list";
 	}
+	
+//	@PostMapping("/searchMonth")
+//	public String month(Model model,Integer releaseDate) {
+//		
+//		List<Item>item=repository.findByReleaseDateContaining(releaseDate);
+//		model.addAttribute("item",item);
+//		
+//		return "client/item/list";
+//	}
 	
 }
