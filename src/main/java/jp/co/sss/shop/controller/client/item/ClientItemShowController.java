@@ -60,7 +60,7 @@ public class ClientItemShowController {
 		category.setId(categoryId);
 		if(sortType==1) {
 			if(categoryId==0){
-				Page<Item>pageList = itemRepository.findByOrderByReleaseDateDesc(pageable);
+				Page<Item>pageList = itemRepository.findByDeleteFlagOrderByReleaseDateDesc(Constant.NOT_DELETED,pageable);
 				List<Item>itemList = pageList.getContent();
 				model.addAttribute("pages",pageList);
 				model.addAttribute("items",itemList);
