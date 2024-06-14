@@ -29,7 +29,7 @@
 				<span th:case="4"><p th:text=#{paymethod.emoney.str}></p></span>
 				<span th:case="5"><p th:text=#{paymethod.convenience.str}></p></span>
 			</td>
-			<td th:text="${order.total}" class="text"></td>
+			<td th:text="${order.total}+円" class="text"></td>
 		</tr>
 	</table>
 
