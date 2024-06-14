@@ -55,7 +55,7 @@
 			</table>
 	</th:block>
 	
-	<div th:if="${pageNum}==1">
+	<div th:if="${pageNum}==1" th:unless="${#lists.isEmpty(items)}">
 			<!--/* ページング */-->
 	<ul class="paging" th:if="!${#lists.isEmpty(categories)}">
 		<!-- 先頭のページリンク表示処理 --> 
@@ -85,7 +85,7 @@
 	</ul>
 		</div>
 	
-	<div th:if="${pageNum}==2">
+	<div th:if="${pageNum}==2" th:unless="${#lists.isEmpty(items)}">
 					<!--/* ページング */-->
 	<ul class="paging" th:if="!${#lists.isEmpty(categories)}">
 		<!-- 先頭のページリンク表示処理 --> 
@@ -118,7 +118,7 @@
 	
 
 	
-	<div th:if="${pageNum}==3">
+	<div th:if="${pageNum}==3" th:unless="${#lists.isEmpty(items)}">
 			<ul class="paging">
 				<li>
 					<span th:if="${pages.first}">&lt;&lt;</span>
@@ -139,7 +139,7 @@
 			</ul>
 		</div>
 		
-		<div th:if="${pageNum}==4">
+		<div th:if="${pageNum}==4" th:unless="${#lists.isEmpty(items)}">
 			<ul class="paging">
 				<li>
 					<span th:if="${pages.first}">&lt;&lt;</span>
@@ -160,7 +160,7 @@
 			</ul>
 		</div>
 		
-		<div th:if="${pageNum}==5">
+		<div th:if="${pageNum}==5" th:unless="${#lists.isEmpty(items)}">
 			<ul class="paging">
 				<li>
 					<span th:if="${pages.first}">&lt;&lt;</span>
@@ -181,7 +181,7 @@
 			</ul>
 		</div>
 		
-		<div th:if="${pageNum}==6">
+		<div th:if="${pageNum}==6" th:unless="${#lists.isEmpty(items)}">
 			<ul class="paging">
 				<li>
 					<span th:if="${pages.first}">&lt;&lt;</span>
@@ -202,7 +202,7 @@
 			</ul>
 		</div>
 		
-		<div th:if="${pageNum}==7">
+		<div th:if="${pageNum}==7" th:unless="${#lists.isEmpty(items)}">
 			<ul class="paging">
 				<li>
 					<span th:if="${pages.first}">&lt;&lt;</span>
@@ -223,7 +223,7 @@
 			</ul>
 		</div>
 		
-		<div th:if="${pageNum}==8">
+		<div th:if="${pageNum}==8" th:unless="${#lists.isEmpty(items)}">
 			<ul class="paging">
 				<li>
 					<span th:if="${pages.first}">&lt;&lt;</span>
@@ -244,7 +244,7 @@
 			</ul>
 		</div>
 		
-		<div th:if="${pageNum}==9">
+		<div th:if="${pageNum}==9" th:unless="${#lists.isEmpty(items)}">
 			<ul class="paging">
 				<li>
 					<span th:if="${pages.first}">&lt;&lt;</span>
@@ -265,7 +265,7 @@
 			</ul>
 		</div>
 		
-		<div th:if="${pageNum}==10">
+		<div th:if="${pageNum}==10" th:unless="${#lists.isEmpty(items)}">
 			<ul class="paging">
 				<li>
 					<span th:if="${pages.first}">&lt;&lt;</span>
