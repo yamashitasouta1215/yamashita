@@ -17,7 +17,7 @@
 					<img th:src="@{/images/{image}(image=*{image})}"></img>
 				</span>
 				<span th:if="*{image == null}">
-					<img th:src="@/images/common/no_image.jpg}"></img>
+					<img th:src="@{/images/common/no_image.jpg}" ></img>
 				</span>
 			</div>
 			<dl class="item_detail_list">
