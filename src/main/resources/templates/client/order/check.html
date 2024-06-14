@@ -51,7 +51,9 @@
 	
 		<tr>
 			<td colspan="4"></td>
+				<th:block th:if="${sizeNull != null}">
 			<td class="total">[[#{data.total}]]</td>
+				</th:block>
 			<td class="total" th:text="${total}"></td>
 		</tr>
 	</table>
@@ -88,17 +90,29 @@
 				</td>
 			</tr>
 		</table>
+		
+		<th:block th:if="${sizeNull != null}">
 		<form th:action="@{/client/order/complete}" method="post">
 			<input class="send_button" type="submit" value="ご注文の確定" th:if="${orderItemBeans != null}"/>
 		</form>
 		<form th:action="@{/client/order/payment/back/2}" method="post" class="update">
 			<input type="submit" value="戻る" class="back_button" />
 		</form>
+		</th:block>
+		
+		
+<!--		<th:block th:unless="${itemNameListZero == null || orderItemBeans == null || sizeNull == null}">-->
+		<form th:action="@{/client/order/back}" method="post">
+			<input type="submit" value="買い物かごへ戻る" class="back_button" />
+		</form>
+<!--		</th:block>-->
+		
+		
+		
 	</div>
-	</th:block>
 	
 	<!-- 注文情報がない場合、トップへ戻る -->
-	<th:block  th:unless="${orderItemBeans != null}">
+	<th:block  th:unless="${orderItemBeans != null }">
 	<p class="complete_link"><a th:href="@{/}" th:text="#{msg.back.to.top}"></a></p>	
 	</th:block>
 </body>

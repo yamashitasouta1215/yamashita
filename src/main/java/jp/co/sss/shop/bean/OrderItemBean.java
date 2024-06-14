@@ -133,7 +133,9 @@ public class OrderItemBean {
 	}
 
 	
-
+/*
+ *アーティスト名追加のため
+ */
 	public String getArtistName() {
 		return artistName;
 	}
