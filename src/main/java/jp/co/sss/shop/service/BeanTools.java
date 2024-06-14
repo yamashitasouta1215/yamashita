@@ -134,6 +134,7 @@ public class BeanTools {
 		form.setCategoryId(entity.getCategory().getId());
 		form.setCategoryName(entity.getCategory().getName());
 		form.setArtistName(entity.getArtist().getName());
+		form.setArtistId(entity.getArtist().getId());
 		//	form.setPrice(entity.getPrice());
 		//	form.setStock(entity.getStock());
 
