@@ -24,6 +24,7 @@ import jp.co.sss.shop.entity.Order;
 import jp.co.sss.shop.entity.OrderItem;
 import jp.co.sss.shop.entity.User;
 import jp.co.sss.shop.form.OrderForm;
+import jp.co.sss.shop.repository.ArtistRepository;
 import jp.co.sss.shop.repository.ItemRepository;
 import jp.co.sss.shop.repository.OrderItemRepository;
 import jp.co.sss.shop.repository.OrderRepository;
@@ -49,17 +50,20 @@ public class ClientOrderRegistController {
 	@Autowired
 	UserRepository userRepository;
 	
+	@Autowired
+	ArtistRepository artistRepository;
 	
 	/*
 	 * 住所入力処理→買い物かごへ
 	 * 「戻る」ボタン押下時
 	 */
+
 	@RequestMapping(path="/client/basket/list",method=RequestMethod.POST)
 	public String basketback() {
+		
 		return "client/basket/list";
 	}
-	
-	
+
 	/*
 	 * 処理１
 	 */
@@ -178,7 +182,7 @@ public class ClientOrderRegistController {
 	/*
 	 * 処理６
 	 */
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "unused" })
 	@RequestMapping(path="/client/order/check",method=RequestMethod.GET)
 	public String check(OrderForm form,Model model) {
 
@@ -202,7 +206,7 @@ public class ClientOrderRegistController {
 		
 		 
 		 List<OrderItemBean> orderitemBeanList = new ArrayList<OrderItemBean>();
-			
+//		 orderitemBeanList = null;
 		 /*
 		  * 買い物かごの種類分だけ
 		  */
@@ -215,86 +219,134 @@ public class ClientOrderRegistController {
 			 */
 			items=itemRepository.getReferenceById(basket.getId());
 		
+			String itemName = items.getName();
+			
 			int price = items.getPrice();
-			
-			
-			
 			int orderNum = basket.getOrderNum();
-			
 			int stock = items.getStock();
+			
+			OrderItemBean orderitemBean = new OrderItemBean();
 			/*
 			 * 在庫数との照らし合わせ
 			 */
+			
+			
+			
 				if(stock == 0) {
 				
 					/*
 					 * 在庫0のため商品削除
 					 */
-						model.addAttribute("itemNameListZero");
-						basketBean.remove(i);
+						model.addAttribute("itemNameListZero",itemName);
+						items = null;
 						
-				
-					} else if(orderNum > stock){
+						} else if(orderNum > stock){
 						
 						/*
 						 * 在庫数と注文数を合わせる
 						 */
-						model.addAttribute("itemNameListLessThan");
+						model.addAttribute("itemNameListLessThan",itemName);
 						orderNum = stock;
-						basket.setOrderNum(orderNum);
+						basket.setOrderNum(stock);
 						Allprice = price * orderNum;
-				
 						newBaskets.add(basket);
 						
 						
-					} else {
+						} else {
 						/*
 						 * 必要処理なし
 						 */
 						newBaskets.add(basket);
 						Allprice= price * orderNum;
 						
-				
-					}
+				}
 
-				OrderItemBean orderitemBean = new OrderItemBean();
 				
-				orderitemBean.setSubtotal(Allprice);
-				orderitemBean.setOrderNum(orderNum);
 				
-				BeanUtils.copyProperties(items, orderitemBean);
+					if(items != null) {
+						orderitemBean.setSubtotal(Allprice);
+						orderitemBean.setOrderNum(orderNum);
+						orderitemBean.setArtistName(items.getArtist().getName());
+
 				
-				orderitemBeanList.add(orderitemBean);
-				
-				/*
-				 * 商品の合計金額を表示
-				 */
-				total = total + Allprice;
-				model.addAttribute("total",total);
-				
+						BeanUtils.copyProperties(items, orderitemBean);
+						orderitemBeanList.add(orderitemBean);
+						
+						
+						/*
+						 * 商品の合計金額を表示
+						 */
+						total = total + Allprice;
+						model.addAttribute("total",total);
+					}
+					
 		//for文終わりの ｝		
 		}
 		
 		/*
 		 * 注文確認画面表示用注文内容リクエストスコープ
 		 */
-		model.addAttribute("orderItemBeans",orderitemBeanList);
-			
+		
+		model.addAttribute("orderItemBeans",orderitemBeanList);	
+		
+		
+		
+		/*
+		 * 商品が全く入っていない場合の処理
+		 * 確定ボタン表示、非表示用
+		 */
+		if(newBaskets.size() == 0) {
+			model.addAttribute("sizeNull",null);
+		} else {
+			model.addAttribute("sizeNull"," ");
+		}
+		
 		/*
 		 * 注文確認画面表示用ユーザー登録リクエストスコープ
+		 * 
 		 */
 		model.addAttribute("orderForm",session.getAttribute("orderForm"));
+			
+		/*
+		 * アーティスト画像表示用リクエストスコープ
+		 */
 				
-		
-		
 		/*
 		 * 在庫数反映後買い物かご情報
+		 * basketBeansを更新。不足商品を買い物かごから除外する
 		 */
 		session.setAttribute("orderItemBeans",newBaskets);
+		session.setAttribute("basketBeans", newBaskets);	
 		
+			
 		
 		return "client/order/check";
 			
+	}
+	
+	
+	/*
+	 * 「買い物かごへ戻る」ボタン押下時
+	 */
+	@SuppressWarnings("unchecked")
+	@RequestMapping(path="/client/order/back",method=RequestMethod.POST)
+	public String cartback() {
+		
+	
+	session.removeAttribute("orderForm");
+	
+	
+	List<OrderItem> orderItemList = new ArrayList<>();
+	 orderItemList =(List<OrderItem>) session.getAttribute("basketBeans");
+	 
+	 
+	if(orderItemList.size() == 0) {
+		System.out.println(orderItemList);
+		session.removeAttribute("basketBeans");
+		
+	}
+	 
+	 return "redirect:/client/basket/list";
 	}
 	
 	
@@ -307,6 +359,7 @@ public class ClientOrderRegistController {
 		return "redirect:/client/order/address/input";
 	}
 	
+	
 	/*
 	 * check→paymentリダイレクト処理
 	 */
@@ -316,12 +369,65 @@ public class ClientOrderRegistController {
 	}
 	
 	
+	
+	/*
+	 * 注文確定ボタン押下時在庫数チェック
+	 * ストック数0または個数不足のときclient/order/checkへリダイレクト
+	 */
+	@SuppressWarnings("unchecked")
+	@RequestMapping(path="/client/order/complete",method=RequestMethod.POST)
+	public String FinalOrderCheck(Model model) {
+		
+		
+	ArrayList<BasketBean> baskets = new ArrayList<>();
+	 baskets =(ArrayList<BasketBean>) session.getAttribute("orderItemBeans");
+
+	 Item items = new Item();
+
+	 
+	for(int i=0;i<baskets.size();i++) {
+		
+		BasketBean basket = baskets.get(i);
+		
+		items=itemRepository.getReferenceById(basket.getId());
+		
+		String itemName = items.getName();
+		
+		int orderNums = basket.getOrderNum();
+		int stock = items.getStock();
+		
+		
+		if(stock == 0) {
+			
+	
+			model.addAttribute("itemNameListZero",itemName);
+			
+			if(i != baskets.size()-1) {
+				continue;
+			}
+			return "redirect:/client/order/check";
+			
+			
+		}else if(orderNums > stock) {
+			model.addAttribute("itemNameListLessThan",itemName);
+			
+			if(i != baskets.size()-1) {
+				continue;
+			}
+			
+			return "redirect:/client/order/check";
+		}
+	}
+	return "redirect:/client/order/completed";
+}
+	
+	
 	/*
 	 * 処理８
 	 */
 	@SuppressWarnings("unchecked")
-	@RequestMapping(path="/client/order/complete",method=RequestMethod.POST)
-	public String OrderComplete() {
+	@RequestMapping(path="/client/order/completed",method=RequestMethod.GET)
+	public String OrderComplete(Model model) {
 		
 		/*
 		 * ユーザーの注文情報をDBに登録する
@@ -386,27 +492,20 @@ public class ClientOrderRegistController {
 		for(int i=0;i<baskets.size();i++) {
 			
 			BasketBean basket = baskets.get(i);
+			
 			int stock = basket.getStock();
-			
-			
-			if(stock == 0) {
-				return "redirect:/client/order/check";
-			}
-		
-			
+
 			items=itemRepository.getReferenceById(basket.getId());
 
 			int id = items.getId();
 			int orderNum = basket.getOrderNum();
 			int orderPrice = items.getPrice();
 
-			
 			item.setId(id);
 			item.setPrice(orderPrice);
 			item.setQuantity(orderNum);
 			item.setOrder(order);
 			item.setItem(items);
-			
 			
 			/*
 			 * OrderItemテーブルへDB登録
@@ -442,7 +541,7 @@ public class ClientOrderRegistController {
 		session.removeAttribute("basketBeans");
 		
 		
-		return "redirect:/client/order/complete";
+		return "redirect:/client/order/completes";
 		
 	}
 		
@@ -451,7 +550,7 @@ public class ClientOrderRegistController {
 	 * 処理９
 	 * 注文確認画面へ
 	 */
-	@RequestMapping(path="/client/order/complete",method=RequestMethod.GET)
+	@RequestMapping(path="/client/order/completes",method=RequestMethod.GET)
 	public String complete() {
 		
 	

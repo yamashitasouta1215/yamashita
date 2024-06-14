@@ -31,6 +31,11 @@ public class OrderItemBean {
 	 */
 	private Integer subtotal;
 
+	/*
+	 * アーティスト名
+	 */
+	private String artistName;
+	
 	/**
 	 * 注文商品IDの取得
 	 * @return 注文商品ID
@@ -126,4 +131,17 @@ public class OrderItemBean {
 	public void setOrderNum(Integer orderNum) {
 		this.orderNum = orderNum;
 	}
+
+	
+/*
+ *注文履歴アーティスト名追加のため
+ *
+ */
+	public String getArtistName() {
+		return artistName;
+	}
+
+	public void setArtistName(String artistName) {
+		this.artistName = artistName;
+}
 }
