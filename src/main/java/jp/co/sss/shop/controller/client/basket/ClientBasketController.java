@@ -82,6 +82,11 @@ public class ClientBasketController {
 						itemAddToBasket = itemInBasket;
 						int newOrderNum = itemAddToBasket.getOrderNum() + 1;
 						
+						//小計の計算
+						int price = itemAddToBasket.getPrice();
+						int priceSum = itemAddToBasket.getPriceSum();
+						itemAddToBasket.setPriceSum(priceSum + price);
+						
 						//注文数が在庫を上回るとき
 						if (newOrderNum > itemStockNum) {
 							model.addAttribute("itemNameListLessThan", itemStock.getName());
@@ -97,7 +102,7 @@ public class ClientBasketController {
 			if (!existItemBasket) {
 				
 				Item item = itemRepository.getReferenceById(id);
-				itemAddToBasket = new BasketBean(item.getId(), item.getName(), item.getStock(),1);
+				itemAddToBasket = new BasketBean(item.getId(), item.getName(), item.getStock(),1, item.getPrice());
 				//買い物かごリストに追加
 				basketItemList.add(itemAddToBasket);
 			}
@@ -108,13 +113,20 @@ public class ClientBasketController {
 			//セッションスコープにリスト情報を追加
 			session.setAttribute("basketBeans", basketItemList);
 			
-			
+			//合計金額を出す
+			int priceSum = 0;
+			for (BasketBean itemInBasket : basketItemList) {
+				int orderNum = itemInBasket.getOrderNum();
+				int price = itemInBasket.getPrice();
+				priceSum = priceSum + (orderNum * price);
+			}
+			session.setAttribute("priceSum", priceSum);
 //		} else {
 			//在庫がない場合
 //			model.addAttribute("itemNameListZero", itemStock.getName());
 //		}
 		
-		session.removeAttribute("id");
+//		session.removeAttribute("id");
 			
 		return "client/basket/list";
 	}
@@ -123,6 +135,7 @@ public class ClientBasketController {
 	@RequestMapping(path ="/client/basket/allDelete", method = RequestMethod.POST)
 	public String allDelete() {
 		session.removeAttribute("basketBeans");
+		session.removeAttribute("priceSum");
 		return "client/basket/list";
 	}
 	
@@ -139,6 +152,7 @@ public class ClientBasketController {
 		BasketBean itemAddToBasket = null;
 		
 		int i = 0;
+		int priceSum = (int) session.getAttribute("priceSum");
 		
 		for (BasketBean itemInBasket : basketItemList) {
 		
@@ -146,6 +160,15 @@ public class ClientBasketController {
 				itemAddToBasket = itemInBasket;
 				int newOrderNum = itemAddToBasket.getOrderNum() - 1;
 				itemAddToBasket.setOrderNum(newOrderNum);
+				
+				//小計計算
+				int price = itemAddToBasket.getPrice();
+				int priceS = itemAddToBasket.getPriceSum();
+				itemAddToBasket.setPriceSum(priceS - price);
+				
+				//合計金額から減らした金額を引く
+				priceSum = priceSum - itemAddToBasket.getPrice();
+				session.setAttribute("priceSum", priceSum);
 				
 				//注文数が0になった場合
 				if (itemAddToBasket.getOrderNum() == 0) {
@@ -161,6 +184,7 @@ public class ClientBasketController {
 		boolean boo =  basketItemList.isEmpty();
 		
 		if (boo == true) {
+			session.removeAttribute("priceSum");
 			session.removeAttribute("basketBeans");
 		} else {
 			//要素を反転する
@@ -184,10 +208,20 @@ public class ClientBasketController {
 		Collections.reverse(basketItemList);
 		
 		int i = 0;
+		int priceSum = (int) session.getAttribute("priceSum");
 		
 		for (BasketBean itemInBasket : basketItemList) {
 		
 			if (itemInBasket.getId() == id) {
+				
+				//削除したリストの小計を計算する
+				BasketBean bean = basketItemList.get(i);
+				int price = bean.getPrice();
+				int order = bean.getOrderNum();
+				priceSum = priceSum - (price * order);
+				
+				session.setAttribute("priceSum", priceSum);
+				
 				basketItemList.remove(i);
 				break;
 			}
@@ -199,6 +233,7 @@ public class ClientBasketController {
 		boolean boo =  basketItemList.isEmpty();
 		
 		if (boo == true) {
+			session.removeAttribute("priceSum");
 			session.removeAttribute("basketBeans");
 		} else {
 			//要素を反転する
