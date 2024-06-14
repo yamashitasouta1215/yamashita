@@ -14,7 +14,7 @@
 	
 	<div class="user_info_form_area">
 		<form th:action="@{/admin/item/regist/check}" enctype="multipart/form-data" method="post"
-			class="user_info_form" th:object="${itemForm}" novalidate>
+			class="user_info_form" th:object="${itemForm}" >
 
 			<th:block th:if="${#fields.hasErrors()}">
 				<ul class="error_list">
