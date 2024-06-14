@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.servlet.http.HttpSession;
 import jp.co.sss.shop.bean.BasketBean;
@@ -27,6 +28,30 @@ public class ClientBasketController {
 	//かご内の一覧表示
 	@RequestMapping(path ="/client/basket/list", method = RequestMethod.GET)
 	public String ShowBasket() {
+		
+//		int i =  (int) session.getAttribute("i");
+//		
+//		if (i == 0) {
+//			@SuppressWarnings("unchecked")
+//			List<BasketBean> basketItemList = (List<BasketBean>) session.getAttribute("basketBeans");
+//			int id = (int) session.getAttribute("id");
+//			//ストックがいくつあるのか確認
+//			Item itemStock =itemRepository.getReferenceById(id);
+//			int itemStockNum = itemStock.getStock();
+//			
+//			for (BasketBean itemInBasket : basketItemList) {
+//				if (itemInBasket.getId() == id) {
+//				int newOrderNum = itemInBasket.getOrderNum();
+//				
+//					//注文数が在庫を上回るとき
+//					if (newOrderNum > itemStockNum) {
+//						session.setAttribute("itemNameListLessThan", itemStock.getName());
+//					} 
+//				}
+//			}
+//			
+//			session.removeAttribute("id");
+//		}
 		
 //		@SuppressWarnings("unchecked")
 //		List<BasketBean> basketItemList = (List<BasketBean>) session.getAttribute("basketBeans");
@@ -50,13 +75,15 @@ public class ClientBasketController {
 	
 	//商品のかごへの追加
 	@RequestMapping(path ="/client/basket/add", method = RequestMethod.POST)
-	public String addBasket(Integer id, Model model) {
+	public String addBasket(Integer id, Model model, RedirectAttributes re) {
 		//セッションスコープ内にリスト要素がない場合、リストを作る
 		@SuppressWarnings("unchecked")
 		List<BasketBean> basketItemList = (List<BasketBean>) session.getAttribute("basketBeans");
 		if (basketItemList == null) {
 			basketItemList = new ArrayList<>();
 		}
+		
+		
 		
 //		int id = (int) session.getAttribute("id");
 		
@@ -89,7 +116,9 @@ public class ClientBasketController {
 						
 						//注文数が在庫を上回るとき
 						if (newOrderNum > itemStockNum) {
-							model.addAttribute("itemNameListLessThan", itemStock.getName());
+//							session.setAttribute("id", id);
+//							session.setAttribute("i", 0);
+							re.addFlashAttribute("itemNameListLessThan", itemAddToBasket.getName());
 						} else {
 							itemAddToBasket.setOrderNum(newOrderNum);
 							itemAddToBasket.setPriceSum(priceSum + price);
