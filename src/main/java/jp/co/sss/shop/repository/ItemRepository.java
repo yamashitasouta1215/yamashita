@@ -49,8 +49,8 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 	public Item findByNameAndDeleteFlag(String name, int notDeleted);
 	
 	//トップページ
-	@Query("SELECT i FROM OrderItem o INNER JOIN Item i on o.item.id=i.id GROUP BY i  ORDER BY COUNT(i) DESC,i.id ASC")
-	public Page<Item>findAllByQuery(Pageable pageable);
+	@Query("SELECT i FROM OrderItem o INNER JOIN Item i on o.item.id=i.id WHERE i.deleteFlag =:deleteFlagGROUP BY i  ORDER BY COUNT(i) DESC,i.id ASC")
+	public Page<Item>findAllByQueryAndDeleteFlag(@Param(value = "deleteFlag")int deleteFlag,Pageable pageable);
 
 	//新着順表示
 	Page<Item> findByOrderByReleaseDateDesc(Pageable pageable);

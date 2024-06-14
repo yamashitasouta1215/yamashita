@@ -44,7 +44,7 @@ public class ItemShowCustomerController {
 		model.addAttribute("pages",pageList);
 		model.addAttribute("items",itemList);
 		model.addAttribute("pageNum",3);
-
+		
 		return "client/item/list";
 	}
 	
