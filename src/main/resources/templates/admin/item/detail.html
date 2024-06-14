@@ -14,10 +14,10 @@
 		<div class="item_detail_area">
 			<div class="item_image_area">
 				<span th:if="*{image != null}">
-					<img th:src="@{/static/images/{image}(image=*{image})}"></img>
+					<img th:src="@{/images/{image}(image=*{image})}"></img>
 				</span>
 				<span th:if="*{image == null}">
-					<img th:src="@{/static/images/common/no_image.jpg}"></img>
+					<img th:src="@/images/common/no_image.jpg}"></img>
 				</span>
 			</div>
 			<dl class="item_detail_list">
