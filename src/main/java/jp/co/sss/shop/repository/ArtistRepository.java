@@ -14,7 +14,7 @@ import jp.co.sss.shop.entity.Artist;
 
 public interface ArtistRepository extends JpaRepository<Artist, Integer>{
 
-	Artist findByNameContaining(String name);
+	List<Artist> findByNameContaining(String name);
 
 	@Query("SELECT a FROM Artist a WHERE a.deleteFlag =:deleteFlag ORDER BY a.insertDate DESC,a.id DESC")
 	Page<Artist> findByDeleteFlagOrderByInsertDateDescIdDescPage(

@@ -31,6 +31,7 @@ public class ClientItemShowController {
 	ItemRepository itemRepository;
 	
 	
+	
 	/**
 	 * Entity、Form、Bean間のデータコピーサービス
 	 */

@@ -78,6 +78,16 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 //
 //	List<Item> findByArtistName(Artist artist);
 
+//	List<Item> findByNameContaining(String name);
+
+//
+//	List<Item> findByArtistId(List<Artist> artist);
+
+//	List<Item> findByReleaseDateContaining(Integer releaseDate);
+//
+//	List<Item> findByArtistName(Artist artist);
+
+
 
 	Page<Item> findByPriceLessThanOrderByPrice(Integer price,Pageable pageable);
 
