@@ -280,14 +280,8 @@ public class ClientOrderRegistController {
 						model.addAttribute("total",total);
 					}
 					
-					
-					
-					
 		//for文終わりの ｝		
 		}
-		
-	
-		
 		
 		/*
 		 * 注文確認画面表示用注文内容リクエストスコープ
@@ -295,15 +289,17 @@ public class ClientOrderRegistController {
 		
 		model.addAttribute("orderItemBeans",orderitemBeanList);	
 		
+		
+		
 		/*
 		 * 商品が全く入っていない場合の処理
+		 * 確定ボタン表示、非表示用
 		 */
 		if(newBaskets.size() == 0) {
 			model.addAttribute("sizeNull",null);
 		} else {
 			model.addAttribute("sizeNull"," ");
 		}
-		
 		
 		/*
 		 * 注文確認画面表示用ユーザー登録リクエストスコープ
@@ -317,6 +313,7 @@ public class ClientOrderRegistController {
 				
 		/*
 		 * 在庫数反映後買い物かご情報
+		 * basketBeansを更新。不足商品を買い物かごから除外する
 		 */
 		session.setAttribute("orderItemBeans",newBaskets);
 		session.setAttribute("basketBeans", newBaskets);	
@@ -362,6 +359,7 @@ public class ClientOrderRegistController {
 		return "redirect:/client/order/address/input";
 	}
 	
+	
 	/*
 	 * check→paymentリダイレクト処理
 	 */
@@ -371,8 +369,10 @@ public class ClientOrderRegistController {
 	}
 	
 	
+	
 	/*
 	 * 注文確定ボタン押下時在庫数チェック
+	 * ストック数0または個数不足のときclient/order/checkへリダイレクト
 	 */
 	@SuppressWarnings("unchecked")
 	@RequestMapping(path="/client/order/complete",method=RequestMethod.POST)
@@ -384,6 +384,7 @@ public class ClientOrderRegistController {
 
 	 Item items = new Item();
 
+	 
 	for(int i=0;i<baskets.size();i++) {
 		
 		BasketBean basket = baskets.get(i);
@@ -398,17 +399,29 @@ public class ClientOrderRegistController {
 		
 		if(stock == 0) {
 			
+	
 			model.addAttribute("itemNameListZero",itemName);
+			
+			if(i != baskets.size()-1) {
+				continue;
+			}
 			return "redirect:/client/order/check";
 			
 			
 		}else if(orderNums > stock) {
 			model.addAttribute("itemNameListLessThan",itemName);
+			
+			if(i != baskets.size()-1) {
+				continue;
+			}
+			
 			return "redirect:/client/order/check";
 		}
 	}
 	return "redirect:/client/order/completed";
 }
+	
+	
 	/*
 	 * 処理８
 	 */

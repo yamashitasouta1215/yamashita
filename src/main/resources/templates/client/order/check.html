@@ -91,6 +91,8 @@
 			</tr>
 		</table>
 		
+<!--		orderItemBeansに値が入っているときのみ「注文確定ボタン」と「戻る」を表示-->
+
 		<th:block th:if="${sizeNull != null}">
 		<form th:action="@{/client/order/complete}" method="post">
 			<input class="send_button" type="submit" value="ご注文の確定" th:if="${orderItemBeans != null}"/>
@@ -101,7 +103,7 @@
 		</th:block>
 		
 		
-
+		<!--買い物かごへ戻るボタンは常に表示-->
 		<form th:action="@{/client/order/back}" method="post">
 			<input type="submit" value="買い物かごへ戻る" class="back_button" />
 		</form>
