@@ -129,7 +129,7 @@ public class ClientBasketController {
 		
 //		session.removeAttribute("id");
 			
-		return "client/basket/list";
+		return "redirect:/client/basket/list";
 	}
 	
 	//かご内の全件削除
@@ -137,7 +137,7 @@ public class ClientBasketController {
 	public String allDelete() {
 		session.removeAttribute("basketBeans");
 		session.removeAttribute("priceSum");
-		return "client/basket/list";
+		return "redirect:/client/basket/list";
 	}
 	
 	//選択したアイテムの削除
@@ -196,7 +196,7 @@ public class ClientBasketController {
 		}
 		
 		
-		return "client/basket/list";
+		return "redirect:/client/basket/list";
 	}
 	
 	//削除ボタンが選択された場合　商品の削除
@@ -243,7 +243,7 @@ public class ClientBasketController {
 			//セッションスコープにリスト情報を追加
 			session.setAttribute("basketBeans", basketItemList);
 		}
-		return "client/basket/list";
+		return "redirect:/client/basket/list";
 	}
 	
 
