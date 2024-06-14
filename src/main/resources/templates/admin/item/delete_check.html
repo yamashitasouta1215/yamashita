@@ -17,6 +17,16 @@
 				<span class="input_title">[[#{itemForm.name}]]</span>
 				<span class="input_value" th:text="*{name}"></span>
 			</li>
+			
+			<li>
+				<span class="input_title">[[#{data.artist}]]</span>
+				<span class="input_value" th:text="*{artistName}"></span>
+			</li>
+			
+			<li>
+				<span class="input_title">[[#{data.item.release_date}]]</span>
+				<span class="input_value" th:text="*{#dates.format(releaseDate, 'yyyy/MM/dd')}"></span>
+			</li>
 			<li>
 				<span class="input_title">[[#{itemForm.price}]]</span>
 				<span class="input_value" th:text="*{price}"></span>

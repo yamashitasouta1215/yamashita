@@ -178,7 +178,7 @@ public class AdminItemUpdateController {
 		}
 		
 		// 選択したアーティストの名前をFormクラスにセット
-		if (form.getCategoryId() != null) {
+		if (form.getArtistId() != null) {
 			Artist artist = artistRepository.findById(form.getArtistId()).orElse(null);
 			form.setArtistName(artist.getName());
 		}
