@@ -77,7 +77,7 @@ public class ClientItemShowController {
 				model.addAttribute("items",itemList);
 				model.addAttribute("pageNum",2);
 			}else {
-				model.addAttribute("items",itemRepository.findCategoryByQuery(categoryId));
+				model.addAttribute("items",itemRepository.findCategoryByQueryAndDeleteFlag(Constant.NOT_DELETED,categoryId));
 			}
 		}
 		return "client/item/list";
