@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Size;
 import jp.co.sss.shop.annotation.ItemCheck;
 
@@ -44,6 +45,8 @@ public class ItemForm implements Serializable {
 	/**
 	 * 発売日
 	 */
+
+	@PastOrPresent
 	private Date releaseDate;
 	
 	/**

@@ -61,8 +61,9 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 
 
 	//新着順表示かつカテゴリ別表示
-	List<Item> findByCategoryOrderByReleaseDateDesc(Category category);
-
+//	List<Item> findByCategoryOrderByReleaseDateDesc(Category category,@Param(value = "deleteFlag")int deleteFlag);
+	@Query("SELECT i FROM Item i WHERE i.category = :category AND i.deleteFlag = :deleteFlag ORDER BY i.releaseDate DESC")
+    List<Item> findByCategoryOrderByReleaseDateDesc(@Param("category") Category category, @Param(value="deleteFlag") int deleteFlag);
 
 
 	Page<Item> findByNameContaining(String name,Pageable pageable);
