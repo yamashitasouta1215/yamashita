@@ -11,10 +11,10 @@
 <body class="admin item_regist_input">
 	<h2 th:class="title" th:text="#{item}+#{title.input}"></h2>
 	<p th:class="input_message" th:text="#{msg.regist.input}"></p>
-
+	
 	<div class="user_info_form_area">
 		<form th:action="@{/admin/item/regist/check}" enctype="multipart/form-data" method="post"
-			class="user_info_form" th:object="${itemForm}">
+			class="user_info_form" th:object="${itemForm}" novalidate>
 
 			<th:block th:if="${#fields.hasErrors()}">
 				<ul class="error_list">
@@ -82,6 +82,8 @@
 			<input type="submit" value="戻る" class="back_button" />
 		</form>
 	</div>
+	
+
 </body>
 
 </html>
