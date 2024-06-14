@@ -484,21 +484,3 @@ th {
 td {
   background: #fff;
 }
-.sticky {
-  position: sticky;
-  top: 0;
-  left: 0;
-  border-top: none;
-}
-.sticky::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border-top: 1px solid #000;
-  border-bottom: 1px solid #000;
-  background: #ccc;
-  z-index: -1;
-}
