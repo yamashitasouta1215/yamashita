@@ -18,8 +18,12 @@
 				<span class="input_value" th:text="*{name}"></span>
 			</li>
 			<li>
+				<span class="input_title">[[#{date.artist.name}]]</span>
+				<span class="input_value" th:text="*{artistName}"></span>
+			</li>
+			<li>
 				<span class="input_title">[[#{itemForm.price}]]</span>
-				<span class="input_value" th:text="*{price}"></span>
+				<span class="input_value" th:text="*{price} + '円'"></span>
 			</li>
 			<li>
 				<span class="input_title">[[#{data.category}]]</span>

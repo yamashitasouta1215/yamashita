@@ -57,14 +57,14 @@
 			</tr>
 			<tr th:each="orderItem: ${orderItemBeans}">
 				<td th:text="${orderItem.name}"></td>
-				<td th:text="${orderItem.price}"></td>
+				<td th:text="${orderItem.price} + '円'"></td>
 				<td th:text="${orderItem.orderNum}"></td>
 				<td th:text="${orderItem.subtotal}"></td>
 			</tr>
 			<tr>
 				<td colspan="2"></td>
 				<td class="total">[[#{data.total}]]</td>
-				<td th:text="${total}"></td>
+				<td th:text="${total} + '円'"></td>
 			</tr>
 		</table>
 		<form th:action="@{/admin/order/list}" method="post" class="detail_button_area">
