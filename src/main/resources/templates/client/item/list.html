@@ -2,9 +2,12 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	th:replace="~{common/layout_5block :: layout(~{::title},~{::body/content()})}">
 
+
+
 <head>
 	<title th:text="#{item}+#{title.list}+' | '+ #{shop.title}"> </title>
 	<meta charset="UTF-8" />
+	
 </head>
 
 <body th:object="${loginForm}" class="user item_list">
@@ -25,17 +28,17 @@
 
 
 	<th:block th:if="!${#lists.isEmpty(items)}">
-	
-				<table class="list_table item_detail">
+			<table class="list_table_item_detail">
+					
 				<tr>
 					<th th:text="#{data.item.image}"></th>
 					<th th:text="#{data.item.name}"></th>
-				<th th:text=#{date.artist.name}></th>
+					<th th:text=#{date.artist.name}></th>
 					<th th:text="#{data.item.price}"></th>
 					<th th:text="#{category}"></th>
 			
 				</tr>
-				
+									
 				<tr th:each="item:${items}">
 					
 					<td class="image">
@@ -48,7 +51,7 @@
 					<td th:text="${item.price}"></td>
 					<td th:text="${item.category.name}"></td>
 				</tr>
-	
+					 
 			</table>
 	</th:block>
 	
