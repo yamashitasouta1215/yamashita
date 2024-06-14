@@ -42,7 +42,7 @@
 			<tr th:each="item, status: ${session.basketBeans}">
 				<td><a th:href="@{/client/item/detail/{id}(id=${item.id})}" th:text="${item.name}"></a></td>
 				
-				<td th:text="${item.price}"></td>
+				<td th:text="${item.price}+円"></td>
 				
 				<td>
 					
@@ -57,7 +57,7 @@
 					</form>
 				</td>
 				
-				<td th:text="${item.priceSum}">
+				<td th:text="${item.priceSum}+円">
 					
 				</td>
 				
