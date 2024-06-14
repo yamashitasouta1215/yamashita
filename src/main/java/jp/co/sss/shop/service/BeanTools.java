@@ -177,14 +177,14 @@ public class BeanTools {
 	/**
 	 * 商品情報と買い物かご商品情報から、注文商品情報を生成する
 	 * @param item 商品情報
-	 * @param basketBean 買い物かご商品情報
+	 * @param list 買い物かご商品情報
 	 * @return　注文商品情報
 	 */
-	public OrderItemBean generateOrderItemBean(Item item, BasketBean basketBean) {
+	public OrderItemBean generateOrderItemBean(Item item, List<BasketBean> list) {
 		// オーダー商品情報の作成とリスト追加
 		OrderItemBean orderItemBean = new OrderItemBean();
 		BeanUtils.copyProperties(item, orderItemBean);
-		orderItemBean.setOrderNum(basketBean.getOrderNum());
+		orderItemBean.setOrderNum(((BasketBean) list).getOrderNum());
 		int subtotal = orderItemBean.getPrice() * orderItemBean.getOrderNum();
 		orderItemBean.setSubtotal(subtotal);
 
@@ -219,4 +219,8 @@ public class BeanTools {
 		}
 		return orderItemBeanList;
 	}
+
+
+
+	
 }
