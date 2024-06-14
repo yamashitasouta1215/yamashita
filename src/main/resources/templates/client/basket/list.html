@@ -14,7 +14,7 @@
 		<br />
 				<!--/* 在庫不足商品 */-->
 		<ul class="error_list_no_mark" th:if="${itemNameListLessThan != null}">
-			<li th:each="err : ${itemNameListLessThan}" th:text="#{msg.basket.stock.short(${err})}"></li>
+			<li th:each="err, status: ${itemNameListLessThan}" th:text="#{msg.basket.stock.short(${err})}"></li>
 
 		</ul>
 				<!--/* 在庫なし商品 */-->
