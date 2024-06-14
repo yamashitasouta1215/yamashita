@@ -17,7 +17,7 @@
 					<img th:src="@{/images/{image}(image=*{image})}"></img>
 				</span>
 				<span th:if="*{image == null}">
-					<img th:src="@/images/common/no_image.jpg}"></img>
+					<img th:src="@{/images/common/no_image.jpg}" ></img>
 				</span>
 			</div>
 			<dl class="item_detail_list">
@@ -29,9 +29,9 @@
 				<br>
 				<dd th:text="*{artist.name}"></dd>
 				<br>
-				<dt th:text="#{data.item.release_date}" id="dai3"><dt>
-				<br>
-				<dd th:text="*{releaseDate}"></dd>
+<!--				<dt th:text="#{data.item.release_date}" id="dai3"><dt>-->
+<!--				<br>-->
+<!--				<dd th:text="*{releaseDate}"></dd>-->
 				<br>
 				<dt th:text=#{itemForm.price} id="dai4"></dt>
 				<br>
