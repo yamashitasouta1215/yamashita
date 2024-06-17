@@ -14,6 +14,7 @@ import jp.co.sss.shop.repository.ArtistRepository;
 import jp.co.sss.shop.repository.CategoryRepository;
 import jp.co.sss.shop.repository.ItemRepository;
 import jp.co.sss.shop.repository.OrderItemRepository;
+import jp.co.sss.shop.service.BeanTools;
 
 @Controller
 public class ItemShowCustomerController {
@@ -21,11 +22,13 @@ public class ItemShowCustomerController {
 	@Autowired
 	ItemRepository repository;
 	OrderItemRepository repositoryoi;
+	@Autowired
 	CategoryRepository repositorycategory;
 	@Autowired
 	ArtistRepository repositorya;
 	
-	
+	@Autowired
+	BeanTools beanTools;
 	
 //	//追加機能　CD検索
 	@GetMapping("/searchCD")
@@ -109,7 +112,7 @@ public class ItemShowCustomerController {
 			model.addAttribute("items",itemList);
 			model.addAttribute("pageNum",10);	
 		}
-			
+					
 		return "client/item/list";
 	
 	}
