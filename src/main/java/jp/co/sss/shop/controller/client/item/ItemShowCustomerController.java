@@ -128,6 +128,7 @@ public class ItemShowCustomerController {
 	}
 
 	
+	
 	@RequestMapping(path ="/searchArtist", method = RequestMethod.POST)
 	public String artist(Model model,String name, Pageable pageable) {
 		
