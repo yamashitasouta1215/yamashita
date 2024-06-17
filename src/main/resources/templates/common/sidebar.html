@@ -45,14 +45,6 @@
 					</form>
 				</div>
 				
-				<form th:action="@{/searchArtist}">
-					<select name="artstId">
-						<option th:value="#{constants.category.select.none.no}"
-							th:text="#{constants.category.select.none}"></option>
-						<option th:each="artist:${session.artistList}" th:value="${artist.id}" th:text="${artist.name}">
-						</option>
-					</select> <input type="submit" th:value="#{select}" />
-				</form>
 				<!--				<h2 th:class="title" th:text="リリース年検索"></h2>-->
 				<!--				<div class="form">-->
 				<!--					<form method="post" th:action="@{/searchMonth}">-->
