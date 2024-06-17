@@ -64,9 +64,10 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 	@Query("SELECT i FROM Item i WHERE i.category = :category AND i.deleteFlag = :deleteFlag ORDER BY i.releaseDate DESC")
     List<Item> findByCategoryOrderByReleaseDateDesc(@Param("category") Category category, @Param(value="deleteFlag") int deleteFlag);
 
-
-	Page<Item> findByNameContaining(String name,Pageable pageable);
 	
+//	Page<Item> findByNameContaining(String name,@Param(value = "deleteFlag")int deleteFlag,Pageable pageable);
+	@Query("SELECT i FROM Item i WHERE i.name LIKE %:name% AND i.deleteFlag = :deleteFlag ORDER BY i.releaseDate DESC")
+	Page<Item> findByNameContaining(@Param("name") String name, @Param("deleteFlag") int deleteFlag, Pageable pageable);
 	
 
 //	List<Item> findByNameContaining(String name);
@@ -88,12 +89,18 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 //	List<Item> findByArtistName(Artist artist);
 
 
+	@Query("SELECT i FROM Item i WHERE i.price = :price AND i.deleteFlag = :deleteFlag ORDER BY i.releaseDate DESC")
+	Page<Item> findByPriceLessThanOrderByPrice(Integer price,@Param(value = "deleteFlag")int deleteFlag,Pageable pageable);
 
-	Page<Item> findByPriceLessThanOrderByPrice(Integer price,Pageable pageable);
+	
+//	Page<Item> findByPriceBetweenOrderByPrice(int b, int j,Pageable pageable);
+	@Query("SELECT i FROM Item i WHERE i.price BETWEEN :b AND :j AND i.deleteFlag = :deleteFlag ORDER BY i.price")
+	Page<Item> findByPriceBetweenOrderByPrice(@Param("b") int b, @Param("j") int j, @Param("deleteFlag") int deleteFlag, Pageable pageable);
 
-	Page<Item> findByPriceBetweenOrderByPrice(int i, int j,Pageable pageable);
+//	Page<Item> findByPriceGreaterThanOrderByPrice(int b,@Param("deleteFlag") int deleteFlag,Pageable pageable);
+	@Query("SELECT i FROM Item i WHERE i.price > :b AND i.deleteFlag = :deleteFlag ORDER BY i.price")
+	Page<Item> findByPriceGreaterThanOrderByPrice(@Param("b") int b, @Param("deleteFlag") int deleteFlag, Pageable pageable);
 
-	Page<Item> findByPriceGreaterThanOrderByPrice(int i,Pageable pageable);
 
 
 	
