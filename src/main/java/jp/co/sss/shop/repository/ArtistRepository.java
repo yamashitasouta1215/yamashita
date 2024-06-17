@@ -23,4 +23,7 @@ public interface ArtistRepository extends JpaRepository<Artist, Integer>{
 	Artist findByIdAndDeleteFlag(Integer id, int deleteFlag);
 	
 	List<Artist> findByDeleteFlagOrderByInsertDateDescIdDesc(int deleteFlag);
+	
+	@Query("SELECT i FROM Artist i WHERE i.name LIKE %:name% AND i.deleteFlag = :deleteFlag")
+	List<Artist> findByNameContaining(@Param("name") String name, @Param("deleteFlag") int deleteFlag);
 }
