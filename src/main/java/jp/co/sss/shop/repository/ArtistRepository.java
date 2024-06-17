@@ -10,7 +10,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import jp.co.sss.shop.entity.Artist;
-import jp.co.sss.shop.entity.Item;
 
 
 public interface ArtistRepository extends JpaRepository<Artist, Integer>{
@@ -26,5 +25,5 @@ public interface ArtistRepository extends JpaRepository<Artist, Integer>{
 	List<Artist> findByDeleteFlagOrderByInsertDateDescIdDesc(int deleteFlag);
 	
 	@Query("SELECT i FROM Artist i WHERE i.name LIKE %:name% AND i.deleteFlag = :deleteFlag")
-	List<Item> findByNameContaining(@Param("name") String name, @Param("deleteFlag") int deleteFlag);
+	List<Artist> findByNameContaining(@Param("name") String name, @Param("deleteFlag") int deleteFlag);
 }
