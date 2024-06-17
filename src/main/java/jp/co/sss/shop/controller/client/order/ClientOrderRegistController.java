@@ -208,7 +208,7 @@ public class ClientOrderRegistController {
 		 
 		 List<String> ListZero = new ArrayList<String>();
 		 List<String> ListLessThan = new ArrayList<String>();
-//		 orderitemBeanList = null;
+
 		 /*
 		  * 買い物かごの種類分だけ
 		  */
@@ -221,17 +221,12 @@ public class ClientOrderRegistController {
 			 */
 			items=itemRepository.getReferenceById(basket.getId());
 		
-			
-			
 			int price = items.getPrice();
 			int orderNum = basket.getOrderNum();
 			int stock = items.getStock();
 			
 			
 			String orderitemName = items.getName();
-			
-			
-			
 			
 			OrderItemBean orderitemBean = new OrderItemBean();
 			/*
@@ -249,15 +244,12 @@ public class ClientOrderRegistController {
 						
 						
 						items = null;
-						
-						
 						} else if(orderNum > stock){
 						
 						/*
 						 * 在庫数と注文数を合わせる
 						 */
 						ListLessThan.add(orderitemName);
-						
 						
 						
 						orderNum = stock;
@@ -275,8 +267,7 @@ public class ClientOrderRegistController {
 						
 				}
 
-				
-				
+			
 					if(items != null) {
 						orderitemBean.setSubtotal(Allprice);
 						orderitemBean.setOrderNum(orderNum);
@@ -362,7 +353,7 @@ public class ClientOrderRegistController {
 	session.removeAttribute("orderForm");
 	
 	
-	List<OrderItem> orderItemList = new ArrayList<>();
+		List<OrderItem> orderItemList = new ArrayList<>();
 	 orderItemList =(List<OrderItem>) session.getAttribute("basketBeans");
 	 
 	 
@@ -540,9 +531,9 @@ public class ClientOrderRegistController {
 			items.setStock(newStock);
 			
 			//ストックが0になった際、論理削除を行う
-			if(newStock == 0) {
-				items.setDeleteFlag(1);
-			}
+//			if(newStock == 0) {
+//				items.setDeleteFlag(1);
+//			}
 			
 			items = itemRepository.save(items);
 			
