@@ -643,6 +643,7 @@ select {
 /* ---- 買物カゴ ---- */
 .list_table.basket {
 	margin: 40px auto 21px;
+	
 }
 .list_table.basket th:first-of-type {
 	width: 45%;
@@ -664,6 +665,7 @@ select {
 	padding: 0px 10px;
 	border-radius: 6px;
 	font-weight: bold;
+	
 }
 
 
