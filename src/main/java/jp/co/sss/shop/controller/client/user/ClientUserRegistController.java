@@ -108,7 +108,7 @@ public class ClientUserRegistController {
 		session.setAttribute("userForm", form);
 		
 		//入力エラーがない場合
-		return "client/user/regist_check";
+		return "redirect:/client/user/regist/check";
 	}
 
 		
