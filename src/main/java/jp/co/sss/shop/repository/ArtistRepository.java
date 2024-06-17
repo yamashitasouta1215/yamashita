@@ -26,4 +26,7 @@ public interface ArtistRepository extends JpaRepository<Artist, Integer>{
 	
 	@Query("SELECT i FROM Artist i WHERE i.name LIKE %:name% AND i.deleteFlag = :deleteFlag")
 	List<Artist> findByNameContaining(@Param("name") String name, @Param("deleteFlag") int deleteFlag);
+	
+	@Query("SELECT i FROM Artist i WHERE i.name LIKE %:name% AND i.deleteFlag = :deleteFlag")
+	Page<Artist> findByNameContaining(@Param("name") String name, @Param("deleteFlag") int deleteFlag,Pageable pageable);
 }

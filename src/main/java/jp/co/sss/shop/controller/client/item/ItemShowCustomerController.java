@@ -126,27 +126,32 @@ public class ItemShowCustomerController {
 	
 	}
 
-	
 
-	@RequestMapping(path ="/searchArtist", method = RequestMethod.POST)
+	@RequestMapping(path ="/searchArtist", method = { RequestMethod.GET, RequestMethod.POST })
 	public String artist(Model model,String name, Pageable pageable) {
 		
 		
-
+		Page<Artist>pageList = repositorya.findByNameContaining(name,Constant.NOT_DELETED,pageable);
+		List<Artist>itemList = pageList.getContent();
 		List<Artist>artists=repositorya.findByNameContaining(name,Constant.NOT_DELETED);
 		List<Item>items =new ArrayList<>();
+		
 		
 		
 
 		for(int i=0; i<artists.size(); i++) {
 			int id=artists.get(i).getId();
-			items.addAll(repository.findByArtistId(id));
+			items.addAll(repository.findByArtistId(id,Constant.NOT_DELETED));
 		}
 		
+		model.addAttribute("pages",pageList);
 		model.addAttribute("items",items);
+		model.addAttribute("item",itemList);
+		model.addAttribute("pageNum",11);
 	
 		return "client/item/list";
 	}
+
 
 }
 
