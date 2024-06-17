@@ -15,7 +15,7 @@
 					<select name="categoryId">
 						<option th:value="#{constants.category.select.none.no}"
 							th:text="#{constants.category.select.none}"></option>
-						<option th:each="category:${categories}" th:value="${category.id}" th:text="${category.name}">
+						<option th:each="category:${session.categoriesList}" th:value="${category.id}" th:text="${category.name}">
 						</option>
 					</select> <input type="submit" th:value="#{select}" />
 				</form>

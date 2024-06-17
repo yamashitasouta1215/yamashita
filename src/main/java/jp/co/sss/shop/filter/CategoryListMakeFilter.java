@@ -12,6 +12,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import jp.co.sss.shop.bean.ArtistBean;
 import jp.co.sss.shop.bean.CategoryBean;
 import jp.co.sss.shop.entity.Artist;
@@ -35,6 +36,9 @@ public class CategoryListMakeFilter extends HttpFilter {
 	 */
 	@Autowired
 	CategoryRepository categoryRepository;
+	
+	@Autowired
+	HttpSession session;
 
 	@Autowired
 	ArtistRepository artistRepository;
@@ -71,6 +75,9 @@ public class CategoryListMakeFilter extends HttpFilter {
 
 			//リクエストスコープに検索結果を保存
 			request.setAttribute("categories", categoryBeanList);
+			
+			//セッションスコープに検索結果を保存
+			session.setAttribute("categoriesList", categoryBeanList);
 			
 			// アーティスト情報を全件検索
 			List<Artist> artistList = artistRepository

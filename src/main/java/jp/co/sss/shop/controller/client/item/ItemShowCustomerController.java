@@ -11,17 +11,33 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import jakarta.servlet.http.HttpSession;
 import jp.co.sss.shop.entity.Item;
+import jp.co.sss.shop.repository.ArtistRepository;
+import jp.co.sss.shop.repository.CategoryRepository;
 import jp.co.sss.shop.repository.ItemRepository;
+import jp.co.sss.shop.repository.OrderItemRepository;
 import jp.co.sss.shop.service.BeanTools;
 import jp.co.sss.shop.util.Constant;
+
 
 @Controller
 public class ItemShowCustomerController {
 	
 	@Autowired
 	ItemRepository repository;
+
+	OrderItemRepository repositoryoi;
+	@Autowired
+	CategoryRepository repositorycategory;
+
+	
+
+	@Autowired
+
+	ArtistRepository repositorya;
 	
 	@Autowired
+
+
 	BeanTools beanTools;
 	
 //	//追加機能　CD検索
@@ -103,7 +119,7 @@ public class ItemShowCustomerController {
 			model.addAttribute("items",itemList);
 			model.addAttribute("pageNum",10);	
 		}
-			
+					
 		return "client/item/list";
 	
 	}
