@@ -58,7 +58,7 @@ public class ClientOrderRegistController {
 	 * 「戻る」ボタン押下時
 	 */
 
-	@RequestMapping(path="/client/basket/list",method=RequestMethod.POST)
+	@RequestMapping(path="/client/basket/list",method= RequestMethod.POST)
 	public String basketback() {
 		
 		return "client/basket/list";
@@ -67,8 +67,8 @@ public class ClientOrderRegistController {
 	/*
 	 * 処理１
 	 */
-	@RequestMapping(path="/client/order/address/input",method=RequestMethod.POST)
-	public String addressinput(OrderForm form) {
+	@RequestMapping(path="/client/order/address/input",method= {RequestMethod.GET , RequestMethod.POST})
+	public String addressinputs(OrderForm form,Model model) {
 		
 		/*
 		 * 注文フォーム生成
@@ -84,18 +84,17 @@ public class ClientOrderRegistController {
 		form.setPostalCode(order.getPostalCode());
 		form.setPayMethod(1);
 		
-		
 		session.setAttribute("orderForm", form);
 		
-		return "redirect:/client/order/address/input";
 		
-		
+		return "redirect:/client/address/input";
+			
 	}
 	
 	/*
 	 * 処理２
 	 */
-	@RequestMapping(path="/client/order/address/input",method=RequestMethod.GET)
+	@RequestMapping(path="/client/address/input",method= RequestMethod.GET)
 	public String addressinput(@ModelAttribute OrderForm form,Model model) {
 		
 		OrderForm orderform = (OrderForm) session.getAttribute("orderForm");
@@ -111,7 +110,7 @@ public class ClientOrderRegistController {
 			model.addAttribute("org.springframework.validation.BindingResult.orderForm",result);
 			session.removeAttribute("result");
 		}
-
+		
 		return "client/order/address_input";
 		
 	}
@@ -219,11 +218,13 @@ public class ClientOrderRegistController {
 			 */
 			items=itemRepository.getReferenceById(basket.getId());
 		
-			String itemName = items.getName();
+			
 			
 			int price = items.getPrice();
 			int orderNum = basket.getOrderNum();
 			int stock = items.getStock();
+			String itemName = items.getName();
+			
 			
 			OrderItemBean orderitemBean = new OrderItemBean();
 			/*
@@ -238,7 +239,9 @@ public class ClientOrderRegistController {
 					 * 在庫0のため商品削除
 					 */
 						model.addAttribute("itemNameListZero",itemName);
+						
 						items = null;
+						
 						
 						} else if(orderNum > stock){
 						
@@ -246,6 +249,8 @@ public class ClientOrderRegistController {
 						 * 在庫数と注文数を合わせる
 						 */
 						model.addAttribute("itemNameListLessThan",itemName);
+						
+						
 						orderNum = stock;
 						basket.setOrderNum(stock);
 						Allprice = price * orderNum;
@@ -282,12 +287,21 @@ public class ClientOrderRegistController {
 					
 		//for文終わりの ｝		
 		}
+
 		
 		/*
 		 * 注文確認画面表示用注文内容リクエストスコープ
+		 * 注文数０の場合取引停止
 		 */
 		
-		model.addAttribute("orderItemBeans",orderitemBeanList);	
+		if(orderitemBeanList.size() != 0) {
+		model.addAttribute("orderItemBeans",orderitemBeanList);
+		
+		} else {
+			
+		model.addAttribute("orderItemBeans");
+		
+		}
 		
 		
 		
@@ -295,12 +309,12 @@ public class ClientOrderRegistController {
 		 * 商品が全く入っていない場合の処理
 		 * 確定ボタン表示、非表示用
 		 */
-		if(newBaskets.size() == 0) {
-			model.addAttribute("sizeNull",null);
-		} else {
-			model.addAttribute("sizeNull"," ");
-		}
-		
+//		if(newBaskets.size() == 0) {
+//			model.addAttribute("sizeNull",null);
+//		} else {
+//			model.addAttribute("sizeNull"," ");
+//		}
+//		
 		/*
 		 * 注文確認画面表示用ユーザー登録リクエストスコープ
 		 * 
@@ -353,8 +367,8 @@ public class ClientOrderRegistController {
 	/*
 	 * 処理７
 	 */
-	@RequestMapping(path="/client/order/payment/back",method=RequestMethod.POST)
-	public String paymentback(Model model,OrderForm form) {
+	@RequestMapping(path="/client/order/payment/back",method = RequestMethod.POST)
+	public String paymentback() {
 		
 		return "redirect:/client/order/address/input";
 	}
@@ -363,7 +377,7 @@ public class ClientOrderRegistController {
 	/*
 	 * check→paymentリダイレクト処理
 	 */
-	@RequestMapping(path="/client/order/payment/back/2",method=RequestMethod.POST)
+	@RequestMapping(path="/client/order/payment/back/2",method = RequestMethod.POST)
 	public String checkback() {
 		return "redirect:/client/order/payment/input";
 	}
@@ -391,32 +405,24 @@ public class ClientOrderRegistController {
 		
 		items=itemRepository.getReferenceById(basket.getId());
 		
-		String itemName = items.getName();
 		
 		int orderNums = basket.getOrderNum();
 		int stock = items.getStock();
 		
-		
+		/*
+		 * 1つでも在庫切れ、在庫未満があった場合処理6へ差し戻し
+		 */
 		if(stock == 0) {
 			
-	
-			model.addAttribute("itemNameListZero",itemName);
-			
-			if(i != baskets.size()-1) {
-				continue;
-			}
 			return "redirect:/client/order/check";
 			
 			
 		}else if(orderNums > stock) {
-			model.addAttribute("itemNameListLessThan",itemName);
-			
-			if(i != baskets.size()-1) {
-				continue;
-			}
-			
+	
 			return "redirect:/client/order/check";
 		}
+		
+		
 	}
 	return "redirect:/client/order/completed";
 }
@@ -544,7 +550,6 @@ public class ClientOrderRegistController {
 		return "redirect:/client/order/completes";
 		
 	}
-		
 	
 	/*
 	 * 処理９
