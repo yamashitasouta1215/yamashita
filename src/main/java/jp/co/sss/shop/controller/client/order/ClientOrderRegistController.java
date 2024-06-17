@@ -205,6 +205,9 @@ public class ClientOrderRegistController {
 		
 		 
 		 List<OrderItemBean> orderitemBeanList = new ArrayList<OrderItemBean>();
+		 
+		 List<String> ListZero = new ArrayList<String>();
+		 List<String> ListLessThan = new ArrayList<String>();
 //		 orderitemBeanList = null;
 		 /*
 		  * 買い物かごの種類分だけ
@@ -223,7 +226,11 @@ public class ClientOrderRegistController {
 			int price = items.getPrice();
 			int orderNum = basket.getOrderNum();
 			int stock = items.getStock();
-			String itemName = items.getName();
+			
+			
+			String orderitemName = items.getName();
+			
+			
 			
 			
 			OrderItemBean orderitemBean = new OrderItemBean();
@@ -238,7 +245,8 @@ public class ClientOrderRegistController {
 					/*
 					 * 在庫0のため商品削除
 					 */
-						model.addAttribute("itemNameListZero",itemName);
+						ListZero.add(orderitemName);
+						
 						
 						items = null;
 						
@@ -248,7 +256,8 @@ public class ClientOrderRegistController {
 						/*
 						 * 在庫数と注文数を合わせる
 						 */
-						model.addAttribute("itemNameListLessThan",itemName);
+						ListLessThan.add(orderitemName);
+						
 						
 						
 						orderNum = stock;
@@ -303,8 +312,11 @@ public class ClientOrderRegistController {
 		
 		}
 		
-		
-		
+		/*
+		 * 在庫不足、在庫なしの商品情報処理
+		 */
+		model.addAttribute("itemNameListZero",ListZero);
+		model.addAttribute("itemNameListLessThan",ListLessThan);
 		/*
 		 * 商品が全く入っていない場合の処理
 		 * 確定ボタン表示、非表示用
