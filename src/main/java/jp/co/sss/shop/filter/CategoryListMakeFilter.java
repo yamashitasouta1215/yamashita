@@ -88,6 +88,9 @@ public class CategoryListMakeFilter extends HttpFilter {
 
 			//リクエストスコープに検索結果を保存
 			request.setAttribute("artist", artistBeanList);
+			
+			//セッションスコープに検索結果を保存
+			session.setAttribute("artistList", artistBeanList);
 		}
 		chain.doFilter(request, response);
 	}
