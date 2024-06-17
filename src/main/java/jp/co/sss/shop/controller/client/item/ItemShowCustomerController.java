@@ -7,8 +7,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import jakarta.servlet.http.HttpSession;
+import jp.co.sss.shop.entity.Artist;
 import jp.co.sss.shop.entity.Item;
 import jp.co.sss.shop.repository.ArtistRepository;
 import jp.co.sss.shop.repository.CategoryRepository;
@@ -124,42 +127,45 @@ public class ItemShowCustomerController {
 	}
 
 	
-//	@PostMapping("/searchArtist")
-//	public String artist(Model model,String name) {
-//////		
-//			
-//		
-//		List<Artist>artist=repositorya.findByNameContaining(name);
-//
+	@RequestMapping(path ="/searchArtist", method = RequestMethod.POST)
+	public String artist(Model model,String name, Pageable pageable) {
+		
+		
+		
+		List<Artist> artist = repositorya.findByNameContaining(name);
+		
+
+		
+//		System.out.println(artist.get(0).getId());
 //		for(Artist value:artist) {
 //			artist.add(value);
 //			System.out.print(value);
 //		}	
-////		
-////		List<Item>items=repository.findByArtistId(artist);
+//		
+//		List<Item>items=repository.findByArtistId(artist);
 //
 //		
 //		model.addAttribute("items",repository.findAll());
 //		
-////			
-////		artist.get(i)
-////			List<Item>item=
-////			model.addAttribute("items",items); {
-////			
-////		}
-////////		if(name!=null) {
-////////		Artist artist =new Artist();
-////////		artist.setName(name);
-////////		List<Artist>artists=repositorya.findByNameContaining(name);
-////////		int artistId = 0;		
-////////		int artistId=((Artist) artist).getId();
-////////		int artistId=artist.getId();	
-////////		System.out.print(artistId);
-////////		List<Item> items=repository.findByArtistId(artistId);
-////////		model.addAttribute("items",items);
-//////////		}
-////////		model.addAttribute("items",repository.findAll());
-////		if(name!=null) {
+//			
+//		artist.get(i)
+//			List<Item>item=
+//			model.addAttribute("items",items); {
+//			
+//		}
+//		if(name!=null) {
+//		Artist artist =new Artist();
+//		artist.setName(name);
+//		List<Artist>artists=repositorya.findByNameContaining(name);
+//		int artistId = 0;		
+//		int artistId=((Artist) artist).getId();
+//		int artistId=artist.getId();	
+//		System.out.print(artistId);
+//		List<Item> items=repository.findByArtistId(artistId);
+//		model.addAttribute("items",items);
+//		}
+//		model.addAttribute("items",repository.findAll());
+//		if(name!=null) {
 ////////			Artist artist=new Artist();
 ////		List<Artist>artist=repositorya.findByNameContaining(name);
 ////		
@@ -176,8 +182,8 @@ public class ItemShowCustomerController {
 ////		model.addAttribute("items",repository.findAll());
 //		
 //		
-//		return "client/item/list";
-//	}
+		return "client/item/list";
+	}
 //	
 //	@PostMapping("/searchMonth")
 //	public String month(Model model,Integer releaseDate) {
