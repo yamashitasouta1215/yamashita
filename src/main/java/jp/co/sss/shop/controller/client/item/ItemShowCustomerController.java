@@ -132,8 +132,8 @@ public class ItemShowCustomerController {
 		
 		
 		
-		List<Artist> artist = repositorya.findByNameContaining(name);
-		
+		List<Artist> artistList = repositorya.findByNameContaining(name);
+		model.addAttribute("artists",artistList);
 
 		
 //		System.out.println(artist.get(0).getId());
