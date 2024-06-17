@@ -134,11 +134,10 @@ public class ItemShowCustomerController {
 		
 		
 
-		List<Artist>artists=repositorya.findByNameContaining(name);
+		List<Artist>artists=repositorya.findByNameContaining(name,Constant.NOT_DELETED,pageable);
 		List<Item>items =new ArrayList<>();
 		
-		List<Artist> artistList = repositorya.findByNameContaining(name);
-		model.addAttribute("artists",artistList);
+		
 
 		for(int i=0; i<artists.size(); i++) {
 			int id=artists.get(i).getId();

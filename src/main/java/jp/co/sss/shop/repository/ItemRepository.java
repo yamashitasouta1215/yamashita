@@ -101,8 +101,9 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 	@Query("SELECT i FROM Item i WHERE i.price > :b AND i.deleteFlag = :deleteFlag ORDER BY i.price")
 	Page<Item> findByPriceGreaterThanOrderByPrice(@Param("b") int b, @Param("deleteFlag") int deleteFlag, Pageable pageable);
 
-
-	List<Item> findByArtistId(int id);
+	@Query("SELECT i FROM Item i WHERE i.artist.Id AND i.deleteFlag = :deleteFlag ORDER BY i.releaseDate DESC")
+	List<Item> findByArtistId(@Param("name") String name, @Param("deleteFlag") int deleteFlag);
+	
 
 
 
