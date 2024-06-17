@@ -1,4 +1,5 @@
 package jp.co.sss.shop.controller.client.item;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -127,76 +128,27 @@ public class ItemShowCustomerController {
 	}
 
 	
+	
 	@RequestMapping(path ="/searchArtist", method = RequestMethod.POST)
 	public String artist(Model model,String name, Pageable pageable) {
 		
 		
+
+		List<Artist>artists=repositorya.findByNameContaining(name);
+		List<Item>items =new ArrayList<>();
 		
 		List<Artist> artistList = repositorya.findByNameContaining(name);
 		model.addAttribute("artists",artistList);
 
+		for(int i=0; i<artists.size(); i++) {
+			int id=artists.get(i).getId();
+			items.addAll(repository.findByArtistId(id));
+		}
 		
-//		System.out.println(artist.get(0).getId());
-//		for(Artist value:artist) {
-//			artist.add(value);
-//			System.out.print(value);
-//		}	
-//		
-//		List<Item>items=repository.findByArtistId(artist);
-//
-//		
-//		model.addAttribute("items",repository.findAll());
-//		
-//			
-//		artist.get(i)
-//			List<Item>item=
-//			model.addAttribute("items",items); {
-//			
-//		}
-//		if(name!=null) {
-//		Artist artist =new Artist();
-//		artist.setName(name);
-//		List<Artist>artists=repositorya.findByNameContaining(name);
-//		int artistId = 0;		
-//		int artistId=((Artist) artist).getId();
-//		int artistId=artist.getId();	
-//		System.out.print(artistId);
-//		List<Item> items=repository.findByArtistId(artistId);
-//		model.addAttribute("items",items);
-//		}
-//		model.addAttribute("items",repository.findAll());
-//		if(name!=null) {
-////////			Artist artist=new Artist();
-////		List<Artist>artist=repositorya.findByNameContaining(name);
-////		
-//////		for(int i=0; i<artist.length; i++) {
-//////			List<Item> items=repository.findByArtistId(artist.getId());
-//////			
-//////		}
-////////		int artistId=artist.getId();	
-////////		System.out.print(artistId);
-//////		
-////		model.addAttribute("items",items);
-////
-////////		}
-////		model.addAttribute("items",repository.findAll());
-//		
-//		
+		model.addAttribute("items",items);
+	
 		return "client/item/list";
 	}
-//	
-//	@PostMapping("/searchMonth")
-//	public String month(Model model,Integer releaseDate) {
-//		
-//		List<Item>item=repository.findByReleaseDateContaining(releaseDate);
-//		model.addAttribute("item",item);
-//		
-//		return "client/item/list";
-//	}
-	
-//		}
-//		return "client/item/list";
-//	}
-//	
+
 }
 
