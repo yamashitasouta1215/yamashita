@@ -13,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -58,16 +59,118 @@ public class ClientOrderRegistController {
 	 * 「戻る」ボタン押下時
 	 */
 
+
 	@RequestMapping(path="/client/basket/list",method= RequestMethod.POST)
 	public String basketback() {
 		
 		return "client/basket/list";
 	}
 
+	
+	/*
+	 * 「ご注文の手続き」押下時在庫チェック処理
+	 */
+	@SuppressWarnings("unchecked")
+	@RequestMapping(path="/client/order/address/input",method=RequestMethod.POST)
+	public String firstCheck(RedirectAttributes flashscope) {
+		
+		ArrayList <BasketBean> newBaskets = new ArrayList<>();
+		
+		Item items = new Item();
+		/*
+		 * セッションスコープより買い物かご情報取得
+		 */
+		 ArrayList<BasketBean> basketBean = new ArrayList<>();
+		 
+		 basketBean =(ArrayList<BasketBean>) session.getAttribute("basketBeans");
+		
+		 
+		 List<String> ListZero = new ArrayList<String>();
+		 List<String> ListLessThan = new ArrayList<String>();
+
+		 /*
+		  * 買い物かごの種類分だけ
+		  */
+		for(int i=0;i < basketBean.size() ;i++) {
+		
+			BasketBean basket = basketBean.get(i);
+	
+			/*
+			 * かごの商品情報をItemエンティィへ格納
+			 */
+			items=itemRepository.getReferenceById(basket.getId());
+		
+			int orderNum = basket.getOrderNum();
+			int stock = items.getStock();
+			
+			
+			String orderitemName = items.getName();
+			
+			/*
+			 * 在庫数との照らし合わせ
+			 */
+				if(stock == 0) {
+				
+					/*
+					 * 在庫0のため商品削除
+					 */
+						ListZero.add(orderitemName);
+						
+						items = null;
+						} else if(orderNum > stock){
+						
+						/*
+						 * 在庫数と注文数を合わせる
+						 */
+						ListLessThan.add(orderitemName);
+						
+						
+						orderNum = stock;
+						basket.setOrderNum(stock);
+						newBaskets.add(basket);
+						
+						
+						} else {
+						/*
+						 * 必要処理なし
+						 */
+						newBaskets.add(basket);
+						
+				}			
+		}
+		
+		
+		flashscope.addFlashAttribute("itemNameListZero",ListZero);
+		flashscope.addFlashAttribute("itemNameListLessThan",ListLessThan);
+						
+		
+		session.setAttribute("basketBeans", newBaskets);	
+		
+		
+		if(ListZero.size() != 0 || ListLessThan.size() != 0) {
+			
+			
+			/*
+			 * 買い物かごから完全消去されたときremoveする。
+			 */
+			if(newBaskets.size() == 0) {
+				session.removeAttribute("basketBeans");
+				
+			}
+			
+			return "redirect:/client/basket/list";
+			
+		} else {
+			
+		return "redirect:/client/order/address/input2";
+	}
+		
+}
+	
 	/*
 	 * 処理１
 	 */
-	@RequestMapping(path="/client/order/address/input",method= {RequestMethod.GET , RequestMethod.POST})
+	@RequestMapping(path="/client/order/address/input2",method= {RequestMethod.GET , RequestMethod.POST})
 	public String addressinputs(OrderForm form,Model model) {
 		
 		/*
@@ -135,7 +238,7 @@ public class ClientOrderRegistController {
 		if(result.hasErrors()) {
 		session.setAttribute("result",result);
 			
-		return "redirect:/client/order/address/input";
+		return "redirect:/client/order/address/input2";
 		
 		}		
 		
@@ -208,7 +311,7 @@ public class ClientOrderRegistController {
 		 
 		 List<String> ListZero = new ArrayList<String>();
 		 List<String> ListLessThan = new ArrayList<String>();
-//		 orderitemBeanList = null;
+
 		 /*
 		  * 買い物かごの種類分だけ
 		  */
@@ -221,17 +324,12 @@ public class ClientOrderRegistController {
 			 */
 			items=itemRepository.getReferenceById(basket.getId());
 		
-			
-			
 			int price = items.getPrice();
 			int orderNum = basket.getOrderNum();
 			int stock = items.getStock();
 			
 			
 			String orderitemName = items.getName();
-			
-			
-			
 			
 			OrderItemBean orderitemBean = new OrderItemBean();
 			/*
@@ -247,17 +345,13 @@ public class ClientOrderRegistController {
 					 */
 						ListZero.add(orderitemName);
 						
-						
 						items = null;
-						
-						
 						} else if(orderNum > stock){
 						
 						/*
 						 * 在庫数と注文数を合わせる
 						 */
 						ListLessThan.add(orderitemName);
-						
 						
 						
 						orderNum = stock;
@@ -275,8 +369,7 @@ public class ClientOrderRegistController {
 						
 				}
 
-				
-				
+			
 					if(items != null) {
 						orderitemBean.setSubtotal(Allprice);
 						orderitemBean.setOrderNum(orderNum);
@@ -362,7 +455,7 @@ public class ClientOrderRegistController {
 	session.removeAttribute("orderForm");
 	
 	
-	List<OrderItem> orderItemList = new ArrayList<>();
+		List<OrderItem> orderItemList = new ArrayList<>();
 	 orderItemList =(List<OrderItem>) session.getAttribute("basketBeans");
 	 
 	 
@@ -382,7 +475,7 @@ public class ClientOrderRegistController {
 	@RequestMapping(path="/client/order/payment/back",method = RequestMethod.POST)
 	public String paymentback() {
 		
-		return "redirect:/client/order/address/input";
+		return "redirect:/client/order/address/input2";
 	}
 	
 	
@@ -540,9 +633,9 @@ public class ClientOrderRegistController {
 			items.setStock(newStock);
 			
 			//ストックが0になった際、論理削除を行う
-			if(newStock == 0) {
-				items.setDeleteFlag(1);
-			}
+//			if(newStock == 0) {
+//				items.setDeleteFlag(1);
+//			}
 			
 			items = itemRepository.save(items);
 			

@@ -138,7 +138,7 @@ public class ClientUserUpdateIController {
 			session.setAttribute("userForm", form);
 			
 			//入力エラーがない場合
-			return "client/user/update_check";
+			return "redirect:/client/user/update/check";
 		}
 
 			
