@@ -133,7 +133,7 @@ public class ItemShowCustomerController {
 		
 		
 
-		List<Artist>artists=repositorya.findByNameContaining(name,Constant.NOT_DELETED,pageable);
+		List<Artist>artists=repositorya.findByNameContaining(name,Constant.NOT_DELETED);
 		List<Item>items =new ArrayList<>();
 		
 		
