@@ -135,7 +135,6 @@ public class OrderItemBean {
 	
 /*
  *注文履歴アーティスト名追加のため
- *
  */
 	public String getArtistName() {
 		return artistName;

@@ -51,7 +51,7 @@
 	
 		<tr>
 			<td colspan="4"></td>
-				<th:block th:if="${sizeNull != null}">
+				<th:block th:if="${orderItemBeans != null}">
 			<td class="total">[[#{data.total}]]</td>
 				</th:block>
 			<td class="total" th:text="${total}"></td>
@@ -93,23 +93,18 @@
 		
 <!--		orderItemBeansに値が入っているときのみ「注文確定ボタン」と「戻る」を表示-->
 
-		<th:block th:if="${sizeNull != null}">
 		<form th:action="@{/client/order/complete}" method="post">
 			<input class="send_button" type="submit" value="ご注文の確定" th:if="${orderItemBeans != null}"/>
 		</form>
 		<form th:action="@{/client/order/payment/back/2}" method="post" class="update">
 			<input type="submit" value="戻る" class="back_button" />
 		</form>
-		</th:block>
 		
 		
 		<!--買い物かごへ戻るボタンは常に表示-->
 		<form th:action="@{/client/order/back}" method="post">
 			<input type="submit" value="買い物かごへ戻る" class="back_button" />
 		</form>
-
-		
-		
 		
 	</div>
 	
