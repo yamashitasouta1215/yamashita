@@ -1,13 +1,10 @@
-
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	th:replace="~{common/layout_4block :: layout(~{::title},~{::body/content()})}">
-
 <head>
 	<title th:text="#{item}+#{title.input}+' | '+ #{shop.title}"> </title>
 	<meta charset="UTF-8" />
 </head>
-
 <body class="admin item_regist_input">
 	<h2 th:class="title" th:text="#{item}+#{title.input}"></h2>
 	<p th:class="input_message" th:text="#{msg.regist.input}"></p>
@@ -15,21 +12,21 @@
 	<div class="user_info_form_area">
 		<form th:action="@{/admin/item/regist/check}" enctype="multipart/form-data" method="post"
 			class="user_info_form" th:object="${itemForm}" >
-
 			<th:block th:if="${#fields.hasErrors()}">
 				<ul class="error_list">
 					<li th:each="err:${#fields.detailedErrors()}" th:text="${err.message}"></li>
 				</ul>
+<!--;;;;ｈｊｄｔｘ-->
 				<br />
 			</th:block>
 			<ul class="input_list">
 				<li>
 					<label><span class="input_title">[[#{itemForm.name}]]</span></label>
-					<input type="text" th:field="*{name}" required/>
+					<input type="text" th:field="*{name}" />
 				</li>
 				<li>
 					<label><span class="input_title">[[#{itemForm.price}]]</span></label>
-					<input type="text" th:field="*{price}" required/>
+					<input type="text" th:field="*{price}" />
 				</li>
 				
 				<li>
@@ -39,7 +36,7 @@
 				
 				<li>
 					<label><span class="input_title">[[#{itemForm.stock}]]</span></label>
-					<input type="text" th:field="*{stock}" required/>
+					<input type="text" th:field="*{stock}" />
 				</li>
 				
 				<li>
@@ -83,7 +80,5 @@
 		</form>
 	</div>
 	
-
 </body>
-
 </html>
