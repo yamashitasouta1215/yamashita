@@ -54,19 +54,17 @@ public class ClientOrderRegistController {
 	@Autowired
 	ArtistRepository artistRepository;
 	
+	
 	/*
 	 * 住所入力処理→買い物かごへ
 	 * 「戻る」ボタン押下時
 	 */
-
-
 	@RequestMapping(path="/client/basket/list",method= RequestMethod.POST)
 	public String basketback() {
 		
 		return "client/basket/list";
 	}
 
-	
 	/*
 	 * 「ご注文の手続き」押下時在庫チェック処理
 	 */
