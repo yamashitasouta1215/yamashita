@@ -97,6 +97,7 @@ public class ClientItemShowController {
 		return "client/item/detail";
 	}
 	
+
 	
 }
 

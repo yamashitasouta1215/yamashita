@@ -88,11 +88,10 @@ OrderRepository Orepository;
 @RequestMapping(path = "/client/order/list", method = { RequestMethod.GET, RequestMethod.POST })
 public String showOrderList(Model model, Pageable pageable) {
 
-	// すべての注文情報を取得(注文日降順)
+	// ログイン中のユーザの注文情報を取得(注文日降順)
 	//表示画面でページングが必要なため、ページ情報付きの検索を行う
 	Integer userid = ((UserBean) session.getAttribute("user")).getId();
 
-	
 	List<Order> orderList = Orepository.findByUserIdOrderByInsertDateDesc(userid);
 
 	// 注文情報リストを生成
