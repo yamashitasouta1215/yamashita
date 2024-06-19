@@ -54,19 +54,17 @@ public class ClientOrderRegistController {
 	@Autowired
 	ArtistRepository artistRepository;
 	
+	
 	/*
 	 * 住所入力処理→買い物かごへ
 	 * 「戻る」ボタン押下時
 	 */
-
-
 	@RequestMapping(path="/client/basket/list",method= RequestMethod.POST)
 	public String basketback() {
 		
 		return "client/basket/list";
 	}
 
-	
 	/*
 	 * 「ご注文の手続き」押下時在庫チェック処理
 	 */
@@ -85,9 +83,14 @@ public class ClientOrderRegistController {
 		 basketBean =(ArrayList<BasketBean>) session.getAttribute("basketBeans");
 		
 		 
+//		 警告メッセージ表示用
 		 List<String> ListZero = new ArrayList<String>();
 		 List<String> ListLessThan = new ArrayList<String>();
 
+//		 計算用変数
+		 int total =0;
+		 int Allprice = 0;
+		 
 		 /*
 		  * 買い物かごの種類分だけ
 		  */
@@ -101,8 +104,9 @@ public class ClientOrderRegistController {
 			items=itemRepository.getReferenceById(basket.getId());
 		
 			int orderNum = basket.getOrderNum();
-			int stock = items.getStock();
 			
+			int stock = items.getStock();
+			int price = items.getPrice();
 			
 			String orderitemName = items.getName();
 			
@@ -117,6 +121,7 @@ public class ClientOrderRegistController {
 						ListZero.add(orderitemName);
 						
 						items = null;
+						
 						} else if(orderNum > stock){
 						
 						/*
@@ -126,29 +131,51 @@ public class ClientOrderRegistController {
 						
 						
 						orderNum = stock;
-						basket.setOrderNum(stock);
-						newBaskets.add(basket);
+						Allprice = price * stock;
 						
+					
+						newBaskets.add(basket);
+					
 						
 						} else {
+							
 						/*
 						 * 必要処理なし
 						 */
+						Allprice = price * orderNum;
+						
 						newBaskets.add(basket);
 						
-				}			
+						
+				}		
+				
+				/*
+				 * 買い物かご情報セット
+				 */
+				basket.setPriceSum(Allprice);
+				basket.setOrderNum(orderNum);
+				total += Allprice;
+				
+			
+		/*
+		 * for文終わりの}		
+		 */
 		}
 		
-		
+		/*
+		 * 警告メッセージ表示,、小計表示用
+		 */
 		flashscope.addFlashAttribute("itemNameListZero",ListZero);
 		flashscope.addFlashAttribute("itemNameListLessThan",ListLessThan);
-						
+		session.setAttribute("priceSum", total);	
+		/*
+		 * 買い物かご情報の更新
+		 */
+		session.setAttribute("basketBeans", newBaskets);
 		
-		session.setAttribute("basketBeans", newBaskets);	
 		
 		
 		if(ListZero.size() != 0 || ListLessThan.size() != 0) {
-			
 			
 			/*
 			 * 買い物かごから完全消去されたときremoveする。
@@ -163,7 +190,7 @@ public class ClientOrderRegistController {
 		} else {
 			
 		return "redirect:/client/order/address/input2";
-	}
+		}
 		
 }
 	
@@ -460,7 +487,6 @@ public class ClientOrderRegistController {
 	 
 	 
 	if(orderItemList.size() == 0) {
-		System.out.println(orderItemList);
 		session.removeAttribute("basketBeans");
 		
 	}
