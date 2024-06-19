@@ -45,12 +45,15 @@ public class ClientItemShowController {
 	 * @return "index" トップ画面
 	 */
 	@RequestMapping(path = "/" , method = { RequestMethod.GET, RequestMethod.POST })
-	public String index(Model model,Pageable pageable) {
-		
-		Page<Item>pageList = itemRepository.findAllByQueryAndDeleteFlag(Constant.NOT_DELETED,pageable);
-		List<Item>itemList = pageList.getContent();
-		model.addAttribute("pages",pageList);
-		model.addAttribute("items",itemList);
+	public String index(Model model) {
+		//表示できるアイテムがあれば売れ筋順で表示する
+		model.addAttribute("items",itemRepository.findAllByQueryAndDeleteFlag(Constant.NOT_DELETED));
+		//表示できるアイテムが無ければ新着順で表示する
+		List<Item>items=itemRepository.findAllByQueryAndDeleteFlag(Constant.NOT_DELETED);
+		if(items.isEmpty()) {
+			
+		model.addAttribute("items",itemRepository.findByDeleteFlagOrderByReleaseDateDesc(Constant.NOT_DELETED));
+		}
 		return "index";
 	}
 	
