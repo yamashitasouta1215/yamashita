@@ -132,9 +132,10 @@ public class ItemShowCustomerController {
 	
 		List<Artist>artists=repositorya.findByNameContaining(name,Constant.NOT_DELETED);
 		List<Item>items =new ArrayList<>();
-
+	
 		for(int i=0; i<artists.size(); i++) {
 			int id=artists.get(i).getId();
+			
 			items.addAll(repository.findByArtistId(id,Constant.NOT_DELETED));
 		}
 		
