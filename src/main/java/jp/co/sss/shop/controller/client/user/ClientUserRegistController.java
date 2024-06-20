@@ -162,8 +162,8 @@ public class ClientUserRegistController {
 
 		UserBean userBean = new UserBean();
 		BeanUtils.copyProperties(user, userBean);
-		
-		model.addAttribute("userinput", userBean);
+		session.setAttribute("user",userBean);
+		session.removeAttribute("userForm");
 		
 		//登録完了画面　表示処理
 		//二重送信防止のためリダイレクトを行う
@@ -173,7 +173,9 @@ public class ClientUserRegistController {
 		
 	//登録完了画面表示処理　処理７
 	@RequestMapping(path = "/client/user/regist/complete", method = RequestMethod.GET)
-	public String registCompleteFinish() {
+	public String registCompleteFinish(HttpSession session) {
+	
+
 
 			return "client/user/regist_complete";
 		}

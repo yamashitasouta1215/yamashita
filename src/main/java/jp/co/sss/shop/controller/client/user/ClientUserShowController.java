@@ -30,6 +30,7 @@ public class ClientUserShowController {
 	HttpSession session;
 	
 	
+	
 	//会員詳細表示
 	@RequestMapping(path = "/client/user/detail/{id}", method = { RequestMethod.GET, RequestMethod.POST })
 	 public String showUser(@PathVariable Integer id, Model model) {
