@@ -154,6 +154,9 @@ public class ClientOrderRegistController {
 				 */
 				basket.setPriceSum(Allprice);
 				basket.setOrderNum(orderNum);
+				basket.setStock(stock);	
+				
+				
 				total += Allprice;
 				
 			
@@ -217,14 +220,14 @@ public class ClientOrderRegistController {
 		session.setAttribute("orderForm", form);
 		
 		
-		return "redirect:/client/address/input";
+		return "redirect:/client/order/address/input";
 			
 	}
 	
 	/*
 	 * 処理２
 	 */
-	@RequestMapping(path="/client/address/input",method= RequestMethod.GET)
+	@RequestMapping(path="/client/order/address/input",method= RequestMethod.GET)
 	public String addressinput(@ModelAttribute OrderForm form,Model model) {
 		
 		OrderForm orderform = (OrderForm) session.getAttribute("orderForm");
@@ -236,6 +239,7 @@ public class ClientOrderRegistController {
 //		- セッションスコープから、エラー情報を削除
 
 		BindingResult result = (BindingResult) session.getAttribute("result");
+		
 		if(result != null) {
 			model.addAttribute("org.springframework.validation.BindingResult.orderForm",result);
 			session.removeAttribute("result");
@@ -386,7 +390,6 @@ public class ClientOrderRegistController {
 						Allprice = price * orderNum;
 						newBaskets.add(basket);
 						
-						
 						} else {
 						/*
 						 * 必要処理なし
@@ -441,12 +444,7 @@ public class ClientOrderRegistController {
 		 * 商品が全く入っていない場合の処理
 		 * 確定ボタン表示、非表示用
 		 */
-//		if(newBaskets.size() == 0) {
-//			model.addAttribute("sizeNull",null);
-//		} else {
-//			model.addAttribute("sizeNull"," ");
-//		}
-//		
+
 		/*
 		 * 注文確認画面表示用ユーザー登録リクエストスコープ
 		 * 
@@ -513,8 +511,6 @@ public class ClientOrderRegistController {
 		return "redirect:/client/order/payment/input";
 	}
 	
-	
-	
 	/*
 	 * 注文確定ボタン押下時在庫数チェック
 	 * ストック数0または個数不足のときclient/order/checkへリダイレクト
@@ -545,6 +541,7 @@ public class ClientOrderRegistController {
 		 */
 		if(stock == 0) {
 			
+			
 			return "redirect:/client/order/check";
 			
 			
@@ -557,7 +554,6 @@ public class ClientOrderRegistController {
 	}
 	return "redirect:/client/order/completed";
 }
-	
 	
 	/*
 	 * 処理８
@@ -572,7 +568,7 @@ public class ClientOrderRegistController {
 		Order order = new Order();
 		
 		OrderForm orderform = (OrderForm) session.getAttribute("orderForm");
-		BeanUtils.copyProperties(orderform,order,"id");
+		
 		
 		
 		/*
@@ -600,6 +596,7 @@ public class ClientOrderRegistController {
 		/*
 		 * ユーザ情報をorderテーブルへ登録
 		 */
+		BeanUtils.copyProperties(orderform,order,"id");
 		orderRepository.save(order);
 
 		
@@ -634,11 +631,12 @@ public class ClientOrderRegistController {
 
 			items=itemRepository.getReferenceById(basket.getId());
 
-			int id = items.getId();
+	
 			int orderNum = basket.getOrderNum();
 			int orderPrice = items.getPrice();
-
-			item.setId(id);
+			int itemId = items.getId();
+			
+			item.setId(itemId);
 			item.setPrice(orderPrice);
 			item.setQuantity(orderNum);
 			item.setOrder(order);
@@ -655,7 +653,8 @@ public class ClientOrderRegistController {
 			/*
 			 * Itemテーブルのstock数を減らすDB登録
 			 */
-			int newStock = stock - orderNum;
+
+		int  newStock= stock - orderNum;
 			items.setStock(newStock);
 			
 			//ストックが0になった際、論理削除を行う
@@ -664,12 +663,12 @@ public class ClientOrderRegistController {
 //			}
 			
 			items = itemRepository.save(items);
-			
 		/*
 		 * for文終わりの ｝
 		 */
 		}
 		
+
 		/*
 		 * 注文登録用セッション破棄
 		 */
@@ -678,15 +677,19 @@ public class ClientOrderRegistController {
 		session.removeAttribute("basketBeans");
 		
 		
-		return "redirect:/client/order/completes";
+		return "redirect:/client/order/complete";
+	
 		
 	}
 	
+
+	
+
 	/*
 	 * 処理９
 	 * 注文確認画面へ
 	 */
-	@RequestMapping(path="/client/order/completes",method=RequestMethod.GET)
+	@RequestMapping(path="/client/order/complete",method=RequestMethod.GET)
 	public String complete() {
 		
 	
@@ -694,4 +697,3 @@ public class ClientOrderRegistController {
 	}
 	
 }
-	

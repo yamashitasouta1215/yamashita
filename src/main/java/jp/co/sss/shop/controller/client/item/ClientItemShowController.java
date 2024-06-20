@@ -77,8 +77,13 @@ public class ClientItemShowController {
 				
 				Page<Item>pageList = itemRepository.findAllByQueryAndDeleteFlag(Constant.NOT_DELETED,pageable);
 				List<Item>itemList = pageList.getContent();
-				model.addAttribute("pages",pageList);
 				model.addAttribute("items",itemList);
+				List<Item>items=itemRepository.findAllByQueryAndDeleteFlag(Constant.NOT_DELETED);
+				if(items.isEmpty()) {
+					
+				model.addAttribute("items",itemRepository.findByDeleteFlagOrderByReleaseDateDesc(Constant.NOT_DELETED,pageable));
+				}
+				model.addAttribute("pages",pageList);
 				model.addAttribute("pageNum",2);
 			}else {
 				model.addAttribute("items",itemRepository.findCategoryByQuery(categoryId,Constant.NOT_DELETED));
