@@ -128,6 +128,7 @@ public class ClientUserDeleteController {
 		 */
 		@RequestMapping(path = "/client/user/delete/complete", method = RequestMethod.GET)
 		public String deleteCompleteFinish() {
+			session.invalidate();
 
 			return "client/user/delete_complete";
 		}
