@@ -157,6 +157,7 @@ public class ClientUserRegistController {
 		user.setAuthority(authority);
 		user.getAuthority();
 		
+		
 		// DB登録
 		userRepository.save(user);
 
