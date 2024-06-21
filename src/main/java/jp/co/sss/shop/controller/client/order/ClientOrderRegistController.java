@@ -385,7 +385,7 @@ public class ClientOrderRegistController {
 						
 						
 						orderNum = stock;
-						basket.setOrderNum(stock);
+						
 						Allprice = price * orderNum;
 						newBaskets.add(basket);
 						
@@ -403,7 +403,8 @@ public class ClientOrderRegistController {
 						orderitemBean.setSubtotal(Allprice);
 						orderitemBean.setOrderNum(orderNum);
 						orderitemBean.setArtistName(items.getArtist().getName());
-
+						basket.setOrderNum(orderNum);
+						basket.setStock(stock);
 				
 						BeanUtils.copyProperties(items, orderitemBean);
 						orderitemBeanList.add(orderitemBean);
