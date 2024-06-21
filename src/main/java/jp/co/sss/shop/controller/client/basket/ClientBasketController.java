@@ -24,15 +24,135 @@ public class ClientBasketController {
 	@Autowired
 	ItemRepository itemRepository;
 	
+	
 	//買い物かごタブをクリックした際のメソッド
 	//かご内の一覧表示
+	@SuppressWarnings("unchecked")
 	@RequestMapping(path ="/client/basket/list", method = RequestMethod.GET)
-	public String ShowBasket() {
+	public String ShowBasket(Model model) {
 		
-//		int i =  (int) session.getAttribute("i");
-//		
-//		if (i == 0) {
-//			@SuppressWarnings("unchecked")
+		
+		ArrayList <BasketBean> newBaskets = new ArrayList<>();
+		
+		Item items = new Item();
+		/*
+		 * セッションスコープより買い物かご情報取得
+		 */
+		 ArrayList<BasketBean> basketBean = new ArrayList<>();
+		 
+		 basketBean =(ArrayList<BasketBean>) session.getAttribute("basketBeans");
+		
+		 
+		 if( basketBean != null) {
+			 
+//		 警告メッセージ表示用
+			 List<String> ListZero = new ArrayList<String>();
+			 List<String> ListLessThan = new ArrayList<String>();
+
+//		 計算用変数
+			 int total =0;
+			 int Allprice = 0;
+		 
+		 /*
+		  * 買い物かごの種類分だけ
+		  */
+		
+			 for(int i=0;i < basketBean.size() ;i++) {
+		
+				 BasketBean basket = basketBean.get(i);
+			
+			/*
+			 * かごの商品情報をItemエンティィへ格納
+			 */
+				 items=itemRepository.getReferenceById(basket.getId());
+		
+				 int orderNum = basket.getOrderNum();
+			
+				 int stock = items.getStock();
+				 int price = items.getPrice();
+				 
+			String orderitemName = items.getName();
+			
+			/*
+			 * 在庫数との照らし合わせ
+			 */
+					if(stock == 0) {
+				
+					/*
+					 * 在庫0のため商品削除
+					 */
+							ListZero.add(orderitemName);
+						
+							items = null;
+						
+					} else if(orderNum > stock){
+						
+						/*
+						 * 在庫数と注文数を合わせる
+						 */
+							ListLessThan.add(orderitemName);
+						
+						
+							orderNum = stock;
+							Allprice = price * stock;
+						
+					
+							newBaskets.add(basket);
+					
+						
+					} else {
+							
+						/*
+						 * 必要処理なし
+						 */
+							Allprice = price * orderNum;
+						
+							newBaskets.add(basket);
+						
+						
+					}		
+				
+				/*
+				 * 買い物かご情報セット
+				 */
+				basket.setPriceSum(Allprice);
+				basket.setOrderNum(orderNum);
+				basket.setStock(stock);	
+				
+				
+				total += Allprice;
+				
+		/*
+		 * for文終わりの}		
+		 */
+			 }
+			 
+		
+		if(ListZero.size() !=0 || ListLessThan.size() !=0) {
+			
+		model.addAttribute("itemNameListZero",ListZero);
+		model.addAttribute("itemNameListLessThan",ListLessThan);
+		
+		session.setAttribute("priceSum", total);
+		session.setAttribute("basketBeans", newBaskets);
+
+			
+			/*
+			 * 買い物かごから完全消去されたときremoveする。
+			 */
+			if(newBaskets.size() == 0) {
+				session.removeAttribute("basketBeans");
+			}
+		}
+	 }
+				
+	
+			
+			return "/client/basket/list";	 
+		
+	}
+			
+		
 //			List<BasketBean> basketItemList = (List<BasketBean>) session.getAttribute("basketBeans");
 //			int id = (int) session.getAttribute("id");
 //			//ストックがいくつあるのか確認
@@ -70,8 +190,8 @@ public class ClientBasketController {
 //		basketItemList.add(itemAddToBasket);
 //		session.setAttribute("basketBeans", basketItemList);
 		
-		return "client/basket/list";
-	}
+
+	
 	
 	//商品のかごへの追加
 	@RequestMapping(path ="/client/basket/add", method = RequestMethod.POST)
@@ -83,9 +203,6 @@ public class ClientBasketController {
 			basketItemList = new ArrayList<>();
 		}
 		
-		
-		
-//		int id = (int) session.getAttribute("id");
 		
 		//反転している要素をもとに戻す
 		Collections.reverse(basketItemList);

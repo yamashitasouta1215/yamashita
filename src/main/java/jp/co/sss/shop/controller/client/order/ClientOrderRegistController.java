@@ -159,7 +159,6 @@ public class ClientOrderRegistController {
 				
 				total += Allprice;
 				
-			
 		/*
 		 * for文終わりの}		
 		 */
@@ -678,13 +677,9 @@ public class ClientOrderRegistController {
 		
 		
 		return "redirect:/client/order/complete";
-	
-		
+			
 	}
 	
-
-	
-
 	/*
 	 * 処理９
 	 * 注文確認画面へ
