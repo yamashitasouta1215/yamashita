@@ -70,6 +70,27 @@ public class ClientUserRegistController {
 		return "client/user/regist_input";
 	}
 	
+	@RequestMapping(path = "/client/user/regist/input", method = RequestMethod.POST)
+	public String userInput () {
+		
+		//セッションスコープより入力情報を取り出す
+		UserForm userForm = (UserForm) session.getAttribute("userForm");
+			if (userForm == null) {
+					userForm = new UserForm();
+					userForm.setAuthority(((UserBean) session.getAttribute("user")).getAuthority());
+
+					//空の入力フォーム情報をセッションに保持 登録ボタンからの遷移
+					session.setAttribute("userForm", userForm);
+				}
+
+		
+		//登録画面表示
+		return "redirect:/client/user/regist/input";
+	}
+
+	
+	
+	
 	
 	//会員登録の情報を入力後の入力チェック　処理４
 	@RequestMapping(path = "/client/user/regist/check" , method = RequestMethod.POST)
