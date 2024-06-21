@@ -54,6 +54,7 @@ public class ItemShowCustomerController {
 		}
 		Item item=new Item();
 		item.setName(name);
+		//CDタイトル名類似検索後商品情報
 		Page<Item>pageList = repository.findByNameContaining(name,Constant.NOT_DELETED,pageable);
 		List<Item>itemList = pageList.getContent();
 		model.addAttribute("pages",pageList);
@@ -64,10 +65,11 @@ public class ItemShowCustomerController {
 	}
 	
 
-	
+	//値段検索
 	@RequestMapping(path="/searchPrice",method = { RequestMethod.GET, RequestMethod.POST })
 	public String month(Model model,Integer price,HttpSession session,Pageable pageable) {
 	
+		
 		if(price==null) {
 			price=(int) session.getAttribute("pri");
 		}else {
@@ -77,6 +79,7 @@ public class ItemShowCustomerController {
 		item.setPrice(price);
 		
 		if(price==1) {
+			//引数が１なら1000円以下の商品情報を取得
 			Page<Item>pageList = repository.findByPriceLessThanOrderByPrice(1000,Constant.NOT_DELETED,pageable);
 			List<Item>itemList = pageList.getContent();
 			model.addAttribute("pages",pageList);
@@ -84,6 +87,7 @@ public class ItemShowCustomerController {
 			model.addAttribute("pageNum",4);
 			
 		}else if(price==2) {
+			//引数が２なら1001円～2000円の商品情報を取得
 			Page<Item>pageList = repository.findByPriceBetweenOrderByPrice(1001,2000,Constant.NOT_DELETED,pageable);
 			List<Item>itemList = pageList.getContent();
 			model.addAttribute("pages",pageList);
@@ -91,30 +95,35 @@ public class ItemShowCustomerController {
 			model.addAttribute("pageNum",5);
 			
 		}else if(price==3) {
+			//引数が３なら2001円～3000円の商品情報を取得
 			Page<Item>pageList = repository.findByPriceBetweenOrderByPrice(2001,3000,Constant.NOT_DELETED,pageable);
 			List<Item>itemList = pageList.getContent();
 			model.addAttribute("pages",pageList);
 			model.addAttribute("items",itemList);
 			model.addAttribute("pageNum",6);
 		}else if(price==4) {
+			//引数が4なら3001円～4000円の商品情報を取得
 			Page<Item>pageList = repository.findByPriceBetweenOrderByPrice(3001,4000,Constant.NOT_DELETED,pageable);
 			List<Item>itemList = pageList.getContent();
 			model.addAttribute("pages",pageList);
 			model.addAttribute("items",itemList);
 			model.addAttribute("pageNum",7);
 		}else if(price==5) {
+			//引数が5なら4001円～5000円の商品情報を取得
 			Page<Item>pageList = repository.findByPriceBetweenOrderByPrice(4001,5000,Constant.NOT_DELETED,pageable);
 			List<Item>itemList = pageList.getContent();
 			model.addAttribute("pages",pageList);
 			model.addAttribute("items",itemList);
 			model.addAttribute("pageNum",8);
 		}else if(price==6) {
+			//引数が５なら5000円以上の商品情報を取得
 			Page<Item>pageList = repository.findByPriceGreaterThanOrderByPrice(5001,Constant.NOT_DELETED,pageable);
 			List<Item>itemList = pageList.getContent();
 			model.addAttribute("pages",pageList);
 			model.addAttribute("items",itemList);
 			model.addAttribute("pageNum",9);
 		}else {
+			//引数がないなら全件
 			Page<Item>pageList = repository.findByDeleteFlagOrderByReleaseDateDesc(Constant.NOT_DELETED,pageable);
 			List<Item>itemList = pageList.getContent();
 			model.addAttribute("pages",pageList);
@@ -126,13 +135,16 @@ public class ItemShowCustomerController {
 	
 	}
 
-	
+	//アーティスト検索
+
 	@RequestMapping(path ="/searchArtist", method = { RequestMethod.GET, RequestMethod.POST })
 	public String artist(Model model,String name, Pageable pageable) {
-	
+		//アーティスト名類似検索
+		
 		List<Artist>artists=repositorya.findByNameContaining(name,Constant.NOT_DELETED);
 		List<Item>items =new ArrayList<>();
 	
+		//アーティストのIDを利用して商品テーブルから商品情報を取得
 		for(int i=0; i<artists.size(); i++) {
 			int id=artists.get(i).getId();
 			
